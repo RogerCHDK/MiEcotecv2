@@ -23,5 +23,10 @@ Route::get('/prb', function () {
 
 Auth::routes();
 
+//------------------------------Usuario 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/user/image/{filename}', 'UsuarioController@getImage')->name('usuario.imagen');
+
+//------------------------------Administrador
+//Publicidad
+Route::get('/home/publi', 'PublicidadController@index')->name('publicidad.admin');

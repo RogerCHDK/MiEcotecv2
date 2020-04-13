@@ -20,19 +20,19 @@
                 <div class="container-fluid d-flex flex-column p-0">
                     <ul class="nav navbar-nav text-light" id="accordionSidebar" style="margin-top: 78px;max-width: 100%;">
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="administrator-index.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{ route('publicidad.admin') }}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fab fa-product-hunt" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Publicidad</span>
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="administrator-s-c.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="" style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-comment" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Sugerencias o comentarios</span>
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="materials.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="" style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-recycle" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Materiales</span>
                             </a>
@@ -77,7 +77,7 @@
                             <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button">
                                 <i class="fas fa-list-ul" style="color: #267d24;"></i>
                             </button>
-                            <a class="navbar-brand d-xl-flex align-items-xl-end sidebar-brand m-0" href="{{ url('/') }}" style="height: 100%;">
+                            <a class="navbar-brand d-xl-flex align-items-xl-end sidebar-brand m-0" href="{{ route('publicidad.admin') }}" style="height: 100%;">
                                 <img data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500" style="margin-right: 15px;height: 60px;" src="{{ asset('assets/img/Logo/logo%201.1.png') }}">
                                 <img data-aos="fade-right" data-aos-duration="1000" style="height: 45px;margin-right: 10px;" src="{{ asset('assets/img/Logo/logo%201.2.png') }}">
                             </a>

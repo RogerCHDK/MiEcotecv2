@@ -55,7 +55,7 @@ use RegistersUsers;
                     'nombre' => ['required', 'string', 'max:255'],
                     'apellidoPaterno' => ['required', 'string', 'max:255'],
                     'apellidoMaterno' => ['required', 'string', 'max:255'],
-                    'alias' => ['required', 'string', 'max:255'],
+                    'alias' => ['required', 'string', 'max:255', 'unique:users'],
                     'imagen' => ['image'],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                     'password' => ['required', 'string', 'min:8', 'confirmed'],
