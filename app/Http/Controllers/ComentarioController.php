@@ -4,14 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PublicidadController extends Controller
+class ComentarioController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +13,7 @@ class PublicidadController extends Controller
      */
     public function index()
     {
-        return view('Administrador.index');
+        //
     }
 
     /**
@@ -87,5 +81,4 @@ class PublicidadController extends Controller
     {
         //
     }
-
 }

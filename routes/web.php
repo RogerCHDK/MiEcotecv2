@@ -17,16 +17,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/prb', function () {
-    return view('Usuario.view-profile');
-});
-
 Auth::routes();
 
 //------------------------------Usuario 
+//Inicio
 Route::get('/home', 'HomeController@index')->name('home');
+//Registro
 Route::get('/home/user/image/{filename}', 'UsuarioController@getImage')->name('usuario.imagen');
 
 //------------------------------Administrador
 //Publicidad
-Route::get('/home/publi', 'PublicidadController@index')->name('publicidad.admin');
+Route::get('/home/advertising', 'PublicidadController@index')->name('admin.publicidad');
+//Sugerencias/Comentarios
+Route::get('/home/suggestions-comments', 'ComentarioController@index')->name('admin.sug-com');
