@@ -61,6 +61,20 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        
+        'materiales' => [
+            'driver' => 'local',
+            'root' => storage_path('app/materiales'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        
+        'herramientas' => [
+            'driver' => 'local',
+            'root' => storage_path('app/herramientas'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
 
         's3' => [
             'driver' => 's3',

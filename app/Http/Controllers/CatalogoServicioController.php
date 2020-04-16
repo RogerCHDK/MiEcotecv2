@@ -3,17 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\CatalogoClasificacionServicio;
+use Illuminate\Validation\Rule;
 
 class CatalogoServicioController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($buscar = null)
     {
-        //
+        if (!empty($buscar))
+        {
+            $catalogoServicios = CatalogoClasificacionServicio::where('nombre', 'LIKE', '%' . $buscar . '%')
+                            ->orderBy('nombre')->paginate(10);
+        } else
+        {
+            $catalogoServicios = CatalogoClasificacionServicio::orderBy('nombre')->paginate(10);
+        }
+        return view('Administrador.classification-services', [
+            'catalogoServicios' => $catalogoServicios
+        ]);
     }
 
     /**
@@ -23,7 +41,7 @@ class CatalogoServicioController extends Controller
      */
     public function create()
     {
-        //
+        return view('Administrador.create-classification-services');
     }
 
     /**
@@ -34,7 +52,19 @@ class CatalogoServicioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $this->validate($request, [
+            'nombre' => ['required', 'string', 'max:255', 'unique:catalogoclasificacionservicios'],
+        ]);
+
+        $nombreClasificacionServicio = $request->input('nombre');
+
+        $clasificacionServicio = new CatalogoClasificacionServicio();
+        $clasificacionServicio->nombre = $nombreClasificacionServicio;
+
+        $clasificacionServicio->save();
+
+        return redirect()->route('admin.servicios')
+                        ->with(['message' => 'Clasificación agregada']);
     }
 
     /**
@@ -56,7 +86,10 @@ class CatalogoServicioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $servicio = CatalogoClasificacionServicio::find($id);
+        return view('Administrador.modify-classification-services', [
+            'servicio' => $servicio
+        ]);
     }
 
     /**
@@ -68,7 +101,19 @@ class CatalogoServicioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate = $this->validate($request, [
+            'nombre' => ['required', 'string', 'max:255', Rule::unique('catalogoclasificacionservicios')->ignore($id),],
+        ]);
+
+        $nombreClasificacion = $request->input('nombre');
+
+        $servicio = CatalogoClasificacionServicio::find($id);
+        $servicio->nombre = $nombreClasificacion;
+
+        $servicio->update();
+
+        return redirect()->route('admin.servicios')
+                        ->with(['message' => 'Clasificación actualizada']);
     }
 
     /**
@@ -79,6 +124,10 @@ class CatalogoServicioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $servicio = CatalogoClasificacionServicio::find($id);
+        $servicio->delete();
+        return redirect()->route('admin.servicios')
+                        ->with(['message' => 'Clasificación eliminada']);
     }
+
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class UsuarioController extends Controller
 {
@@ -90,6 +90,7 @@ class UsuarioController extends Controller
         //
     }
 
+    //Obtener imagen de usuario
     public function getImage($fileName)
     {
         $file = Storage::disk('usuarios')->get($fileName);

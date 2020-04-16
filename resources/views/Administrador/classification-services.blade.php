@@ -1,30 +1,25 @@
 @extends('layouts.header-footer-administrador')
 
 @section('content')
+    @if(session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
     <div class="card shadow">
         <div class="card-header py-3">
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Clasificación de servicios</p>
         </div>
         <div class="card-body">
-            <a class="btn btn-primary" role="button" style="margin-bottom: 20px;" href="create-classification-services.html">Agregar clasificación</a>
+            <a class="btn btn-primary" role="button" style="margin-bottom: 20px;" href="{{ route('admin.crear-servicio') }}">Agregar clasificación</a>
             <div class="row">
                 <div class="col-md-6 text-nowrap">
-                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable" style="color: rgb(0,0,0);">
-                        <label style="font-size: 18px;">Mostrar&nbsp;
-                            <select class="form-control form-control-sm custom-select custom-select-sm" style="width: 50%;color: rgb(0,0,0);">
-                                <option value="10" selected="">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>&nbsp;filas
-                        </label>
-                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="text-md-right d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-sm-start justify-content-md-end justify-content-lg-end justify-content-xl-end dataTables_filter" id="dataTable_filter">
-                        <form class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center">
-                            <input class="form-control" type="text" placeholder="Buscar nombre" style="color: rgb(0,0,0);">
-                            <button class="btn btn-primary" type="button" style="height: 37px;">
+                        <form class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center" id="buscadorClasificacionServicio">
+                            <input class="form-control" type="text" placeholder="Buscar nombre" style="color: rgb(0,0,0);" id="buscarClasificacionServicio">
+                            <button class="btn btn-primary" type="submit" style="height: 37px;">
                                 <i class="fa fa-search" style="font-size: 18px;"></i>
                             </button>
                         </form>
@@ -41,30 +36,16 @@
                         </tr>
                     </thead>
                     <tbody style="color: rgb(0,0,0);">
-                        <tr>
-                            <td>568</td>
-                            <td>Airi Satou</td>
-                            <td>
-                                <a class="btn btn-primary" role="button" href="#" style="margin-right: 10px;">Modificar</a>
-                                <a class="btn btn-danger btn-entorno" role="button" href="#">Eliminar</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>456</td>
-                            <td>Angelica Ramos</td>
-                            <td>
-                                <a class="btn btn-primary" role="button" href="#" style="margin-right: 10px;">Modificar</a>
-                                <a class="btn btn-danger btn-entorno" role="button" href="#">Eliminar</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>456</td>
-                            <td>Angelica Ramos</td>
-                            <td>
-                                <a class="btn btn-primary" role="button" href="#" style="margin-right: 10px;">Modificar</a>
-                                <a class="btn btn-danger btn-entorno" role="button" href="#">Eliminar</a>
-                            </td>
-                        </tr>
+                        @foreach($catalogoServicios as $catalogoServicio)
+                            <tr>
+                                <td>{{ $catalogoServicio->id }}</td>
+                                <td>{{ $catalogoServicio->nombre }}</td>
+                                <td>
+                                    <a class="btn btn-primary" role="button" href="{{ route('admin.modificar-servicio', ['id' => $catalogoServicio->id]) }}" style="margin-right: 10px;">Modificar</a>
+                                    <a class="btn btn-danger btn-entorno" role="button" href="{{ route('admin.eliminar-servicio', ['id' => $catalogoServicio->id]) }}">Eliminar</a>
+                                </td>
+                            </tr>
+                        @endforeach    
                     </tbody>
                     <tfoot style="color: #267d24;">
                         <tr>
@@ -77,31 +58,10 @@
             </div>
             <div class="row" style="font-size: 20px;color: rgb(0,0,0);">
                 <div class="col-md-6 align-self-center">
-                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite" style="font-size: 18px;">Mostrando 1 a 10 de 27</p>
                 </div>
                 <div class="col-md-6">
                     <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers" style="font-size: 18px;">
-                        <ul class="pagination">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">«</span>
-                                </a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">»</span>
-                                </a>
-                            </li>
-                        </ul>
+                        {{ $catalogoServicios->links() }}
                     </nav>
                 </div>
             </div>

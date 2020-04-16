@@ -3,17 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\CatalogoClasificacionProducto;
+use Illuminate\Validation\Rule;
 
 class CatalogoProductoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($buscar = null)
     {
-        //
+        if (!empty($buscar))
+        {
+            $catalogoProductos = CatalogoClasificacionProducto::where('nombre', 'LIKE', '%' . $buscar . '%')
+                            ->orderBy('nombre')->paginate(10);
+        } else
+        {
+            $catalogoProductos = CatalogoClasificacionProducto::orderBy('nombre')->paginate(10);
+        }
+        return view('Administrador.classification-products', [
+            'catalogoProductos' => $catalogoProductos
+        ]);
     }
 
     /**
@@ -23,7 +41,7 @@ class CatalogoProductoController extends Controller
      */
     public function create()
     {
-        //
+        return view('Administrador.create-classification-products');
     }
 
     /**
@@ -34,7 +52,19 @@ class CatalogoProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $this->validate($request, [
+            'nombre' => ['required', 'string', 'max:255', 'unique:catalogoclasificacionproductos'],
+        ]);
+
+        $nombreClasificacionProducto = $request->input('nombre');
+
+        $clasificacionProducto = new CatalogoClasificacionProducto();
+        $clasificacionProducto->nombre = $nombreClasificacionProducto;
+
+        $clasificacionProducto->save();
+
+        return redirect()->route('admin.productos')
+                        ->with(['message' => 'Clasificación agregada']);
     }
 
     /**
@@ -56,7 +86,10 @@ class CatalogoProductoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $producto = CatalogoClasificacionProducto::find($id);
+        return view('Administrador.modify-classification-products', [
+            'producto' => $producto
+        ]);
     }
 
     /**
@@ -68,7 +101,19 @@ class CatalogoProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate = $this->validate($request, [
+            'nombre' => ['required', 'string', 'max:255', Rule::unique('catalogoclasificacionproductos')->ignore($id),],
+        ]);
+
+        $nombreClasificacion = $request->input('nombre');
+
+        $producto = CatalogoClasificacionProducto::find($id);
+        $producto->nombre = $nombreClasificacion;
+
+        $producto->update();
+
+        return redirect()->route('admin.productos')
+                        ->with(['message' => 'Clasificación actualizada']);
     }
 
     /**
@@ -79,6 +124,10 @@ class CatalogoProductoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $producto = CatalogoClasificacionProducto::find($id);
+        $producto->delete();
+        return redirect()->route('admin.productos')
+                        ->with(['message' => 'Clasificación eliminada']);
     }
+
 }

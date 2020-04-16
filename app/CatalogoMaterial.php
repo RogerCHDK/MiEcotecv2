@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CatalogoMaterial extends Model
 {
 
+    public $timestamps = false;
     protected $table = 'catalogomateriales';
 
     public function publicidadIndirecta()

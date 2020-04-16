@@ -32,37 +32,37 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{ route('admin.materiales') }}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-recycle" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Materiales</span>
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="tools.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{ route('admin.herramientas') }}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-wrench" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Herramientas</span>
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="environment.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{ route('admin.entornos') }}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-building" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Entornos</span>
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="classification-adviser.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{ route('admin.asesores') }}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-chalkboard-teacher" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Clasificación de asesores</span>
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="classification-services.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{ route('admin.servicios') }}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-handshake" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Clasificación de servicios</span>
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="classification-products.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{ route('admin.productos') }}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fab fa-product-hunt" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Clasificación de productos</span>
                             </a>
@@ -123,5 +123,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
         <script src="{{ asset('assets/js/script.min.js') }}"></script>
         <script src="{{ asset('assets/js/imagen.js') }}"></script>
+        <script src="{{ asset('assets/js/main.js') }}"></script>
     </body>
 </html>
