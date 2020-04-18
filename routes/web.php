@@ -17,8 +17,16 @@ Route::get('/', function ()
 {
     return view('welcome');
 });
+/*
+Route::get('Evento', function () {
+    return view('Usuario.event');
+});
+*/
 
 Auth::routes();
+Route::resource('evento','EventoController');
+Route::resource('registro','RegistroController');
+
 
 //------------------------------Usuario 
 //Inicio

@@ -1,7 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Evento;
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class RegistroController extends Controller
@@ -23,7 +27,7 @@ class RegistroController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -34,7 +38,11 @@ class RegistroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $usuario = Auth::user();
+        $evento = Evento::find($id);
+        $user = User::where('id',$evento->id_usuario)->get();
+        return view('Usuario.event', ['evento' => $evento])->with('user',$user )->with('usuario',$usuario );
     }
 
     /**

@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use \App\User;
+use \App\Evento;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-
+ 
     /**
      * Create a new controller instance.
      *
@@ -28,9 +29,14 @@ class HomeController extends Controller
         if ($rol == 'Administrador')
         {
             return view('Administrador.index');
+        } elseif ($rol == 'Usuario') {
+            $usuario = \Auth::user();
+            $eventos = Evento::orderBy('nombre')->get();
+            return view('Usuario.welcome', ['eventos' => $eventos])->with('usuario',$usuario);
         } else
-        {
-            return view('welcome');
+        { 
+            $eventos = Evento::orderBy('nombre')->get();
+            return view('Usuario_no_registrado.welcome', ['eventos' => $eventos]);
         }
     }
 

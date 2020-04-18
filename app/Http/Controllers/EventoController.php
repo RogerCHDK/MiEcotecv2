@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Evento;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventoController extends Controller
 {
@@ -11,44 +14,42 @@ class EventoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+     public function index() //Usuario registrado
     {
-        //
-    }
+            $usuario = Auth::user();
+            $misEventos = Evento::where('id_usuario',$usuario->id)->get();
+            $eventos = Evento::orderBy('nombre')->get();
+            $users = User::orderBy('nombre')->get();
+            return view('Usuario.welcome', ['eventos' => $eventos])->with(['misEventos' => $misEventos])->with('users',$users);
+    } 
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        $users = Auth::user();
+        $date = Carbon::now();
+        $date = $date->format('Y-m-d');
+        return view('Usuario.create-event', compact('users'))->with('date',$date);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
+        $usuario = Auth::user();
+         $eventos = Evento::orderBy('nombre')->get();
+            return view('Usuario.welcome', ['eventos' => $eventos])->with('usuario',$usuario);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
-        //
+        $usuario = Auth::user();
+        $evento = Evento::find($id);
+        $user = User::where('id',$evento->id_usuario)->get();
+        return view('Usuario.event', ['evento' => $evento])->with('user',$user )->with('usuario',$usuario );
     }
 
-    /**
+    /** 
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -56,7 +57,11 @@ class EventoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $evento = Evento::find($id);
+        $users = Auth::user();
+        $date = Carbon::now();
+        $date = $date->format('Y-m-d');
+        return view('Usuario.edit-event', compact('users'))->with('date',$date)->with('evento',$evento);
     }
 
     /**
@@ -68,7 +73,14 @@ class EventoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $usuario = Auth::user();
+        $misEventos = Evento::where('id_usuario',$usuario->id)->get();
+            $eventos = Evento::orderBy('nombre')->get();
+            $users = User::orderBy('nombre')->get();
+        $datos = $request->all();
+        $evento = Evento::find($id);
+        $evento->update($datos);
+        return view('Usuario.welcome', ['eventos' => $eventos])->with(['misEventos' => $misEventos])->with('users',$users);
     }
 
     /**

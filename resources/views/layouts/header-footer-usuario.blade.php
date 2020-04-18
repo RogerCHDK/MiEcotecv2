@@ -32,7 +32,7 @@
                             @endguest
                         @endif
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" style="font-size: 15px;max-width: 100%;" href="index.html">
+                            <a class="nav-link text-center" style="font-size: 15px;max-width: 100%;" href="{{ route('evento.index') }}">
                                 <i class="far fa-calendar-check" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">Eventos</span>
                             </a>

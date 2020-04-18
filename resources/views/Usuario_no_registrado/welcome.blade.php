@@ -121,20 +121,20 @@
                             <div class="row">
                                 <div class="col-md-6 col-lg-4">
                                     <div class="card border-0">
-                                       
+                                        @foreach($eventos as $evento)
                                         <a href="Evento">
                                             <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center marco zoom-on-hover">
                                                 <img class="img-fluid image" src="assets/img/Eventos/image1.jpg">
                                             </div>
                                         </a>
-                                        
+                                        $eventos
                                         <div class="card-body text-center">
                                             <h6>
-                                                <a class="event_title" href="Evento" style="font-size: 22px;"></a>
+                                                <a class="event_title" href="Evento" style="font-size: 22px;">{{$evento->nombre}}</a>
                                             </h6>
-                                            <p class="text-justify card-text objective_event" style="font-size: 18px;"><br></p>
+                                            <p class="text-justify card-text objective_event" style="font-size: 18px;">{{$evento->descripcion}}<br></p>
                                         </div>
-                                        
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -198,23 +198,26 @@
     @else
         <div class="card shadow">
             <div class="card-header py-3">
-                <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Eventos</p>
+                <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Eventosssssssssssssssss</p>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 col-lg-4">
                         <div class="card border-0">
-                            <a href="event.html">
-                                <div class="marco zoom-on-hover">
-                                    <img class="img-fluid image" src="assets/img/Eventos/image1.jpg">
-                                </div>
-                            </a>
-                            <div class="card-body text-center">
-                                <h6>
-                                    <a class="event_title" href="event.html" style="font-size: 22px;">Evento parque sierra</a>
-                                </h6>
-                                <p class="text-justify card-text objective_event" style="font-size: 18px;">Este parque ubicado en el municipio de Toluca, fue declarado originalmente por Decreto del Ejecutivo Estatal de fecha 22 de julio de 1976, publicado en la “Gaceta de Gobierno” del propio Estado el 29 del mismo mes y año.</p>
-                            </div>
+                            @foreach($eventos as $evento)
+                                        <a href="Evento">
+                                            <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center marco zoom-on-hover">
+                                                <img class="img-fluid image" src="assets/img/Eventos/image1.jpg">
+                                            </div>
+                                        </a>
+                                        $eventos
+                                        <div class="card-body text-center">
+                                            <h6>
+                                                <a class="event_title" href="Evento" style="font-size: 22px;">{{$evento->nombre}}</a>
+                                            </h6>
+                                            <p class="text-justify card-text objective_event" style="font-size: 18px;">{{$evento->descripcion}}<br></p>
+                                        </div>
+                                        @endforeach
                         </div>
                     </div>
                 </div>
