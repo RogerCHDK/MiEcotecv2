@@ -33,7 +33,7 @@ class CatalogoHerramientaController extends Controller
         {
             $catalogoHerramientas = CatalogoHerramienta::orderBy('nombre')->paginate(10);
         }
-        return view('Administrador.tools', [
+        return view('Administrador.tools', [ 
             'catalogoHerramientas' => $catalogoHerramientas
         ]);
     }

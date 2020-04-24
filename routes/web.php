@@ -18,7 +18,18 @@ Route::get('/', function ()
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(); 
+
+Route::resource('publicidad','PublicidadController'); 
+Route::resource('comentarios','ComentarioController'); 
+Route::resource('productos','ProductoController'); 
+Route::resource('servicios','ServicioController');
+Route::resource('pagos','PagoController'); 
+
+Route::get('producto-imagen/{filename}', 'ProductoController@getImage')->name('usuario.producto-imagen');
+
+Route::get('/material', 'CatalogoMaterialController@publicidad')->name('usuario.material');
+
 
 //------------------------------Usuario 
 //Inicio

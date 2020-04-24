@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pago; 
+use Carbon\Carbon;
 
 class PagoController extends Controller
 {
@@ -13,7 +15,7 @@ class PagoController extends Controller
      */
     public function index()
     {
-        //
+        // 
     }
 
     /**
@@ -34,7 +36,7 @@ class PagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
