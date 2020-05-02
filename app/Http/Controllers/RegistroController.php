@@ -34,7 +34,7 @@ class RegistroController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illumina  te\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -87,8 +87,10 @@ class RegistroController extends Controller
      */
     public function destroy($id)
     {
+        /*
         $registro = Registro::find($id);
         $registro->delete();
         return redirect('/evento');
+        */
     }
 }

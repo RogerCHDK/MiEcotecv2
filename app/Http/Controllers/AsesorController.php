@@ -86,6 +86,7 @@ class AsesorController extends Controller
     public function destroy($id)
     {
         /*
+        afaefe
         $asesor = Asesor::find($id);
         $asesor->delete();
         return redirect()->route('admin.asesores')
