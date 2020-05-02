@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Asesor extends Model
 {
-
+	public $timestamps = false;
     protected $table = 'asesores';
 
     public function usuario()
@@ -18,5 +18,6 @@ class Asesor extends Model
     {
         return$this->belongsTo('App\CatalogoClasificacionAsesor', 'id_clasificacionAsesor');
     }
+    protected $fillable = ['id_usuario','id_clasificacionAsesor','telefono','descripcion','especialidad','reconocimientos','correoElectronico'];
 
 }

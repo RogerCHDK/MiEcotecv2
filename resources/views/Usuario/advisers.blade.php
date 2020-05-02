@@ -1,5 +1,5 @@
 @extends('layouts.header-footer-usuario')
-
+ 
 @section('content')
     <div class="card shadow">
         <div class="card-header py-3">
@@ -14,28 +14,30 @@
                     <a class="dropdown-item" role="presentation" href="#">Oficina</a>
                     <a class="dropdown-item" role="presentation" href="#">Automóvil</a>
                 </div>
-            </div>
-            <a class="btn btn-primary" role="button" style="font-size: 18px;" href="create-adviser.html">¿Eres asesor?</a>
+            </div> 
+            <a class="btn btn-primary" role="button" style="font-size: 18px;" href="{{ route('asesor.create') }}">¿Eres asesor?</a>
         </div>
         <div class="card-body">
             <div class="text-center">
                 <h1 class="mb-4" style="font-size: 30px;color: rgb(38,125,36);">Botánica</h1>
             </div>
             <div class="row">
+                @foreach($asesores as $asesor)
                 <div class="col-md-6 col-lg-4 col-asesor">
                     <div class="card border-0">
-                        <a href="adviser.html">
+                        <a href="{{ route('asesor.show',$asesor->id) }}">
                             <div class="marco zoom-on-hover">
                                 <img class="img-fluid image" src="assets/img/dogs/image3.jpeg">
                             </div>
                         </a>
                         <div class="card-body text-center">
-                            <h6>
-                                <a class="event_title" href="adviser.html" style="font-size: 22px;">Asesor asesor</a>
+                            <h6> 
+                                <a class="event_title" href="{{ route('asesor.show',$asesor->id) }}" style="font-size: 22px;">{{$asesor->usuario->alias}} </a>
                             </h6>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
     </div>

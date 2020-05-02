@@ -22,10 +22,22 @@ Route::get('Evento', function () {
     return view('Usuario.event');
 });
 */
-
+ 
 Auth::routes();
-Route::resource('evento','EventoController');
+
 Route::resource('registro','RegistroController');
+
+//------------------Eventos
+Route::resource('evento','EventoController');
+
+//------------ Consejo
+Route::resource('consejo','ConsejoController');
+
+//------------ Experto
+Route::resource('asesor','AsesorController');
+//Route::get('/experto', 'UsuarioController@escaner')->name('garantia.escaner'); 
+
+
 
 
 //------------------------------Usuario 
@@ -34,6 +46,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Registro
 Route::get('/home/user/image/{filename}', 'UsuarioController@getImage')->name('usuario.imagen');
+
+//Perfil
+Route::resource('usuario','UsuarioController');
 
 
 //------------------------------Administrador

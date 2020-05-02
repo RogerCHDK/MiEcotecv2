@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Asesor;
+use App\User;
 
 class AsesorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $asesores = Asesor::orderBy('id')->get();
+        
+        return view('Usuario.advisers', ['asesores' => $asesores]);
     }
 
     /**
@@ -23,7 +23,9 @@ class AsesorController extends Controller
      */
     public function create()
     {
-        //
+         $users = Auth::user();
+        
+        return view('Usuario.create-adviser', compact('users'));
     }
 
     /**
@@ -34,7 +36,9 @@ class AsesorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $datos = $request->all();
+        Asesor::create($datos);
+         return redirect('/asesor');
     }
 
     /**
@@ -45,7 +49,9 @@ class AsesorController extends Controller
      */
     public function show($id)
     {
-        //
+        $asesor = Asesor::find($id);
+        
+        return view('Usuario.profile', ['asesor' => $asesor]);
     }
 
     /**
@@ -81,4 +87,6 @@ class AsesorController extends Controller
     {
         //
     }
+
+    
 }

@@ -31,8 +31,10 @@ class HomeController extends Controller
             return view('Administrador.index');
         } elseif ($rol == 'Usuario') {
             $usuario = \Auth::user();
+            $misEventos = Evento::where('id_usuario',$usuario->id)->get();
             $eventos = Evento::orderBy('nombre')->get();
-            return view('Usuario.welcome', ['eventos' => $eventos])->with('usuario',$usuario);
+            $users = User::orderBy('nombre')->get();
+            return view('Usuario.welcome', ['eventos' => $eventos])->with(['misEventos' => $misEventos])->with('users',$users);
         } else
         { 
             $eventos = Evento::orderBy('nombre')->get();

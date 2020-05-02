@@ -119,11 +119,12 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <div class="row">
+                                @foreach($eventos as $evento)
                                 <div class="col-md-6 col-lg-4">
                                     <div class="card border-0">
 
 
-                                        @foreach($eventos as $evento)
+                                        
                                         <a href="{{ route('evento.show',$evento->id) }}">
                                             <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center marco zoom-on-hover">
                                                 <img class="img-fluid image" src="assets/img/Eventos/image1.jpg">
@@ -135,10 +136,11 @@
                                             </h6>
                                             <p class="text-justify card-text objective_event" style="font-size: 18px;">{{$evento->descripcion}}<br></p>
                                         </div>
-                                        @endforeach
+                                        
 
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -174,10 +176,11 @@
 
                         <div class="card-body">
                             <div class="row">
+                                @foreach($misEventos as $miEvento)
                                 <div class="col-md-6 col-lg-4 col-asis">
                                     <div class="card border-0">
                                         
-                                        @foreach($misEventos as $miEvento) 
+                                         
                                         <a href="{{ route('evento.show',$miEvento->id) }}">
                                             <div class="marco zoom-on-hover">
                                                 <img class="img-fluid image" src="assets/img/Eventos/image1.jpg">
@@ -192,10 +195,11 @@
                                                 <a class="btn btn-danger" role="button" style="font-size: 18px;" href="#">Eliminar</a>
                                             </div>
                                         </div>
-                                        @endforeach
+                                        
                                         
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

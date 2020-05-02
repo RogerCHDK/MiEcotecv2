@@ -24,6 +24,7 @@ class EventoController extends Controller
     } 
 
     
+    
     public function create()
     {
         $users = Auth::user();
@@ -31,13 +32,16 @@ class EventoController extends Controller
         $date = $date->format('Y-m-d');
         return view('Usuario.create-event', compact('users'))->with('date',$date);
     }
-
-    
+ 
+     
     public function store(Request $request)
     {
+        $datos = $request->all();
+        Evento::create($datos);
         $usuario = Auth::user();
          $eventos = Evento::orderBy('nombre')->get();
-            return view('Usuario.welcome', ['eventos' => $eventos])->with('usuario',$usuario);
+         return redirect('/evento');
+            //return view('Usuario.welcome', ['eventos' => $eventos])->with('usuario',$usuario);
     }
 
     
@@ -47,7 +51,7 @@ class EventoController extends Controller
         $evento = Evento::find($id);
         $user = User::where('id',$evento->id_usuario)->get();
         return view('Usuario.event', ['evento' => $evento])->with('user',$user )->with('usuario',$usuario );
-    }
+    } 
 
     /** 
      * Show the form for editing the specified resource.
@@ -80,7 +84,8 @@ class EventoController extends Controller
         $datos = $request->all();
         $evento = Evento::find($id);
         $evento->update($datos);
-        return view('Usuario.welcome', ['eventos' => $eventos])->with(['misEventos' => $misEventos])->with('users',$users);
+        return redirect('/evento');
+        //return view('Usuario.welcome', ['eventos' => $eventos])->with(['misEventos' => $misEventos])->with('users',$users);
     }
 
     /**
@@ -91,6 +96,11 @@ class EventoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        /*
+        $evento = Evento::find($id);
+        $evento->estatus = 0;
+        $evento->save();
+        return redirect('/evento');
+        */
     }
 }

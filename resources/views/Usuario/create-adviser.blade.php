@@ -9,13 +9,17 @@
             <div class="row d-md-flex d-lg-flex d-xl-flex justify-content-md-center justify-content-lg-center justify-content-xl-center mb-3">
                 <div class="col-lg-7">
                     <div class="p-5">
-                        <form class="user">
+                        <form class="user" action="{{route('asesor.store')}}" method="POST"> 
+                            {{ csrf_field() }}
+                            <div class="resume-content">
+                                <input name="id_usuario" type="hidden" value="{{$users->id}}" ></input>
+                            </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <label style="font-size: 18px;color: rgb(0,0,0);margin-right: 10px;">Tipo de asesor</label>
-                                    <select class="form-control display-inline-block" style="height: 50px;font-size: 18px;color: rgb(0,0,0);width: 145px;" name="mesInicio">
-                                        <optgroup label="Tipo de asesor">
-                                            <option value="01">Cosmeticos</option>
+                                    <select name="id_clasificacionAsesor" class="form-control display-inline-block" style="height: 50px;font-size: 18px;color: rgb(0,0,0);width: 145px;" name="id_clasificacionAsesor">
+                                        <optgroup label="Tipo de asesor" name="id_clasificacionAsesor">
+                                            <option value="1">Cosmeticos</option>
                                             <option value="02">Hogar</option>
                                             <option value="03">Oficina</option>
                                             <option value="04">Automóvil</option>
@@ -24,21 +28,21 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input class="form-control form-control-user" type="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Correo electrónico" name="correo" style="font-size: 18px;color: rgb(0,0,0);">
+                                <input class="form-control form-control-user" type="email" id="correoElectronico" aria-describedby="emailHelp" placeholder="Correo electrónico" name="correoElectronico" style="font-size: 18px;color: rgb(0,0,0);">
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input class="form-control form-control-user" type="tel" placeholder="Teléfono" style="font-size: 18px;color: rgb(0,0,0);">
+                                    <input class="form-control form-control-user" type="tel" placeholder="Teléfono" style="font-size: 18px;color: rgb(0,0,0);" id="telefono" name="telefono">
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input class="form-control form-control-user" type="text" style="color: rgb(0,0,0);font-size: 18px;" placeholder="Especialidad">
+                                    <input class="form-control form-control-user" type="text" style="color: rgb(0,0,0);font-size: 18px;" placeholder="Especialidad" id="especialidad" name="especialidad">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control form-control-user" placeholder="Reconocimientos" name="descripcion" style="font-size: 18px;color: rgb(0,0,0);"></textarea>
+                                <textarea class="form-control form-control-user" placeholder="Reconocimientos" id="reconocimientos" name="reconocimientos" style="font-size: 18px;color: rgb(0,0,0);" ></textarea>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control form-control-user" placeholder="Descripción" name="descripcion" style="font-size: 18px;color: rgb(0,0,0);"></textarea>
+                                <textarea class="form-control form-control-user" placeholder="Descripción" name="descripcion" style="font-size: 18px;color: rgb(0,0,0);" id="descripcion" name="descripcion"></textarea>
                             </div>
                             <button class="btn btn-primary btn-block text-white btn-user" type="submit" style="font-size: 18px;">Guardar</button>
                         </form>

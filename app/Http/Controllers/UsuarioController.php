@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+ 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UsuarioController extends Controller
 {
@@ -53,7 +55,9 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
-        //
+        $asesor = Asesor::find($id);
+        
+        return view('Usuario.adviser', ['asesor' => $asesor]);
     }
 
     /**
