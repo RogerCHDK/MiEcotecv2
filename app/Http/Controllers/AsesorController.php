@@ -90,7 +90,7 @@ class AsesorController extends Controller
         $asesor->delete();
         return redirect()->route('admin.asesores')
                         ->with(['message' => 'Clasificación eliminada']);
-                        */
+                        */ 
     }
 
     

@@ -8,6 +8,10 @@ class Registro extends Model
 {
 
     protected $table = 'registros';
+    public $timestamps = false;
+    protected $fillable = [
+        'id_usuario', 'id_evento'
+    ];
 
     public function usuario()
     {

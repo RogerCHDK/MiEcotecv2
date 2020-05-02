@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 use App\Evento;
 use App\User;
+use App\Registro;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+
 
 class RegistroController extends Controller
-{
+{ 
     /**
      * Display a listing of the resource.
      *
@@ -39,10 +40,9 @@ class RegistroController extends Controller
     public function store(Request $request)
     {
         
-        $usuario = Auth::user();
-        $evento = Evento::find($id);
-        $user = User::where('id',$evento->id_usuario)->get();
-        return view('Usuario.event', ['evento' => $evento])->with('user',$user )->with('usuario',$usuario );
+       $datos = $request->all();
+        Registro::create($datos);
+         return redirect('/evento');
     }
 
     /**
@@ -87,6 +87,8 @@ class RegistroController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $registro = Registro::find($id);
+        $registro->delete();
+        return redirect('/evento');
     }
 }

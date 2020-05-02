@@ -39,7 +39,7 @@
                             </div>
                             <div class="text-center" style="margin-bottom: 24px;font-size: 20px;">
                                 <a class="event_title" href="assistants.html" style="font-size: 18px;">
-                                    <i class="fa fa-group" style="margin-right: 10px;font-size: 25px;"></i>15 personas asistirán
+                                    <i class="fa fa-group" style="margin-right: 10px;font-size: 25px;"></i> {{$registros}} personas asistirán
                                 </a>
                             </div>
                             <form class="user" action="{{route('registro.store')}}" method="POST">
@@ -48,7 +48,7 @@
                                 <input class="form-control form-control-user" type="hidden"  id="id_evento" name="id_evento" value="{{$evento->id}}" style="font-size: 18px;color: rgb(0,0,0);">
                             
                             <div class="text-center" style="margin-bottom: 24px;">
-                                <button class="btn btn-primary" type="button" style="font-size: 18px;">Participar</button>
+                                <button class="btn btn-primary" type="submit" style="font-size: 18px;">Participar</button>
                                 <button class="btn btn-danger" type="button" style="font-size: 18px;">Salir</button>
                             </div>
                             </form>

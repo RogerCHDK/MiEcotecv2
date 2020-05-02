@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Evento;
 use App\User;
 use Carbon\Carbon;
+use App\Registro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
  
@@ -50,7 +51,9 @@ class EventoController extends Controller
         $usuario = Auth::user();
         $evento = Evento::find($id);
         $user = User::where('id',$evento->id_usuario)->get();
-        return view('Usuario.event', ['evento' => $evento])->with('user',$user )->with('usuario',$usuario );
+        $registros = count(Registro::where('id',$evento->id)->get());
+        
+        return view('Usuario.event', ['evento' => $evento])->with('user',$user )->with('usuario',$usuario )->with('registros',$registros );
     } 
 
     /** 

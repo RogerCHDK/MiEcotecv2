@@ -17,15 +17,14 @@ Route::get('/', function ()
 {
     return view('welcome');
 });
-<<<<<<< HEAD
+
 /*
 Route::get('Evento', function () {
     return view('Usuario.event');
 });
 */
  
-Auth::routes();
-=======
+
 
 Auth::routes(); 
 
@@ -39,12 +38,14 @@ Route::get('producto-imagen/{filename}', 'ProductoController@getImage')->name('u
 
 Route::get('/material', 'CatalogoMaterialController@publicidad')->name('usuario.material');
 
->>>>>>> eb6cd160445b3ab723579248e407d94f2756e5bf
+
 
 Route::resource('registro','RegistroController');
 
 //------------------Eventos
 Route::resource('evento','EventoController');
+//--------------- Registros
+Route::resource('registro','RegistroController');
 
 //------------ Consejo
 Route::resource('consejo','ConsejoController');
