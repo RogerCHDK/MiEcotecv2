@@ -119,7 +119,7 @@ class CatalogoMaterialController extends Controller
         $validate = $this->validate($request, [
             'nombre' => ['required', 'string', 'max:255', Rule::unique('catalogomateriales')->ignore($id),],
             'imagen' => ['image'],
-        ]);
+        ]); 
 
         $nombreMaterial = $request->input('nombre');
         $imagen = $request->file('imagen');
@@ -163,6 +163,15 @@ class CatalogoMaterialController extends Controller
     {
         $file = Storage::disk('materiales')->get($fileName);
         return new Response($file, 200);
+    }
+
+    public function publicidad(){ 
+        return view('Usuario.publicity-material'); 
+    }
+
+    public function crear_publicidad(){ 
+
+        return view('Usuario.publicity-material'); 
     }
 
 }

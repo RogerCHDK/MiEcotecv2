@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Pago extends Model
 {
 
-    protected $table = 'pagos';
+    protected $table = 'pagos'; 
+    protected $fillable = ['id_usuario','tiempo','estado_pago','vigencia'];
+    public $timestamps = false;
 
     public function usuario()
     {

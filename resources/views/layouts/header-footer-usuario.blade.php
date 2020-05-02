@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="products.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{route('productos.index')}}"  style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-shopping-bag" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Productos</span>
                             </a>
@@ -60,18 +60,18 @@
                                 <i class="far fa-building" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Servicios</span>
                             </a>
-                        </li>
+                        </li> 
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="publicity.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{route('publicidad.index')}}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fab fa-product-hunt" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Publicidad</span></a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="suggestions-comments.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{route('comentarios.create')}}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-comment" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Sugerencias o comentarios</span>
                             </a>
-                        </li>
+                        </li> 
                     </ul>
                 </div>
             </nav>
