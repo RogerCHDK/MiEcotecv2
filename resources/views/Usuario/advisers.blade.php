@@ -16,7 +16,7 @@
                 </div>
             </div> 
             <a class="btn btn-primary" role="button" style="font-size: 18px;" href="{{ route('asesor.create') }}">¿Eres asesor?</a>
-        </div>
+        </div> 
         <div class="card-body">
             <div class="text-center">
                 <h1 class="mb-4" style="font-size: 30px;color: rgb(38,125,36);">Botánica</h1>

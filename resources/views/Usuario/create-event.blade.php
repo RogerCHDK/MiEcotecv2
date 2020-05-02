@@ -1,5 +1,5 @@
 @extends('layouts.header-footer-usuario')
-
+ 
 @section('content')
     <div class="card shadow">
         <div class="card-header py-3">

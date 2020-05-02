@@ -13,7 +13,7 @@
                             <img class="img-adviser" src="assets/img/dogs/image3.jpeg">
                         </div>
                     </div>
-                </div>
+                </div> 
                 <div class="col-lg-8">
                     <div class="row mb-3 d-none">
                         <div class="col">

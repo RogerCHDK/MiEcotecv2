@@ -26,7 +26,7 @@
                                         </optgroup>
                                     </select>
                                 </div>
-                            </div>
+                            </div> 
                             <div class="form-group">
                                 <input class="form-control form-control-user" type="email" id="correoElectronico" aria-describedby="emailHelp" placeholder="Correo electrónico" name="correoElectronico" style="font-size: 18px;color: rgb(0,0,0);">
                             </div>

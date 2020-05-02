@@ -15,7 +15,7 @@ class AsesorController extends Controller
         
         return view('Usuario.advisers', ['asesores' => $asesores]);
     }
-
+ 
     /**
      * Show the form for creating a new resource.
      *
@@ -62,7 +62,7 @@ class AsesorController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
