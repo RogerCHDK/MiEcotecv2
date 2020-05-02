@@ -85,7 +85,12 @@ class AsesorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        /*
+        $asesor = Asesor::find($id);
+        $asesor->delete();
+        return redirect()->route('admin.asesores')
+                        ->with(['message' => 'Clasificación eliminada']);
+                        */
     }
 
     
