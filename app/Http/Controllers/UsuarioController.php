@@ -55,9 +55,8 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
-        $asesor = Asesor::find($id);
-        
-        return view('Usuario.adviser', ['asesor' => $asesor]);
+        $user = User::find($id);
+        return view('Usuario.view-profile')->with('user',$user);
     }
 
     /**
@@ -68,7 +67,8 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('Usuario.profile');
     }
 
     /**

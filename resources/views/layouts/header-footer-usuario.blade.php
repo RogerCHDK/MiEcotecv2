@@ -100,7 +100,7 @@
                                                     @endif
                                                 </a>
                                                 <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
-                                                    <a class="dropdown-item" role="presentation" href="profile.html" style="font-size: 15px;">
+                                                    <a class="dropdown-item" role="presentation" href="{{ route('usuario.edit',Auth::user()->id) }}" style="font-size: 15px;">
                                                         <i class="fas fa-user fa-sm fa-fw mr-2"></i>&nbsp;Perfil
                                                     </a>
                                                     <a class="dropdown-item" role="presentation" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="font-size: 15px;">

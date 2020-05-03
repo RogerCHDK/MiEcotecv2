@@ -57,7 +57,7 @@
                             
                             <div class="text-center">
                                 <span style="color: rgb(0,0,0);font-size: 18px;">Evento creado por&nbsp;
-                                    <a class="event_title" href="view-profile.html" style="font-size: 20px;">{{$users->nombre}}&nbsp;{{$users->apellido_paterno}}</a>
+                                    <a class="event_title" href="{{ route('usuario.show',$users->id) }}" style="font-size: 20px;">{{$users->nombre}}&nbsp;{{$users->apellido_paterno}}</a>
                                 </span>
                                 @endforeach
                             </div>
