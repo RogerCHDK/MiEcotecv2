@@ -8,7 +8,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-6 d-flex d-sm-flex d-md-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-xl-center" style="min-width: 100%;">
-                    <img class="img-fluid" src="assets/img/Eventos/image1.jpg" style="min-width: 40%;">
+                    <img class="img-fluid" src="{{route('usuario.evento-imagen',$evento->imagen)}}" style="min-width: 40%;">
                 </div>
             </div>
             <div class="row">
