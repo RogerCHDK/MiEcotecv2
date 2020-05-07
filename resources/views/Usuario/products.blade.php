@@ -9,7 +9,7 @@
             <li class="nav-item">
                 <a class="nav-link" role="tab" data-toggle="tab" href="#tab-2" style="color: #267d24;font-size: 20px;">Mis productos</a>
             </li>
-        </ul>
+        </ul> 
         <div class="tab-content"> 
             <div class="tab-pane active" role="tabpanel" id="tab-1"> 
                 <div class="card shadow">
@@ -67,14 +67,14 @@
                             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button" style="font-size: 18px;">Entorno</button>
                             <div class="dropdown-menu" role="menu" style="width: 180px;font-size: 16px;">
                                 @foreach($clasificaciones as $clasificacion) 
-                                <a class="dropdown-item" role="presentation" href="#{{$clasificacion->nombre}}">{{$clasificacion->nombre}}</a>
+                                <a class="dropdown-item" role="presentation" href="#{{$clasificacion->nombre}}m">{{$clasificacion->nombre}}</a>
                                  @endforeach 
                             </div> 
                         </div>
                     </div>
 
                      @foreach($clasificaciones as $clasificacion) 
-                    <div class="card-body"id="{{$clasificacion->nombre}}">
+                    <div class="card-body"id="{{$clasificacion->nombre}}m">
                         <div class="text-center">
                             <h1 class="mb-4" style="font-size: 30px;color: rgb(38,125,36);">{{$clasificacion->nombre}}</h1>
                         </div>

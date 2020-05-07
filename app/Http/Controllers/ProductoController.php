@@ -23,7 +23,7 @@ class ProductoController extends Controller
      */
     public function index()  
     {
-        $usuario = Auth::user();
+        $usuario = Auth::user(); 
         $clasificacion = CatalogoClasificacionProducto::all(); 
         $producto = Producto::all(); 
         $mis_productos = Producto::where('id_usuario',$usuario->id)->get();

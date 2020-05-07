@@ -16,7 +16,7 @@ class CreateCatalogoMaterialesTable extends Migration
         Schema::create('CatalogoMateriales', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
-            $table->string('imagen');
+            $table->string('imagen'); 
             $table->engine = 'InnoDB';
         });
     }

@@ -23,7 +23,11 @@ class ServicioController extends Controller
      */
     public function index()
     {
-        //
+        $usuario = Auth::user();
+        $clasificacion = CatalogoClasificacionServicio::all();
+        $servicio = Servicio::all();
+        $mis_servicios = Servicio::where('id_usuario',$usuario->id)->get();
+        return view('Usuario.services')->with("clasificaciones",$clasificacion)->with("servicios",$servicio)->with("mis_servicios",$mis_servicios); 
     }
 
     /**
@@ -94,7 +98,8 @@ class ServicioController extends Controller
      */
     public function show($id)
     {
-        //
+        $servicio = Servicio::findOrFail($id);
+        return view("Usuario.service",compact("servicio"));
     }
 
     /**

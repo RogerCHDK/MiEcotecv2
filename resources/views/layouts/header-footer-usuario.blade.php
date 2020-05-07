@@ -55,8 +55,8 @@
                                 <span class="d-flex justify-content-center">Productos</span>
                             </a>
                         </li>
-                        <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="services.html" style="font-size: 15px;max-width: 100%;">
+                        <li class="nav-item" role="presentation" style="max-width: 100%;"> 
+                            <a class="nav-link text-center" href="{{route('servicios.index')}}" style="font-size: 15px;max-width: 100%;">
                                 <i class="far fa-building" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Servicios</span>
                             </a>

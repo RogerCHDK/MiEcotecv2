@@ -9,6 +9,7 @@ class CatalogoMaterial extends Model
 
     public $timestamps = false;
     protected $table = 'catalogomateriales';
+    protected $fillable = ['id_pago','nombre','imagen','imagen_pago'];
 
     public function publicidadIndirecta()
     {

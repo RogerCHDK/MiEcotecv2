@@ -43,7 +43,7 @@ class CatalogoMaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() 
     {
         return view('Administrador.create-material');
     }
@@ -123,6 +123,7 @@ class CatalogoMaterialController extends Controller
 
         $nombreMaterial = $request->input('nombre');
         $imagen = $request->file('imagen');
+        //$imagen_pago = $request->file('imagen_pago');
 
         $material = CatalogoMaterial::find($id);
         $material->nombre = $nombreMaterial;
@@ -168,10 +169,7 @@ class CatalogoMaterialController extends Controller
     public function publicidad(){ 
         return view('Usuario.publicity-material'); 
     }
-
-    public function crear_publicidad(){ 
-
-        return view('Usuario.publicity-material'); 
-    }
+ 
+    
 
 }
