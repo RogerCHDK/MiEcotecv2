@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Comentario;
 
 class ComentarioController extends Controller
 {
@@ -19,7 +20,37 @@ class ComentarioController extends Controller
      */
     public function index()
     {
-        return view('Administrador.suggestions-comments');
+        
+    }
+
+    public function indexAdministrador()
+    {
+        $sugCom_Registro = Comentario::where('asunto', '=', 'Registro')
+                        ->orderBy('id')->paginate(10);
+        $sugCom_Eventos = Comentario::where('asunto', '=', 'Eventos')
+                        ->orderBy('id')->paginate(10);
+        $sugCom_Consejos = Comentario::where('asunto', '=', 'Consejos')
+                        ->orderBy('id')->paginate(10);
+        $sugCom_Asesores = Comentario::where('asunto', '=', 'Asesores')
+                        ->orderBy('id')->paginate(10);
+        $sugCom_Productos = Comentario::where('asunto', '=', 'Productos')
+                        ->orderBy('id')->paginate(10);
+        $sugCom_Servicios = Comentario::where('asunto', '=', 'Servicios')
+                        ->orderBy('id')->paginate(10);
+        $sugCom_Publicidad = Comentario::where('asunto', '=', 'Publicidad')
+                        ->orderBy('id')->paginate(10);
+        $sugCom_Otros = Comentario::where('asunto', '=', 'Otros')
+                        ->orderBy('id')->paginate(10);
+        return view('Administrador.suggestions-comments', [
+            'registro' => $sugCom_Registro,
+            'eventos' => $sugCom_Eventos,
+            'consejos' => $sugCom_Consejos,
+            'asesores' => $sugCom_Asesores,
+            'productos' => $sugCom_Productos,
+            'servicios' => $sugCom_Servicios,
+            'publicidad' => $sugCom_Publicidad,
+            'otros' => $sugCom_Otros
+        ]);
     }
 
     /**
@@ -85,7 +116,12 @@ class ComentarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sugCom = Comentario::find($id);
+        
+        $sugCom->delete();
+        
+        return redirect()->route('admin.sug-com')
+                        ->with(['message' => 'Sugerencia/Comentario eliminado']);
     }
 
 }

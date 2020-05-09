@@ -18,6 +18,11 @@ Route::get('/', function ()
     return view('welcome');
 });
 
+Route::get('/prb', function ()
+{
+    return view('Usuario.publicity');
+});
+
 Auth::routes();
 
 //------------------------------Usuario 
@@ -30,10 +35,15 @@ Route::get('/home/user/image/{filename}', 'UsuarioController@getImage')->name('u
 
 //------------------------------Administrador
 //Publicidad
-Route::get('/home/advertising', 'PublicidadController@index')->name('admin.publicidad');
+Route::get('/home/advertising', 'PublicidadController@indexAdministrator')->name('admin.publicidad');
+Route::get('/home/advertising/pending', 'PublicidadController@indexPendiente')->name('admin.publicidad-pendiente');
+Route::get('/home/advertising/active', 'PublicidadController@indexActiva')->name('admin.publicidad-activa');
+Route::get('/home/advertising/removed', 'PublicidadController@indexEliminada')->name('admin.publicidad-eliminada');
+//Route::get('/home/advertising', 'PublicidadController@index')->name('admin.publicidad');
 
 //Sugerencias/Comentarios
-Route::get('/home/suggestions-comments', 'ComentarioController@index')->name('admin.sug-com');
+Route::get('/home/suggestions-comments', 'ComentarioController@indexAdministrador')->name('admin.sug-com');
+Route::get('/home/suggestions-comments/delete/{id}', 'ComentarioController@destroy')->name('admin.eliminar-sug-com');
 
 //Materiales
 Route::get('/home/materials/{buscar?}', 'CatalogoMaterialController@index')->name('admin.materiales');

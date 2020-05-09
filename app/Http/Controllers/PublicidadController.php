@@ -22,6 +22,26 @@ class PublicidadController extends Controller
         return view('Administrador.index');
     }
 
+    public function indexAdministrator()
+    {
+        return view('Administrador.index');
+    }
+
+    public function indexPendiente()
+    {
+        return view('Administrador.publicity-pending');
+    }
+
+    public function indexActiva()
+    {
+        return view('Administrador.publicity-active');
+    }
+
+    public function indexEliminada()
+    {
+        return view('Administrador.publicity-removed');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

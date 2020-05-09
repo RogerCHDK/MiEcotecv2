@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/wamp64/www/EcoTec/app/Http/Controllers/CatalogoServicioController.php</file>
+            <file>file:/D:/wamp64/www/EcoTec/app/Http/Controllers/ComentarioController.php</file>
             <file>file:/D:/wamp64/www/EcoTec/routes/web.php</file>
-            <file>file:/D:/wamp64/www/EcoTec/app/Http/Controllers/CatalogoAsesorController.php</file>
-            <file>file:/D:/wamp64/www/EcoTec/public/assets/js/main.js</file>
-            <file>file:/D:/wamp64/www/EcoTec/resources/views/Administrador/modify-classification-services.blade.php</file>
-            <file>file:/D:/wamp64/www/EcoTec/resources/views/Administrador/modify-classification-advisers.blade.php</file>
-            <file>file:/D:/wamp64/www/EcoTec/resources/views/Administrador/classification-services.blade.php</file>
-            <file>file:/D:/wamp64/www/EcoTec/resources/views/Administrador/classification-adviser.blade.php</file>
+            <file>file:/D:/wamp64/www/EcoTec/resources/views/Administrador/suggestions-comments.blade.php</file>
         </group>
     </open-files>
 </project-private>
