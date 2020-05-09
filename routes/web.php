@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
   |--------------------------------------------------------------------------
   | Web Routes
   |--------------------------------------------------------------------------
-  |
+  | 
   | Here is where you can register web routes for your application. These
   | routes are loaded by the RouteServiceProvider within a group which
   | contains the "web" middleware group. Now create something great!
@@ -18,6 +18,7 @@ Route::get('/', function ()
     return view('welcome');
 });
 
+
 Route::get('/prb', function ()
 {
     return view('Usuario.publicity');
@@ -25,12 +26,56 @@ Route::get('/prb', function ()
 
 Auth::routes();
 
+/*
+Route::get('Evento', function () {
+    return view('Usuario.event');
+});
+*/
+ 
+
+
+Auth::routes(); 
+
+Route::resource('publicidad','PublicidadController'); 
+Route::resource('comentarios','ComentarioController'); 
+Route::resource('productos','ProductoController'); 
+Route::resource('servicios','ServicioController');
+Route::resource('pagos','PagoController'); 
+Route::get('producto-imagen/{filename}', 'ProductoController@getImage')->name('usuario.producto-imagen');
+Route::get('servicio-imagen/{filename}', 'ServicioController@getImage')->name('usuario.servicio-imagen');
+Route::get('/material', 'CatalogoMaterialController@publicidad')->name('usuario.material');
+
+
+
+
+Route::resource('registro','RegistroController');
+
+//------------------Eventos
+Route::resource('evento','EventoController');
+Route::get('evento-imagen/{filename}', 'EventoController@getImage')->name('usuario.evento-imagen');
+//--------------- Registros
+Route::resource('registro','RegistroController');
+
+//------------ Consejo
+Route::resource('consejo','ConsejoController');
+
+//------------ Experto
+Route::resource('asesor','AsesorController');
+//Route::get('/experto', 'UsuarioController@escaner')->name('garantia.escaner'); 
+
+
+
+
+
 //------------------------------Usuario 
 //Inicio
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Registro
 Route::get('/home/user/image/{filename}', 'UsuarioController@getImage')->name('usuario.imagen');
+
+//Perfil
+Route::resource('usuario','UsuarioController');
 
 
 //------------------------------Administrador

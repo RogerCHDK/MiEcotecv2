@@ -32,46 +32,46 @@
                             @endguest
                         @endif
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" style="font-size: 15px;max-width: 100%;" href="index.html">
+                            <a class="nav-link text-center" style="font-size: 15px;max-width: 100%;" href="{{ route('evento.index') }}">
                                 <i class="far fa-calendar-check" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">Eventos</span>
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="tips.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{ route('consejo.index') }}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-child" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Consejos</span>
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="advisers.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{ route('asesor.index') }}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-users" style="font-size: 20px;"></i>
                                 <span class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">Asesores</span>
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="products.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{route('productos.index')}}"  style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-shopping-bag" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Productos</span>
                             </a>
                         </li>
-                        <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="services.html" style="font-size: 15px;max-width: 100%;">
+                        <li class="nav-item" role="presentation" style="max-width: 100%;"> 
+                            <a class="nav-link text-center" href="{{route('servicios.index')}}" style="font-size: 15px;max-width: 100%;">
                                 <i class="far fa-building" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Servicios</span>
                             </a>
-                        </li>
+                        </li> 
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="publicity.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{route('publicidad.index')}}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fab fa-product-hunt" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Publicidad</span></a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="suggestions-comments.html" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="{{route('comentarios.create')}}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-comment" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Sugerencias o comentarios</span>
                             </a>
-                        </li>
+                        </li> 
                     </ul>
                 </div>
             </nav>
@@ -100,7 +100,7 @@
                                                     @endif
                                                 </a>
                                                 <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
-                                                    <a class="dropdown-item" role="presentation" href="profile.html" style="font-size: 15px;">
+                                                    <a class="dropdown-item" role="presentation" href="{{ route('usuario.edit',Auth::user()->id) }}" style="font-size: 15px;">
                                                         <i class="fas fa-user fa-sm fa-fw mr-2"></i>&nbsp;Perfil
                                                     </a>
                                                     <a class="dropdown-item" role="presentation" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="font-size: 15px;">

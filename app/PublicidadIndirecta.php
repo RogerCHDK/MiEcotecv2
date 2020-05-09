@@ -8,6 +8,7 @@ class PublicidadIndirecta extends Model
 {
 
     protected $table = 'publicidadindirecta';
+     public $timestamps = false;
 
     public function usuario()
     {

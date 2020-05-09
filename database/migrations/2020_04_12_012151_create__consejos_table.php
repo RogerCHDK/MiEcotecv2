@@ -19,7 +19,7 @@ class CreateConsejosTable extends Migration
             $table->foreign('id_usuario')->references('id')->on('users')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('id_entorno');
             $table->foreign('id_entorno')->references('id')->on('catalogoentornos')->constrained()->onDelete('cascade');
-            $table->string('nombre');
+            $table->string('nombre'); 
             $table->string('imagen');
             $table->text('descripcion');
             $table->engine = 'InnoDB';

@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use App\Asesor;
+use App\User;
+use App\CatalogoClasificacionAsesor;
 class AsesorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $asesores = Asesor::orderBy('id')->get();
+        
+        return view('Usuario.advisers', ['asesores' => $asesores]);
     }
-
+ 
     /**
      * Show the form for creating a new resource.
      *
@@ -23,7 +23,9 @@ class AsesorController extends Controller
      */
     public function create()
     {
-        //
+         $users = Auth::user();
+         $tipos_asesor = CatalogoClasificacionAsesor::all(); 
+        return view('Usuario.create-adviser', compact('users'))->with('tipos_asesor',$tipos_asesor);
     }
 
     /**
@@ -34,7 +36,9 @@ class AsesorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $datos = $request->all();
+        Asesor::create($datos);
+         return redirect('/asesor');
     }
 
     /**
@@ -45,7 +49,9 @@ class AsesorController extends Controller
      */
     public function show($id)
     {
-        //
+        $asesor = Asesor::find($id);
+        
+        return view('Usuario.profile', ['asesor' => $asesor]);
     }
 
     /**
@@ -56,7 +62,7 @@ class AsesorController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -79,6 +85,14 @@ class AsesorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        /*
+        afaefe
+        $asesor = Asesor::find($id);
+        $asesor->delete();
+        return redirect()->route('admin.asesores')
+                        ->with(['message' => 'Clasificación eliminada']);
+                        */ 
     }
+
+    
 }

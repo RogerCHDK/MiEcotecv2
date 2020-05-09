@@ -48,11 +48,11 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="tab-pane" role="tabpanel" id="tab-2">
                 <div class="card shadow" style="margin-bottom: 24px;">
                     <div class="card-body text-left d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-start justify-content-sm-start justify-content-md-start justify-content-lg-start justify-content-xl-start">
-                        <a class="btn btn-primary" role="button" href="{{ route('consejo.create') }}" style="font-size: 18px;margin-right: 10px;">Crear consejo</a>
+                        <a class="btn btn-primary" role="button" href="create-tip.html" style="font-size: 18px;margin-right: 10px;">Crear consejo</a>
                         <div class="dropdown" style="width: 200px;">
                             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button" style="font-size: 18px;">Entorno</button>
                             <div class="dropdown-menu" role="menu" style="width: 180px;font-size: 16px;">

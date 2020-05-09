@@ -43,7 +43,7 @@ class CatalogoMaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() 
     {
         return view('Administrador.create-material');
     }
@@ -119,10 +119,11 @@ class CatalogoMaterialController extends Controller
         $validate = $this->validate($request, [
             'nombre' => ['required', 'string', 'max:255', Rule::unique('catalogomateriales')->ignore($id),],
             'imagen' => ['image'],
-        ]);
+        ]); 
 
         $nombreMaterial = $request->input('nombre');
         $imagen = $request->file('imagen');
+        //$imagen_pago = $request->file('imagen_pago');
 
         $material = CatalogoMaterial::find($id);
         $material->nombre = $nombreMaterial;
@@ -164,5 +165,11 @@ class CatalogoMaterialController extends Controller
         $file = Storage::disk('materiales')->get($fileName);
         return new Response($file, 200);
     }
+
+    public function publicidad(){ 
+        return view('Usuario.publicity-material'); 
+    }
+ 
+    
 
 }

@@ -119,24 +119,28 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <div class="row">
+                                @foreach($eventos as $evento)
                                 <div class="col-md-6 col-lg-4">
                                     <div class="card border-0">
-                                       
-                                        <a href="Evento">
+
+
+                                        
+                                        <a href="{{ route('evento.show',$evento->id) }}">
                                             <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center marco zoom-on-hover">
-                                                <img class="img-fluid image" src="assets/img/Eventos/image1.jpg">
+                                                <img class="img-fluid image" src="{{route('usuario.evento-imagen',$evento->imagen)}}">
                                             </div>
                                         </a>
-                                        
                                         <div class="card-body text-center">
                                             <h6>
-                                                <a class="event_title" href="Evento" style="font-size: 22px;"></a>
+                                                <a class="event_title" href="{{ route('evento.show',$evento->id) }}" style="font-size: 22px;">{{$evento->nombre}}</a>
                                             </h6>
-                                            <p class="text-justify card-text objective_event" style="font-size: 18px;"><br></p>
+                                            <p class="text-justify card-text objective_event" style="font-size: 18px;">{{$evento->descripcion}}<br></p>
                                         </div>
                                         
+
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -145,21 +149,24 @@
                     <div class="card shadow" style="margin-bottom: 24px;">
                         <div class="card-body">
                             <div class="row">
+                                @foreach($registros as $registro)
+                                
                                 <div class="col-md-6 col-lg-4 col-asis">
                                     <div class="card border-0">
-                                        <a href="event.html">
+                                        <a href="{{ route('evento.show',$registro->evento->id) }}">
                                             <div class="marco zoom-on-hover">
-                                                <img class="img-fluid image" src="assets/img/Eventos/image1.jpg">
+                                                <img class="img-fluid image" src="{{route('usuario.evento-imagen',$registro->evento->imagen)}}">
                                             </div>
                                         </a>
                                         <div class="card-body text-center">
                                             <h6>
-                                                <a class="event_title" href="event.html" style="font-size: 22px;">Evento parque sierra</a>
+                                                <a class="event_title" href="{{ route('evento.show',$registro->evento->id) }}" style="font-size: 22px;">{{$registro->evento->nombre}}</a>
                                             </h6>
-                                            <p class="text-justify card-text objective_event" style="font-size: 18px;">Este parque ubicado en el municipio de Toluca, fue declarado originalmente por Decreto del Ejecutivo Estatal de fecha 22 de julio de 1976, publicado en la “Gaceta de Gobierno” del propio Estado el 29 del mismo mes y año.</p>
+                                            <p class="text-justify card-text objective_event" style="font-size: 18px;">{{$registro->evento->objetivo}}.</p>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -167,34 +174,41 @@
                 <div class="tab-pane" role="tabpanel" id="tab-3">
                     <div class="card shadow" style="margin-bottom: 24px;">
                         <div class="card-body text-left">
-                            <a class="btn btn-primary" role="button" action="create-event.html" href="create-event.html" style="font-size: 18px;">Crear evento</a>
+                            <a class="btn btn-primary" role="button" action="create-event.html" href="{{route ('evento.create')}}" style="font-size: 18px;">Crear evento </a>
                         </div>
+
                         <div class="card-body">
                             <div class="row">
+                                @foreach($misEventos as $miEvento)
                                 <div class="col-md-6 col-lg-4 col-asis">
                                     <div class="card border-0">
-                                        <a href="event.html">
+                                        
+                                         
+                                        <a href="{{ route('evento.show',$miEvento->id) }}">
                                             <div class="marco zoom-on-hover">
-                                                <img class="img-fluid image" src="assets/img/Eventos/image1.jpg">
+                                                <img class="img-fluid image" src="{{route('usuario.evento-imagen',$miEvento->imagen)}}">
                                             </div>
                                         </a>
                                         <div class="card-body text-center">
                                             <h6>
-                                                <a class="event_title" href="event.html" style="font-size: 22px;">Evento parque sierra</a>
+                                                <a class="event_title" href="{{ route('evento.show',$miEvento->id) }}" style="font-size: 22px;">{{$miEvento->nombre}}</a>
                                             </h6>
                                             <div class="d-flex justify-content-around" style="width: 100%;">
-                                                <a class="btn btn-primary" role="button" style="font-size: 18px;" href="create-event.html">Modificar</a>
+                                                <a class="btn btn-primary" role="button" style="font-size: 18px;" href="{{ route('evento.edit',$miEvento->id) }}">Modificar</a>
                                                 <a class="btn btn-danger" role="button" style="font-size: 18px;" href="#">Eliminar</a>
                                             </div>
                                         </div>
+                                        
+                                        
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     @else
         <div class="card shadow">
             <div class="card-header py-3">
@@ -211,7 +225,7 @@
                             </a>
                             <div class="card-body text-center">
                                 <h6>
-                                    <a class="event_title" href="event.html" style="font-size: 22px;">Evento parque sierra</a>
+                                    <a class="event_title" href="Evento1" style="font-size: 22px;">Evento parque sierra</a>
                                 </h6>
                                 <p class="text-justify card-text objective_event" style="font-size: 18px;">Este parque ubicado en el municipio de Toluca, fue declarado originalmente por Decreto del Ejecutivo Estatal de fecha 22 de julio de 1976, publicado en la “Gaceta de Gobierno” del propio Estado el 29 del mismo mes y año.</p>
                             </div>

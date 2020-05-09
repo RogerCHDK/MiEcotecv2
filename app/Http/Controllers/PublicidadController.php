@@ -8,7 +8,7 @@ class PublicidadController extends Controller
 {
 
     public function __construct()
-    {
+    { 
         $this->middleware('auth');
     }
 
@@ -16,10 +16,10 @@ class PublicidadController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function index()
     {
-        return view('Administrador.index');
+        return view('Usuario.publicity'); 
     }
 
     public function indexAdministrator()

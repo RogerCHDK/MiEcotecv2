@@ -3,6 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pago; 
+use App\Servicio;  
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\CatalogoClasificacionServicio;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 class ServicioController extends Controller
 {
@@ -13,7 +23,11 @@ class ServicioController extends Controller
      */
     public function index()
     {
-        //
+        $usuario = Auth::user();
+        $clasificacion = CatalogoClasificacionServicio::all();
+        $servicio = Servicio::all();
+        $mis_servicios = Servicio::where('id_usuario',$usuario->id)->get();
+        return view('Usuario.services')->with("clasificaciones",$clasificacion)->with("servicios",$servicio)->with("mis_servicios",$mis_servicios); 
     }
 
     /**
@@ -23,7 +37,10 @@ class ServicioController extends Controller
      */
     public function create()
     {
-        //
+        $usuario = Auth::user();
+        $usuario = $usuario->id;
+        $servicio = CatalogoClasificacionServicio::all(); 
+       return view('Usuario.create-service')->with('servicios',$servicio)->with('usuario',$usuario);
     }
 
     /**
@@ -34,7 +51,43 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $date = Carbon::now();   
+        $date= $date->addMonths(1);
+        $pago = Pago::create(
+            [
+                'id_usuario' => $request->id_usuario, 
+                'tiempo'=> 1,
+                'estado_pago'=> 0,
+                'vigencia'=> $date,
+            ]
+        ); 
+
+        $imagen = $request->file('imagen');
+         if ($imagen) { 
+            $imagenNombre = time(). $imagen->getClientOriginalName(); 
+            $imagenRedimensionada = Image::make($imagen);
+            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/servicios/' . $imagenNombre));
+            $request->imagen = $imagenNombre;
+        }
+     
+        $servicio = Servicio::create(
+            [
+                'id_usuario' => $request->id_usuario,
+                'id_pago'=> $pago->id,
+                'id_clasificacionServicio'=> $request->id_clasificacionServicio,
+                'imagen'=> $request->imagen,
+                'nombre_establecimiento'=> $request->nombre_establecimiento,
+                'estado'=> $request->estado,
+                'municipio'=> $request->municipio,
+                'colonia'=> $request->colonia,
+                'calle'=> $request->calle,
+                'descripcion'=> $request->descripcion,
+                'url'=> $request->url,
+                'telefono'=> $request->telefono,
+            ]
+        );
+
+        return redirect()->route('publicidad.index'); 
     }
 
     /**
@@ -45,7 +98,8 @@ class ServicioController extends Controller
      */
     public function show($id)
     {
-        //
+        $servicio = Servicio::findOrFail($id);
+        return view("Usuario.service",compact("servicio"));
     }
 
     /**
@@ -80,5 +134,11 @@ class ServicioController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+     public function getImage($fileName)
+    {
+        $file = Storage::disk('servicios')->get($fileName);
+        return new Response($file, 200);
     }
 }

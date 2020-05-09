@@ -10,7 +10,7 @@
                 <div class="col-lg-4">
                     <div class="card mb-3">
                         <div class="card-body text-center shadow">
-                            <img class="rounded-circle mb-3 mt-4" src="assets/img/avatars/avatar1.jpeg" width="160" height="160">
+                            <img class="rounded-circle mb-3 mt-4" src="{{ route('usuario.imagen',$user->imagen) }}" width="160" height="160">
                         </div>
                     </div>
                 </div>
@@ -57,17 +57,17 @@
                                     <div class="row" style="margin-bottom: 5px;">
                                         <div class="col d-flex flex-column">
                                             <span style="color: #267d24;font-size: 18px;margin-right: 3px;">Nombre(s):</span>
-                                            <span class="text-justify" style="color: rgb(0,0,0);font-size: 18px;">Valerie</span>
+                                            <span class="text-justify" style="color: rgb(0,0,0);font-size: 18px;">{{$user->nombre}}</span>
                                         </div>
                                         <div class="col d-flex flex-column">
                                             <span style="color: #267d24;font-size: 18px;margin-right: 3px;">Apellidos:</span>
-                                            <span class="text-justify" style="color: rgb(0,0,0);font-size: 18px;">Luna Luna</span>
+                                            <span class="text-justify" style="color: rgb(0,0,0);font-size: 18px;">{{$user->apellido_paterno}} {{$user->apellido_materno}}</span>
                                         </div>
                                     </div>
                                     <div class="row" style="margin-bottom: 5px;">
                                         <div class="col d-flex flex-column">
                                             <span style="color: #267d24;font-size: 18px;margin-right: 3px;">Alias:</span>
-                                            <span class="text-justify" style="color: rgb(0,0,0);font-size: 18px;">Vale Lu</span>
+                                            <span class="text-justify" style="color: rgb(0,0,0);font-size: 18px;">{{$user->alias}}</span>
                                         </div>
                                     </div>
                                     <div class="row" style="margin-bottom: 5px;">
