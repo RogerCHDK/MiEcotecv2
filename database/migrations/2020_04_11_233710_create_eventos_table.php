@@ -25,6 +25,7 @@ class CreateEventosTable extends Migration
             $table->time('hora_inicio');
             $table->date('fecha_fin');
             $table->time('hora_fin');
+            $table->string('imagen');
             $table->engine = 'InnoDB';
         });
     }

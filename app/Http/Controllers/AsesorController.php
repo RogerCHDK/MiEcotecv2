@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Asesor;
 use App\User;
-
+use App\CatalogoClasificacionAsesor;
 class AsesorController extends Controller
 {
     public function index()
@@ -24,8 +24,8 @@ class AsesorController extends Controller
     public function create()
     {
          $users = Auth::user();
-        
-        return view('Usuario.create-adviser', compact('users'));
+         $tipos_asesor = CatalogoClasificacionAsesor::all(); 
+        return view('Usuario.create-adviser', compact('users'))->with('tipos_asesor',$tipos_asesor);
     }
 
     /**
@@ -86,11 +86,12 @@ class AsesorController extends Controller
     public function destroy($id)
     {
         /*
+        afaefe
         $asesor = Asesor::find($id);
         $asesor->delete();
         return redirect()->route('admin.asesores')
                         ->with(['message' => 'Clasificación eliminada']);
-                        */
+                        */ 
     }
 
     

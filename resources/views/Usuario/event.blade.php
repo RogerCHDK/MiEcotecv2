@@ -8,7 +8,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-6 d-flex d-sm-flex d-md-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-xl-center" style="min-width: 100%;">
-                    <img class="img-fluid" src="assets/img/Eventos/image1.jpg" style="min-width: 40%;">
+                    <img class="img-fluid" src="{{route('usuario.evento-imagen',$evento->imagen)}}" style="min-width: 40%;">
                 </div>
             </div>
             <div class="row">
@@ -39,7 +39,7 @@
                             </div>
                             <div class="text-center" style="margin-bottom: 24px;font-size: 20px;">
                                 <a class="event_title" href="assistants.html" style="font-size: 18px;">
-                                    <i class="fa fa-group" style="margin-right: 10px;font-size: 25px;"></i>15 personas asistirán
+                                    <i class="fa fa-group" style="margin-right: 10px;font-size: 25px;"></i> {{$registros}} personas asistirán
                                 </a>
                             </div>
                             <form class="user" action="{{route('registro.store')}}" method="POST">
@@ -48,7 +48,7 @@
                                 <input class="form-control form-control-user" type="hidden"  id="id_evento" name="id_evento" value="{{$evento->id}}" style="font-size: 18px;color: rgb(0,0,0);">
                             
                             <div class="text-center" style="margin-bottom: 24px;">
-                                <button class="btn btn-primary" type="button" style="font-size: 18px;">Participar</button>
+                                <button class="btn btn-primary" type="submit" style="font-size: 18px;">Participar</button>
                                 <button class="btn btn-danger" type="button" style="font-size: 18px;">Salir</button>
                             </div>
                             </form>
@@ -57,7 +57,7 @@
                             
                             <div class="text-center">
                                 <span style="color: rgb(0,0,0);font-size: 18px;">Evento creado por&nbsp;
-                                    <a class="event_title" href="view-profile.html" style="font-size: 20px;">{{$users->nombre}}&nbsp;{{$users->apellido_paterno}}</a>
+                                    <a class="event_title" href="{{ route('usuario.show',$users->id) }}" style="font-size: 20px;">{{$users->nombre}}&nbsp;{{$users->apellido_paterno}}</a>
                                 </span>
                                 @endforeach
                             </div>

@@ -17,14 +17,15 @@
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <label style="font-size: 18px;color: rgb(0,0,0);margin-right: 10px;">Tipo de asesor</label>
-                                    <select name="id_clasificacionAsesor" class="form-control display-inline-block" style="height: 50px;font-size: 18px;color: rgb(0,0,0);width: 145px;" name="id_clasificacionAsesor">
+                                    <select name="id_clasificacionAsesor" class="form-control display-inline-block" style="height: 50px;font-size: 18px;color: rgb(0,0,0);width: 145px;" name="id_clasificacionAsesor" id="id_clasificacionAsesor">
                                         <optgroup label="Tipo de asesor" name="id_clasificacionAsesor">
-                                            <option value="1">Cosmeticos</option>
-                                            <option value="02">Hogar</option>
-                                            <option value="03">Oficina</option>
-                                            <option value="04">Automóvil</option>
+                                            @foreach($tipos_asesor as $tipo_asesor) 
+                                            <option value="{{$tipo_asesor->id}}">{{$tipo_asesor->nombre}}</option>
+                                            @endforeach
+                                            
                                         </optgroup>
                                     </select>
+                                    
                                 </div>
                             </div> 
                             <div class="form-group">

@@ -9,8 +9,8 @@
             <div class="row d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
                 <div class="col-lg-7 col-lg-7-event">
                     <div class="p-5">
-                        <form class="user" action="{{route('evento.store')}}" method="POST">
-                            {{ csrf_field() }} 
+                        <form class="user" action="{{route('evento.store')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="resume-content">
                                 <input name="id_usuario" type="hidden" value="{{$users->id}}" ></input>
                             </div>
@@ -59,10 +59,15 @@
                             <div class="form-group row">
                                 <div class="col-sm-6 d-xl-flex align-items-xl-center mb-3 mb-sm-0" style="min-width: 100%;">
                                     <label style="font-size: 18px;color: rgb(0,0,0);margin-right: 10px;width: 350px;">Imagen (800x533 pixeles)</label>
-                                    <input type="file" name="imagen" accept="image/*" style="font-size: 18px;color: rgb(0,0,0);width: 100%;">
+                                    <input class="@error('imagen') is-invalid @enderror" type="file" name="imagen" id="imagen" accept="image/*" style="font-size: 18px;color: rgb(0,0,0);width: 100%;" required> 
+                                     @error('imagen')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-sm-6 d-flex justify-content-center mb-3 mb-sm-0" style="margin-top: 10px;">
-                                    <img src="assets/img/Eventos/image2.jpg" style="width: 100%;">
+                                    <img src="../assets/img/Eventos/image2.jpg" style="width: 100%;"> 
                                 </div>
                             </div>
                             <button class="btn btn-primary btn-block text-white btn-user" type="submit" style="font-size: 18px;width: 80%;margin: auto;">Crear evento</button>

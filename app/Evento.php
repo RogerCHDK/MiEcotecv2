@@ -18,5 +18,6 @@ class Evento extends Model
     {
         return$this->hasMany('App\Registro');
     }
-protected $fillable = ['id_usuario','nombre','objetivo','descripcion','fecha_creacion','fecha_inicio','hora_inicio','fecha_fin','hora_fin'];
+protected $fillable = ['id_usuario','nombre','objetivo','descripcion','fecha_creacion','fecha_inicio','hora_inicio','fecha_fin','hora_fin',
+       'imagen'];
 }

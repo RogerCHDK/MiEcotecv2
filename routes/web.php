@@ -24,7 +24,6 @@ Route::get('Evento', function () {
 });
 */
  
-Auth::routes();
 
 
 Auth::routes(); 
@@ -45,6 +44,9 @@ Route::resource('registro','RegistroController');
 
 //------------------Eventos
 Route::resource('evento','EventoController');
+Route::get('evento-imagen/{filename}', 'EventoController@getImage')->name('usuario.evento-imagen');
+//--------------- Registros
+Route::resource('registro','RegistroController');
 
 //------------ Consejo
 Route::resource('consejo','ConsejoController');

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use \App\User;
 use \App\Evento;
 use Illuminate\Http\Request;
-
+use App\Registro;
 class HomeController extends Controller
 {
  
@@ -34,7 +34,9 @@ class HomeController extends Controller
             $misEventos = Evento::where('id_usuario',$usuario->id)->get();
             $eventos = Evento::orderBy('nombre')->get();
             $users = User::orderBy('nombre')->get();
-            return view('Usuario.welcome', ['eventos' => $eventos])->with(['misEventos' => $misEventos])->with('users',$users);
+            $registros = Registro::where('id_usuario',$usuario->id)->get();
+            return view('Usuario.welcome', ['eventos' => $eventos])->with(['misEventos' => $misEventos])->with('users',$users)->with('registros',$registros);
+            
         } else
         { 
             $eventos = Evento::orderBy('nombre')->get();
