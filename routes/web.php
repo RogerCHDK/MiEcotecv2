@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
   |--------------------------------------------------------------------------
   | Web Routes
   |--------------------------------------------------------------------------
-  | 
+  |
   | Here is where you can register web routes for your application. These
   | routes are loaded by the RouteServiceProvider within a group which
   | contains the "web" middleware group. Now create something great!
@@ -27,20 +27,20 @@ Route::get('/prb', function ()
 Auth::routes();
 
 /*
-Route::get('Evento', function () {
-    return view('Usuario.event');
-});
-*/
- 
+  Route::get('Evento', function () {
+  return view('Usuario.event');
+  });
+ */
 
 
-Auth::routes(); 
 
-Route::resource('publicidad','PublicidadController'); 
-Route::resource('comentarios','ComentarioController'); 
-Route::resource('productos','ProductoController'); 
-Route::resource('servicios','ServicioController');
-Route::resource('pagos','PagoController'); 
+Auth::routes();
+
+Route::resource('publicidad', 'PublicidadController');
+Route::resource('comentarios', 'ComentarioController');
+Route::resource('productos', 'ProductoController');
+Route::resource('servicios', 'ServicioController');
+Route::resource('pagos', 'PagoController');
 Route::get('producto-imagen/{filename}', 'ProductoController@getImage')->name('usuario.producto-imagen');
 Route::get('servicio-imagen/{filename}', 'ServicioController@getImage')->name('usuario.servicio-imagen');
 Route::get('/material', 'CatalogoMaterialController@publicidad')->name('usuario.material');
@@ -48,25 +48,20 @@ Route::get('/material', 'CatalogoMaterialController@publicidad')->name('usuario.
 
 
 
-Route::resource('registro','RegistroController');
+Route::resource('registro', 'RegistroController');
 
 //------------------Eventos
-Route::resource('evento','EventoController');
+Route::resource('evento', 'EventoController');
 Route::get('evento-imagen/{filename}', 'EventoController@getImage')->name('usuario.evento-imagen');
 //--------------- Registros
-Route::resource('registro','RegistroController');
+Route::resource('registro', 'RegistroController');
 
 //------------ Consejo
-Route::resource('consejo','ConsejoController');
+Route::resource('consejo', 'ConsejoController');
 
 //------------ Experto
-Route::resource('asesor','AsesorController');
+Route::resource('asesor', 'AsesorController');
 //Route::get('/experto', 'UsuarioController@escaner')->name('garantia.escaner'); 
-
-
-
-
-
 //------------------------------Usuario 
 //Inicio
 Route::get('/home', 'HomeController@index')->name('home');
@@ -75,7 +70,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/user/image/{filename}', 'UsuarioController@getImage')->name('usuario.imagen');
 
 //Perfil
-Route::resource('usuario','UsuarioController');
+Route::resource('usuario', 'UsuarioController');
 
 
 //------------------------------Administrador
@@ -85,7 +80,6 @@ Route::get('/home/advertising/pending', 'PublicidadController@indexPendiente')->
 Route::get('/home/advertising/active', 'PublicidadController@indexActiva')->name('admin.publicidad-activa');
 Route::get('/home/advertising/removed', 'PublicidadController@indexEliminada')->name('admin.publicidad-eliminada');
 //Route::get('/home/advertising', 'PublicidadController@index')->name('admin.publicidad');
-
 //Sugerencias/Comentarios
 Route::get('/home/suggestions-comments', 'ComentarioController@indexAdministrador')->name('admin.sug-com');
 Route::get('/home/suggestions-comments/delete/{id}', 'ComentarioController@destroy')->name('admin.eliminar-sug-com');

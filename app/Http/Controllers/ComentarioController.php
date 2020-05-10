@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use App\Comentario;
-
-use Illuminate\Support\Facades\Auth; 
-use App\Comentario; 
 
 class ComentarioController extends Controller
 {
@@ -25,7 +22,6 @@ class ComentarioController extends Controller
     public function index()
     {
         
-
     }
 
     public function indexAdministrador()
@@ -57,8 +53,8 @@ class ComentarioController extends Controller
             'otros' => $sugCom_Otros
         ]);
     }
- 
-    /** 
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -66,7 +62,7 @@ class ComentarioController extends Controller
     public function create()
     {
         $usuario = Auth::user();
-       return view('Usuario.suggestions-comments',compact("usuario")); 
+        return view('Usuario.suggestions-comments', compact("usuario"));
     }
 
     /**
@@ -77,7 +73,7 @@ class ComentarioController extends Controller
      */
     public function store(Request $request)
     {
-         $comentario = Comentario::create($request->all());
+        $comentario = Comentario::create($request->all());
         return redirect()->route('publicidad.index');
     }
 
@@ -124,9 +120,9 @@ class ComentarioController extends Controller
     public function destroy($id)
     {
         $sugCom = Comentario::find($id);
-        
+
         $sugCom->delete();
-        
+
         return redirect()->route('admin.sug-com')
                         ->with(['message' => 'Sugerencia/Comentario eliminado']);
     }
