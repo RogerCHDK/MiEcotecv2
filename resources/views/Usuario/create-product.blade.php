@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="col-sm-6 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center mb-3 mb-sm-0">
                                     <span style="font-size: 18px;color: rgb(0,0,0);margin-right: 5px;">$</span>
-                                    <input class="form-control form-control-user" type="number" style="font-size: 18px;color: rgb(0,0,0);max-width: 80%;" placeholder="Precio" name="precio" id="precio">
+                                    <input class="form-control form-control-user" type="number" step="any" style="font-size: 18px;color: rgb(0,0,0);max-width: 80%;" placeholder="Precio" name="precio" id="precio">
                                 </div>
                             </div>
                             <div class="form-group row">

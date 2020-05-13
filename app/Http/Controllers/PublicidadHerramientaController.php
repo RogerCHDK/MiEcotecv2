@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PublicidadController extends Controller
+class PublicidadHerramientaController extends Controller
 {
 
     public function __construct()
-    { 
+    {
         $this->middleware('auth');
     }
 
@@ -16,30 +16,10 @@ class PublicidadController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */ 
+     */
     public function index()
     {
-        return view('Usuario.publicity'); 
-    }
-
-    public function indexAdministrator()
-    {
-        return view('Administrador.index');
-    }
-
-    public function indexPendiente()
-    {
-        return view('Administrador.publicity-pending');
-    }
-
-    public function indexActiva()
-    {
-        return view('Administrador.publicity-active');
-    }
-
-    public function indexEliminada()
-    {
-        return view('Administrador.publicity-removed');
+        //
     }
 
     /**

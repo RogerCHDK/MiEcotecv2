@@ -28,11 +28,6 @@ class User extends Authenticatable
         return$this->hasMany('App\Registro');
     }
     
-    public function publicidadIndirecta()
-    {
-        return$this->hasMany('App\PublicidadIndirecta');
-    }
-    
     public function pagos()
     {
         return$this->hasMany('App\Pago');
@@ -61,6 +56,16 @@ class User extends Authenticatable
     public function consejos()
     {
         return$this->hasMany('App\Consejo');
+    }
+    
+    public function publicidadHerramienta()
+    {
+        return$this->hasMany('App\PublicidadHerramienta', 'id_usuario');
+    }
+    
+    public function publicidadMaterial()
+    {
+        return$this->hasMany('App\PublicidadMaterial', 'id_usuario');
     }
 
     /**

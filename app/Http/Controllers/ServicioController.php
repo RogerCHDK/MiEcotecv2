@@ -56,7 +56,7 @@ class ServicioController extends Controller
         $pago = Pago::create(
             [
                 'id_usuario' => $request->id_usuario, 
-                'tiempo'=> 1,
+                'fechaSolicitud'=> $date,
                 'estado_pago'=> 0,
                 'vigencia'=> $date,
             ]

@@ -16,14 +16,14 @@
                                     <label style="font-size: 18px;color: rgb(0,0,0);margin-right: 10px;">Tema</label>
                                     <select class="form-control display-inline-block" style="height: 50px;font-size: 18px;color: rgb(0,0,0);width: 145px;" name="asunto" id="asunto">
                                         <optgroup label="Tema">
-                                            <option value="01">Registro</option>
-                                            <option value="02">Eventos</option>
-                                            <option value="03">Consejos</option>
-                                            <option value="04">Asesores</option>
-                                            <option value="05">Productos</option>
-                                            <option value="06">Servicios</option>
-                                            <option value="07">Publicidad</option>
-                                            <option value="08">Otros</option> 
+                                            <option value="Registro">Registro</option>
+                                            <option value="Eventos">Eventos</option>
+                                            <option value="Consejos">Consejos</option>
+                                            <option value="Asesores">Asesores</option>
+                                            <option value="Productos">Productos</option>
+                                            <option value="Servicios">Servicios</option>
+                                            <option value="Publicidad">Publicidad</option>
+                                            <option value="Otros">Otros</option> 
                                         </optgroup>
                                     </select>
                                 </div>
