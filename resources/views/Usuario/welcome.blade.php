@@ -195,7 +195,7 @@
                                             </h6>
                                             <div class="d-flex justify-content-around" style="width: 100%;">
                                                 <a class="btn btn-primary" role="button" style="font-size: 18px;" href="{{ route('evento.edit',$miEvento->id) }}">Modificar</a>
-                                                <a class="btn btn-danger" role="button" style="font-size: 18px;" href="#">Eliminar</a>
+                                                <a class="btn btn-danger" role="button" style="font-size: 18px;" href="{{ route('evento.destroy',$miEvento->id) }}">Eliminar</a>
                                             </div>
                                         </div>
                                         

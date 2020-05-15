@@ -45,13 +45,13 @@ class AsesorController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
     public function show($id)
     {
         $asesor = Asesor::find($id);
         
-        return view('Usuario.profile', ['asesor' => $asesor]);
+        return view('Usuario.adviser', ['asesor' => $asesor]);
     }
 
     /**

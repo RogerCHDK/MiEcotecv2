@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function ()
 {
     return view('welcome');
+    //return redirect('/home');
 });
 
 
@@ -53,11 +54,13 @@ Route::resource('registro', 'RegistroController');
 //------------------Eventos
 Route::resource('evento', 'EventoController');
 Route::get('evento-imagen/{filename}', 'EventoController@getImage')->name('usuario.evento-imagen');
+Route::get('eventos','EventoController@eventos_N')->name('eventos.eventos');
 //--------------- Registros
 Route::resource('registro', 'RegistroController');
 
 //------------ Consejo
 Route::resource('consejo', 'ConsejoController');
+Route::get('consejo-imagen/{filename}', 'ConsejoController@getImage')->name('usuario.consejo-imagen');
 
 //------------ Experto
 Route::resource('asesor', 'AsesorController');

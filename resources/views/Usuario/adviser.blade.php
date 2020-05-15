@@ -10,7 +10,7 @@
                 <div class="col-lg-4">
                     <div class="card mb-3" style="height: 100%;">
                         <div class="card-body text-center shadow">
-                            <img class="img-adviser" src="assets/img/dogs/image3.jpeg">
+                            <img class="img-adviser" src="{{ route('usuario.imagen', ['filename' => Auth::user()->imagen]) }}">
                         </div>
                     </div>
                 </div> 

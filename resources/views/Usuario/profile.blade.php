@@ -9,41 +9,49 @@
             <div class="row d-md-flex d-lg-flex d-xl-flex justify-content-md-center justify-content-lg-center justify-content-xl-center mb-3">
                 <div class="col-lg-7">
                     <div class="p-5">
-                        <form class="user">
+                        <form class="user" action="{{route('usuario.update', Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
+                            {{ csrf_field() }} 
+                            <input type="hidden" name="_method" value="PATCH">
+                            <div class="resume-content">
+                                <input name="id" type="hidden" value="{{$user->id}}" ></input>
+                            </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="Nombre(s)" name="nombre" style="font-size: 18px;color: rgb(0,0,0);">
+                                    <input class="form-control form-control-user" type="text" id="nombre" placeholder="Nombre(s)" name="nombre" value="{{$user->nombre}}" style="font-size: 18px;color: rgb(0,0,0);">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="Apellido paterno" name="apellidoPaterno" style="font-size: 18px;color: rgb(0,0,0);">
+                                    <input class="form-control form-control-user" type="text" id="apellido_paterno" placeholder="Apellido paterno" name="apellido_paterno" value="{{$user->apellido_paterno}}" style="font-size: 18px;color: rgb(0,0,0);">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="Apellido materno" name="apellidoPaterno" style="font-size: 18px;color: rgb(0,0,0);">
+                                    <input class="form-control form-control-user" type="text" id="apellido_materno" placeholder="Apellido materno" name="apellido_materno" value="{{$user->apellido_materno}}" style="font-size: 18px;color: rgb(0,0,0);">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="Alias" name="alias" style="font-size: 18px;color: rgb(0,0,0);">
+                                    <input class="form-control form-control-user" type="text" id="alias" placeholder="Alias" name="alias" value="{{$user->alias}}" style="font-size: 18px;color: rgb(0,0,0);">
                                 </div>
                             </div>
+                            
+                            <div class="col-sm-6 d-xl-flex align-items-xl-center mb-3 mb-sm-0" style="min-width: 100%;">
+                                    <label style="font-size: 18px;color: rgb(0,0,0);margin-right: 10px;width: 350px;">Imagen (800x533 pixeles)</label>
+                                    <input class="@error('imagen') is-invalid @enderror" type="file" value="{{route('usuario.imagen',$user->imagen)}}" name="imagen" id="imagen" accept="image/*" style="font-size: 18px;color: rgb(0,0,0);width: 100%;" required> 
+                                     @error('imagen')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             <div class="form-group">
-                                <label style="font-size: 18px;color: rgb(0,0,0);">Imagen (600x800 pixeles)</label>
-                                <input type="file" accept="image/*" style="width: 100%;" name="imagen">
-                            </div>
-                            <div class="form-group d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
-                                <img src="assets/img/dogs/image3.jpeg" style="max-width: 30%;">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control form-control-user" type="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Correo electrónico" name="correo" style="font-size: 18px;color: rgb(0,0,0);">
+                                <input class="form-control form-control-user" type="email" id="email" aria-describedby="emailHelp" placeholder="Correo electrónico" name="email" value="{{$user->email}}" style="font-size: 18px;color: rgb(0,0,0);">
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input class="form-control form-control-user" type="password" id="examplePasswordInput" placeholder="Contraseña" name="contrasenia" style="font-size: 18px;color: rgb(0,0,0);">
+                                    <input class="form-control form-control-user" type="password" id="password" placeholder="Contraseña" name="password" style="font-size: 18px;color: rgb(0,0,0);">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input class="form-control form-control-user" type="password" id="exampleRepeatPasswordInput" placeholder="Repetir contraseña" name="contrasenia" style="font-size: 18px;color: rgb(0,0,0);">
+                                    <input class="form-control form-control-user" type="password" id="password" placeholder="Repetir contraseña" name="password"  style="font-size: 18px;color: rgb(0,0,0);">
                                 </div>
                             </div>
                             <div class="form-group d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center align-items-xl-center">

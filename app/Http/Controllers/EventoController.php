@@ -107,13 +107,43 @@ class EventoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $usuario = Auth::user();
-        $misEventos = Evento::where('id_usuario',$usuario->id)->get();
-            $eventos = Evento::orderBy('nombre')->get();
-            $users = User::orderBy('nombre')->get();
-        $datos = $request->all();
+        $validate = $this->validate($request, [
+            'imagen' => ['required', 'image'],
+        ]);
+
+        $imagen = $request->file('imagen');
+         if ($imagen) { 
+            $imagenNombre = time(). $imagen->getClientOriginalName(); 
+            $imagenRedimensionada = Image::make($imagen);
+            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/eventos/' . $imagenNombre));
+            $request->imagen = $imagenNombre;
+        }
+
         $evento = Evento::find($id);
-        $evento->update($datos);
+        $id_usu_evento = $request->id_usuario;
+        $nombre_evento = $request->nombre;
+        $objetivo_evento = $request->objetivo;
+        $descripcion_evento = $request->descripcion;
+        $fecha_creacion_evento = $request->fecha_creacion;
+        $fecha_inicio_evento = $request->fecha_inicio;
+        $hora_inicio_evento = $request->hora_inicio;
+        $fecha_fin_evento = $request->fecha_fin;
+        $hora_fin_evento = $request->hora_fin;
+        $imagen_evento = $request->imagen;
+
+        $evento->id_usuario = $id_usu_evento;
+        $evento->nombre = $nombre_evento;
+        $evento->objetivo = $objetivo_evento;
+        $evento->descripcion = $descripcion_evento;
+        $evento->fecha_creacion = $fecha_creacion_evento;
+        $evento->fecha_inicio = $fecha_inicio_evento;
+        $evento->hora_inicio = $hora_inicio_evento;
+        $evento->fecha_fin = $fecha_fin_evento;
+        $evento->hora_fin = $hora_fin_evento;
+        $evento->imagen = $imagen_evento;
+        
+        
+        $evento->update();
         return redirect('/evento');
         //return view('Usuario.welcome', ['eventos' => $eventos])->with(['misEventos' => $misEventos])->with('users',$users);
     }
@@ -126,17 +156,21 @@ class EventoController extends Controller
      */
     public function destroy($id)
     {
-        /*
+        
         $evento = Evento::find($id);
-        $evento->estatus = 0;
-        $evento->save();
+        Storage::disk('evento')->delete()($evento->imagen);
+        $evento->delete();
         return redirect('/evento');
-        */
+
     }
      //Obtener imagen del evento
     public function getImage($fileName)
     {
         $file = Storage::disk('evento')->get($fileName);
         return new Response($file, 200);
+    }
+    public function eventos_N(){
+        $eventos = Evento::orderBy('nombre')->get();
+        return view('Usuario.welcome', ['eventos' => $eventos]);
     }
 }
