@@ -52,13 +52,13 @@ class ServicioController extends Controller
     public function store(Request $request)
     {
         $date = Carbon::now();   
-        $date= $date->addMonths(1);
+//        $date= $date->addMonths(1);
         $pago = Pago::create(
             [
                 'id_usuario' => $request->id_usuario, 
                 'fechaSolicitud'=> $date,
-                'estado_pago'=> 0,
-                'vigencia'=> $date,
+                'estado_pago'=> null,
+                'vigencia'=> null,
             ]
         ); 
 

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\CatalogoHerramienta;
+use App\PublicidadHerramienta;
+use App\Pago;
+use Carbon\Carbon;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class PublicidadHerramientaController extends Controller
 {
@@ -19,7 +24,7 @@ class PublicidadHerramientaController extends Controller
      */
     public function index()
     {
-        //
+        return view('Usuario.publicity');
     }
 
     /**
@@ -29,7 +34,10 @@ class PublicidadHerramientaController extends Controller
      */
     public function create()
     {
-        //
+        $catalogoHerramientas = CatalogoHerramienta::orderBy('nombre')->get();
+        return view('Usuario.publicity-tool', [
+            'catalogoHerramientas' => $catalogoHerramientas
+        ]);
     }
 
     /**
@@ -40,7 +48,44 @@ class PublicidadHerramientaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $this->validate($request, [
+            'imagen' => ['required', 'image'],
+            'enlace' => ['String', 'max:255'],
+        ]);
+
+        $tipoHerramienta = $request->input('tipoHerramienta');
+        $idUsuario = \Auth::user()->id;
+        $enlace = $request->input('enlace');
+        $imagen = $request->file('imagen');
+        $date = Carbon::now();
+
+        $pago = new Pago();
+        $pago->id_usuario = $idUsuario;
+        $pago->fechaSolicitud = $date;
+        $pago->fechaAprobacion = null;
+        $pago->estado_pago = null;
+        $pago->vigencia = null;
+        $pago->save();
+
+        $publicidadHerramienta = new PublicidadHerramienta();
+        $publicidadHerramienta->enlace = $enlace;
+        $publicidadHerramienta->id_usuario = $idUsuario;
+        $publicidadHerramienta->id_pago = $pago->id;
+        $publicidadHerramienta->id_herramienta = intval($tipoHerramienta);
+
+        if ($imagen)
+        {
+            $imagenNombre = time() . $imagen->getClientOriginalName();
+            $imagenRedimensionada = Image::make($imagen);
+            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/publicidadHerramienta/' . $imagenNombre));
+            $publicidadHerramienta->imagen = $imagenNombre;
+        }
+
+        $publicidadHerramienta->save();
+
+        return redirect()->route('usuario.publicidad')
+                        ->with(['message' => 'Publicidad de la herramienta solicitada, en los próximos días se validará el pago. '
+                            . 'Número de solicitud: ' . $pago->id]);
     }
 
     /**

@@ -1,6 +1,11 @@
 @extends('layouts.header-footer-usuario')
 
 @section('content')
+    @if(session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
     <div class="card shadow">
         <div class="card-header py-3">
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Publicidad</p>
@@ -65,7 +70,7 @@
                                         </div>
                                         <div class="col d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center align-items-xl-center col-pub-2">
                                             <span class="text-center" style="color: #267d24;font-size: 18px;margin-bottom: 10px;">Anuncia tus materiales</span>
-                                            <a class="btn btn-primary" role="button" href="{{route('usuario.material')}}">Obtener publicidad</a> 
+                                            <a class="btn btn-primary" role="button" href="{{route('usuario.publicidad-material')}}">Obtener publicidad</a> 
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +92,7 @@
                                         </div>
                                         <div class="col d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center align-items-xl-center col-pub-2">
                                             <span class="text-center" style="color: #267d24;font-size: 18px;margin-bottom: 10px;">Anuncia tus herramientas</span>
-                                            <a class="btn btn-primary" role="button" href="publicity-tool.html">Obtener publicidad</a>
+                                            <a class="btn btn-primary" role="button" href="{{ route('usuario.publicidad-herramienta') }}">Obtener publicidad</a>
                                         </div>
                                     </div>
                                 </div>

@@ -15,7 +15,7 @@ class CreatePublicidadHerramienta extends Migration
     {
         Schema::create('publicidadherramienta', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('enlace');
+            $table->string('enlace')->nullable();
             $table->string('imagen');
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users')->constrained()->onDelete('cascade');

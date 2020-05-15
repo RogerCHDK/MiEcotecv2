@@ -89,15 +89,30 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        
         'evento' => [
             'driver' => 'local',
             'root' => storage_path('app/eventos'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+<<<<<<< HEAD
         'consejo' => [
             'driver' => 'local',
             'root' => storage_path('app/consejos'),
+=======
+        
+        'publicidadMaterial' => [
+            'driver' => 'local',
+            'root' => storage_path('app/publicidadMaterial'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        
+        'publicidadHerramienta' => [
+            'driver' => 'local',
+            'root' => storage_path('app/publicidadHerramienta'),
+>>>>>>> f2f116392825245148b2f5aecd6f3ec76c69aa2d
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],

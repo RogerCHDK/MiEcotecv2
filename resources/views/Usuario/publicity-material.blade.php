@@ -8,27 +8,42 @@
         <div class="card-body">
             <div class="row d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
                 <div class="col-lg-7 col-lg-7-event">
-                    <form class="user">
+                    <form class="user" method="POST" action="{{ route('usuario.guardar-publicidad-material') }}" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0 tip-entorno">
                                 <label style="font-size: 18px;color: rgb(0,0,0);margin-right: 10px;">Tipo de material</label>
-                                <select class="form-control display-inline-block" style="height: 50px;font-size: 18px;color: rgb(0,0,0);width: 145px;" name="mesInicio">
+                                <select class="form-control display-inline-block" style="height: 50px;font-size: 18px;color: rgb(0,0,0);width: 145px;" name="tipoMaterial" id="tipoMaterial">
                                     <optgroup label="Tipo de material">
-                                        <option value="01">Cosmeticos</option>
-                                        <option value="02">Hogar</option>
-                                        <option value="03">Oficina</option>
-                                        <option value="04">Automóvil</option>
+                                        @foreach($catalogoMateriales as $material)
+                                            <option value="{{ $material->id }}">{{ $material->nombre }}</option>
+                                        @endforeach
                                     </optgroup>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
+                            <div class="col-sm-6 mb-3 mb-sm-0" style="min-width: 100%;">
+                                <input class="form-control form-control-user @error('enlace') is-invalid @enderror" type="url" style="color: rgb(0,0,0);font-size: 18px;" placeholder="URL del material (opcional)" name="enlace" id="enlace" value="{{ old('enlace') }}" autocomplete="off" autofocus>
+                                @error('enlace')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <div class="col-sm-6 d-xl-flex align-items-xl-center mb-3 mb-sm-0" style="min-width: 100%;">
                                 <label style="font-size: 18px;color: rgb(0,0,0);margin-right: 10px;width: 350px;">Imagen (800x533 pixeles)</label>
-                                <input type="file" name="imagen" accept="image/*" style="font-size: 18px;color: rgb(0,0,0);width: 100%;">
+                                <input class="@error('imagen') is-invalid @enderror" type="file" name="imagen" id="imagen" accept="image/*" style="font-size: 18px;color: rgb(0,0,0);width: 100%;" required>
+                                @error('imagen')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-sm-6 d-flex justify-content-center mb-3 mb-sm-0" style="margin-top: 10px;">
-                                <img src="assets/img/Eventos/image2.jpg" style="width: 100%;">
+                                <img src="" style="width: 100%;" id="imagenSalida">
                             </div>
                         </div>
                         <div class="form-group row">

@@ -9,7 +9,7 @@
             <div class="row d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
                 <div class="col-lg-7 col-lg-7-event">
                     <div class="p-5">
-                        <form class="user" action="{{route('productos.store')}}" method="POST"enctype="multipart/form-data">  
+                        <form class="user" action="{{route('productos.store')}}" method="POST" enctype="multipart/form-data">  
                             @csrf
                             <div class="form-group row"> 
                                 <input class="form-control form-control-user" type="text" placeholder="Nombre del producto" name="nombre" id="nombre" style="font-size: 18px;color: rgb(0,0,0);max-width: 67%;">
@@ -22,9 +22,9 @@
                                 <label style="font-size: 18px;color: rgb(0,0,0);margin-right: 10px;max-width: 100%;min-width: 100%;">Tipo de producto</label>
                                 <select class="form-control display-inline-block" style="height: 50px;font-size: 18px;color: rgb(0,0,0);" name="id_clasificacionProducto" id="id_clasificacionProducto">
                                     <optgroup label="Tipo de producto">
-                                          @foreach($productos as $producto) 
-                                    <option value="{{$producto->id}}">{{$producto->nombre}}</option>
-                                            @endforeach
+                                        @foreach($productos as $producto) 
+                                            <option value="{{$producto->id}}">{{$producto->nombre}}</option>
+                                        @endforeach
                                     </optgroup>   
                                 </select>
                             </div>
@@ -39,7 +39,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-6 d-flex justify-content-center mb-3 mb-sm-0" style="margin-top: 10px;">
-                                    <img src="../assets/img/Eventos/image2.jpg" style="width: 100%;"> 
+                                    <img src="" style="width: 100%;" id="imagenSalida"> 
                                 </div>
                             </div>
                             <div class="form-group row">

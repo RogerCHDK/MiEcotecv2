@@ -19,12 +19,6 @@ Route::get('/', function ()
     //return redirect('/home');
 });
 
-
-Route::get('/prb', function ()
-{
-    return view('Usuario.publicity');
-});
-
 Auth::routes();
 
 /*
@@ -37,14 +31,15 @@ Auth::routes();
 
 Auth::routes();
 
-Route::resource('publicidad', 'PublicidadController');
+Route::resource('publicidadHerramienta', 'PublicidadHerramientaController');
+Route::resource('publicidadMaterial', 'PublicidadMaterialController');
 Route::resource('comentarios', 'ComentarioController');
 Route::resource('productos', 'ProductoController');
 Route::resource('servicios', 'ServicioController');
 Route::resource('pagos', 'PagoController');
 Route::get('producto-imagen/{filename}', 'ProductoController@getImage')->name('usuario.producto-imagen');
 Route::get('servicio-imagen/{filename}', 'ServicioController@getImage')->name('usuario.servicio-imagen');
-Route::get('/material', 'CatalogoMaterialController@publicidad')->name('usuario.material');
+//Route::get('/material', 'CatalogoMaterialController@publicidad')->name('usuario.material');
 
 
 
@@ -65,6 +60,18 @@ Route::get('consejo-imagen/{filename}', 'ConsejoController@getImage')->name('usu
 //------------ Experto
 Route::resource('asesor', 'AsesorController');
 //Route::get('/experto', 'UsuarioController@escaner')->name('garantia.escaner'); 
+
+//------------------------------Publicidad
+Route::get('/advertising', 'PublicidadHerramientaController@index')->name('usuario.publicidad');
+
+//------------------------------Publicidad material
+Route::get('/advertising-materials/create', 'PublicidadMaterialController@create')->name('usuario.publicidad-material');
+Route::post('/advertising-materials/create/save', 'PublicidadMaterialController@store')->name('usuario.guardar-publicidad-material');
+
+//------------------------------Publicidad herramienta
+Route::get('/advertising-tools/create', 'PublicidadHerramientaController@create')->name('usuario.publicidad-herramienta');
+Route::post('/advertising-tools/create/save', 'PublicidadHerramientaController@store')->name('usuario.guardar-publicidad-herramienta');
+
 //------------------------------Usuario 
 //Inicio
 Route::get('/home', 'HomeController@index')->name('home');
