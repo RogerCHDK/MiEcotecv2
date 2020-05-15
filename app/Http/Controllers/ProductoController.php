@@ -58,13 +58,13 @@ class ProductoController extends Controller
         ]);
 
         $date = Carbon::now();
-        $date = $date->addMonths(1);
+//        $date = $date->addMonths(1);
         $pago = Pago::create(
                         [
                             'id_usuario' => $request->id_usuario,
                             'fechaSolicitud' => $date,
-                            'estado_pago' => 0,
-                            'vigencia' => $date,
+                            'estado_pago' => null,
+                            'vigencia' => null,
                         ]
         );
         $imagen = $request->file('imagen');
@@ -76,11 +76,10 @@ class ProductoController extends Controller
             $request->imagen = $imagenNombre;
         }
 
-
         $producto = Producto::create(
                         [
                             'id_usuario' => $request->id_usuario,
-                            'id_pago' => 1,
+                            'id_pago' => $pago->id,
                             'id_clasificacionProducto' => $request->id_clasificacionProducto,
                             'nombre' => $request->nombre,
                             'imagen' => $request->imagen,

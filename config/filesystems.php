@@ -89,9 +89,24 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        
         'evento' => [
             'driver' => 'local',
             'root' => storage_path('app/eventos'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        
+        'publicidadMaterial' => [
+            'driver' => 'local',
+            'root' => storage_path('app/publicidadMaterial'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        
+        'publicidadHerramienta' => [
+            'driver' => 'local',
+            'root' => storage_path('app/publicidadHerramienta'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
