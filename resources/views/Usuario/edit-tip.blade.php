@@ -61,8 +61,9 @@
                                     <h4 class="mb-4" style="font-size: 18px;color: rgb(0,0,0);">Materiales</h4>
                                 </div>
                             </div>
+
                             @foreach($materiales as $material)
-                            {{$ban=0}} 
+                            @continue($ban=0)
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0 objs">
                                     @foreach($cat_mat as $cat_mat1) 
@@ -72,7 +73,7 @@
                                         <input class="form-check-input" checked="true" type="checkbox" id="formBox-1" name="material[]" value="{{$material->id}}">
                                         <label class="form-check-label" for="formBox-1">{{$material->nombre}}</label>
                                     </div>
-                                    {{$ban=true}}
+                                    @break($ban=true)
                                     @else
                                     
                                         
@@ -89,6 +90,8 @@
                                 @endif
                             </div>
                             @endforeach
+
+
                             <div class="form-group row" style="margin-bottom: 0px;">
                                 <div class="text-center">
                                     <h4 class="mb-4" style="font-size: 18px;color: rgb(0,0,0);">Herramientas</h4>
@@ -97,7 +100,7 @@
                             
                             @foreach($herramientas as $herramienta) 
 
-                            {{$ban=0}}
+                            @continue($ban=0)
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0 objs">
                                     
@@ -111,7 +114,7 @@
                                         <input class="form-check-input" type="checkbox"  checked="true" id="formHerr-1"  name="herramienta[]" value="{{$herramienta->id}}">
                                         <label class="form-check-label" for="formHerr-1">{{$herramienta->nombre}}</label>
                                         </div>
-                                        {{$ban=true}}
+                                        @break($ban=true)
                                     @else
                                     
                                         
