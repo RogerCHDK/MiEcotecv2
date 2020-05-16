@@ -96,11 +96,13 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-<<<<<<< HEAD
+
         'consejo' => [
             'driver' => 'local',
             'root' => storage_path('app/consejos'),
-=======
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
         
         'publicidadMaterial' => [
             'driver' => 'local',
@@ -112,7 +114,6 @@ return [
         'publicidadHerramienta' => [
             'driver' => 'local',
             'root' => storage_path('app/publicidadHerramienta'),
->>>>>>> f2f116392825245148b2f5aecd6f3ec76c69aa2d
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],

@@ -28,7 +28,6 @@ Auth::routes();
  */
 
 
-
 Auth::routes();
 
 Route::resource('publicidadHerramienta', 'PublicidadHerramientaController');
