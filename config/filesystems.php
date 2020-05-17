@@ -86,6 +86,8 @@ return [
         'consejo' => [
             'driver' => 'local',
             'root' => storage_path('app/consejos'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
         ],
         'publicidadMaterial' => [
             'driver' => 'local',

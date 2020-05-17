@@ -52,7 +52,7 @@ class RegistroController extends Controller
      */
     public function show($id)
     {
-        //
+        return view();
     }
 
     /**
@@ -86,10 +86,15 @@ class RegistroController extends Controller
      */
     public function destroy($id)
     {
-        /*
-        $registro = Registro::find($id);
-        $registro->delete();
+        if ($id===0) {
+            //return back()->with('status','Registrate primero');
+            return redirect('/evento');
+        } else {
+            $registro = Registro::find($id);
+            $registro->delete();
+        }
+        
         return redirect('/evento');
-        */
+        
     }
 }

@@ -76,11 +76,21 @@ class EventoController extends Controller
     public function show($id)
     {
         $usuario = Auth::user();
+        $id_u = $usuario->id;
         $evento = Evento::find($id);
         $user = User::where('id',$evento->id_usuario)->get();
-        $registros = count(Registro::where('id',$evento->id)->get());
         
-        return view('Usuario.event', ['evento' => $evento])->with('user',$user )->with('usuario',$usuario )->with('registros',$registros );
+        $ban =count(Registro::select('id')->where('id_usuario', $id_u)->where('id_evento', $id)->get());
+        $registros = count(Registro::where('id_evento',$id)->get());
+        
+        if ($ban===0) {
+            $reg = 0;
+        } else {
+            $reg = Registro::select('id')->where('id_usuario', $id_u)->where('id_evento', $id)->get();
+            //$reg1 = Registro::find($reg);
+        }
+        
+        return view('Usuario.event', ['evento' => $evento])->with('user',$user )->with('usuario',$usuario )->with('registros',$registros )->with('reg',$reg);
     } 
 
     /** 
@@ -158,7 +168,7 @@ class EventoController extends Controller
     {
         
         $evento = Evento::find($id);
-        Storage::disk('evento')->delete()($evento->imagen);
+        Storage::disk('evento')->delete($evento->imagen);
         $evento->delete();
         return redirect('/evento');
 

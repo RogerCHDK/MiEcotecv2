@@ -8,6 +8,7 @@ class Consejo extends Model
 {
     public $timestamps = false;
     protected $table = 'consejos';
+    protected $fillable = ['id_usuario','id_entorno','nombre','imagen','descripcion'];
 
     public function usuario()
     {
