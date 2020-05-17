@@ -31,6 +31,71 @@ class ProductoController extends Controller
         return view('Usuario.products')->with('productos', $producto)->with('clasificaciones', $clasificacion)->with('mis_productos', $mis_productos);
     }
 
+    public function publicidadPendiente($buscar = null)
+    {
+        if(!empty($buscar))
+        {
+            $productos = Producto::join('pagos', 'productos.id_pago', '=', 'pagos.id')
+                    ->join('users', 'productos.id_usuario', '=', 'users.id')
+                    ->select('productos.id_usuario', 'productos.id_pago', 'productos.nombre', 'productos.imagen', 'pagos.fechaSolicitud')
+                    ->whereNull('pagos.estado_pago')
+                    ->where('productos.nombre', 'LIKE', '%' . $buscar . '%')
+                    ->orwhere('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                    ->orwhere('productos.id_pago', 'LIKE', '%' . $buscar . '%')
+                    ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                    ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                    ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%')
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        } else
+        {
+            $productos = Producto::join('pagos', 'productos.id_pago', '=', 'pagos.id')
+                    ->select('productos.id_usuario', 'productos.id_pago', 'productos.nombre', 'productos.imagen', 'pagos.fechaSolicitud')
+                    ->whereNull('pagos.estado_pago')
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        }
+
+        return view('Administrador.publicity-pending-product', [
+            'productos' => $productos
+        ]);
+    }
+
+    public function activarPublicidad($id_pago)
+    {
+        $date = Carbon::now();
+        $vigencia = Carbon::now()->addMonth();
+
+        $pago = Pago::find($id_pago);
+        $pago->fechaAprobacion = $date;
+        $pago->estado_pago = 1;
+        $pago->vigencia = $vigencia;
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-pendiente-producto')
+                        ->with(['message' => 'Publicidad del producto activada']);
+    }
+    
+    public function removerPublicidad($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        $pago->estado_pago = 0;
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-pendiente-producto')
+                        ->with(['message' => 'Publicidad del producto eliminada']);
+    }
+
+    public function publicidadActiva()
+    {
+        return view('Administrador.publicity-active-product');
+    }
+
+    public function publicidadEliminada()
+    {
+        return view('Administrador.publicity-removed-product');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -52,13 +117,11 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-
         $validate = $this->validate($request, [
             'imagen' => ['required', 'image'],
         ]);
 
         $date = Carbon::now();
-//        $date = $date->addMonths(1);
         $pago = Pago::create(
                         [
                             'id_usuario' => $request->id_usuario,
@@ -89,7 +152,7 @@ class ProductoController extends Controller
                             'telefono' => $request->telefono,
                         ]
         );
-        return redirect()->route('publicidad.index');
+        return redirect()->route('usuario.publicidad');
     }
 
     /**
