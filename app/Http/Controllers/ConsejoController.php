@@ -29,7 +29,8 @@ class ConsejoController extends Controller
         $misconsejos = Consejo::where('id_usuario',$usuario->id)->get();
         $consejos = Consejo::orderBy('nombre')->get();
         $entornos = CatalogoEntorno::orderBy('nombre')->get();
-        return view('Usuario.tips')->with('consejos',$consejos)->with('misconsejos',$misconsejos)->with('entornos',$entornos);
+        $entornos1=$entornos;
+        return view('Usuario.tips')->with('consejos',$consejos)->with('misconsejos',$misconsejos)->with('entornos',$entornos)->with('entornos1',$entornos1);
     }
 
     /**
