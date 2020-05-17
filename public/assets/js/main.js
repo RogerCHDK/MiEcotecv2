@@ -88,4 +88,24 @@ window.addEventListener("load", function ()
     {
         $(this).attr('action', url + '/home/classification-products/' + $('#buscadorClasificacionProducto #buscarClasificacionProducto').val());
     });
+    
+    $('#buscadorPendienteProductos').submit(function ()
+    {
+        $(this).attr('action', url + '/home/advertising/pending/products/' + $('#buscadorPendienteProductos #buscarPendienteProductos').val());
+    });
+    
+    $('#buscadorPendienteServicios').submit(function ()
+    {
+        $(this).attr('action', url + '/home/advertising/pending/services/' + $('#buscadorPendienteServicios #buscarPendienteServicios').val());
+    });
+    
+    $('#buscadorPendienteMateriales').submit(function ()
+    {
+        $(this).attr('action', url + '/home/advertising/pending/materials/' + $('#buscadorPendienteMateriales #buscarPendienteMateriales').val());
+    });
+    
+    $('#buscadorPendienteHerramientas').submit(function ()
+    {
+        $(this).attr('action', url + '/home/advertising/pending/tools/' + $('#buscadorPendienteHerramientas #buscarPendienteHerramientas').val());
+    });
 });

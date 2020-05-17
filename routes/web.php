@@ -66,10 +66,12 @@ Route::get('/advertising', 'PublicidadHerramientaController@index')->name('usuar
 //------------------------------Publicidad material
 Route::get('/advertising-materials/create', 'PublicidadMaterialController@create')->name('usuario.publicidad-material');
 Route::post('/advertising-materials/create/save', 'PublicidadMaterialController@store')->name('usuario.guardar-publicidad-material');
+Route::get('publicidadMaterial-imagen/{filename}', 'PublicidadMaterialController@getImage')->name('usuario.publicidadMaterial-imagen');
 
 //------------------------------Publicidad herramienta
 Route::get('/advertising-tools/create', 'PublicidadHerramientaController@create')->name('usuario.publicidad-herramienta');
 Route::post('/advertising-tools/create/save', 'PublicidadHerramientaController@store')->name('usuario.guardar-publicidad-herramienta');
+Route::get('publicidadHerramienta-imagen/{filename}', 'PublicidadHerramientaController@getImage')->name('usuario.publicidadHerramienta-imagen');
 
 //------------------------------Usuario 
 //Inicio
@@ -84,11 +86,49 @@ Route::resource('usuario', 'UsuarioController');
 
 //------------------------------Administrador
 //Publicidad
-Route::get('/home/advertising', 'PublicidadController@indexAdministrator')->name('admin.publicidad');
-Route::get('/home/advertising/pending', 'PublicidadController@indexPendiente')->name('admin.publicidad-pendiente');
-Route::get('/home/advertising/active', 'PublicidadController@indexActiva')->name('admin.publicidad-activa');
-Route::get('/home/advertising/removed', 'PublicidadController@indexEliminada')->name('admin.publicidad-eliminada');
-//Route::get('/home/advertising', 'PublicidadController@index')->name('admin.publicidad');
+Route::get('/home/advertising', 'PublicidadHerramientaController@indexAdministrator')->name('admin.publicidad');
+
+//Publicidad pendiente
+Route::get('/home/advertising/pending', 'PublicidadHerramientaController@indexPendiente')->name('admin.publicidad-pendiente');
+//Publicidad pendiente producto
+Route::get('/home/advertising/pending/products/{buscar?}', 'ProductoController@publicidadPendiente')->name('admin.publicidad-pendiente-producto');
+Route::get('/home/advertising/pending/product/activate/{id_pago}', 'ProductoController@activarPublicidad')->name('admin.publicidad-activar-producto');
+Route::get('/home/advertising/pending/product/remove/{id_pago}', 'ProductoController@removerPublicidad')->name('admin.publicidad-remover-producto');
+//Publicidad pendiente servicio
+Route::get('/home/advertising/pending/services/{buscar?}', 'ServicioController@publicidadPendiente')->name('admin.publicidad-pendiente-servicio');
+Route::get('/home/advertising/pending/service/activate/{id_pago}', 'ServicioController@activarPublicidad')->name('admin.publicidad-activar-servicio');
+Route::get('/home/advertising/pending/service/remove/{id_pago}', 'ServicioController@removerPublicidad')->name('admin.publicidad-remover-servicio');
+//Publicidad pendiente material
+Route::get('/home/advertising/pending/materials/{buscar?}', 'PublicidadMaterialController@publicidadPendiente')->name('admin.publicidad-pendiente-material');
+Route::get('/home/advertising/pending/material/activate/{id_pago}', 'PublicidadMaterialController@activarPublicidad')->name('admin.publicidad-activar-material');
+Route::get('/home/advertising/pending/material/remove/{id_pago}', 'PublicidadMaterialController@removerPublicidad')->name('admin.publicidad-remover-material');
+//Publicidad pendiente herramienta
+Route::get('/home/advertising/pending/tools/{buscar?}', 'PublicidadHerramientaController@publicidadPendiente')->name('admin.publicidad-pendiente-herramienta');
+Route::get('/home/advertising/pending/tool/activate/{id_pago}', 'PublicidadHerramientaController@activarPublicidad')->name('admin.publicidad-activar-herramienta');
+Route::get('/home/advertising/pending/tool/remove/{id_pago}', 'PublicidadHerramientaController@removerPublicidad')->name('admin.publicidad-remover-herramienta');
+
+//Publicidad activa
+Route::get('/home/advertising/active', 'PublicidadHerramientaController@indexActiva')->name('admin.publicidad-activa');
+//Publicidad activa producto
+Route::get('/home/advertising/active/product', 'ProductoController@publicidadActiva')->name('admin.publicidad-activa-producto');
+//Publicidad activa servicio
+Route::get('/home/advertising/active/service', 'ServicioController@publicidadActiva')->name('admin.publicidad-activa-servicio');
+//Publicidad activa material
+Route::get('/home/advertising/active/material', 'PublicidadMaterialController@publicidadActiva')->name('admin.publicidad-activa-material');
+//Publicidad activa herramienta
+Route::get('/home/advertising/active/tool', 'PublicidadHerramientaController@publicidadActiva')->name('admin.publicidad-activa-herramienta');
+
+//Publicidad eliminda
+Route::get('/home/advertising/removed', 'PublicidadHerramientaController@indexEliminada')->name('admin.publicidad-eliminada');
+//Publicidad eliminada producto
+Route::get('/home/advertising/removed/product', 'ProductoController@publicidadEliminada')->name('admin.publicidad-eliminada-producto');
+//Publicidad eliminada servicio
+Route::get('/home/advertising/removed/service', 'ServicioController@publicidadEliminada')->name('admin.publicidad-eliminada-servicio');
+//Publicidad eliminada material
+Route::get('/home/advertising/removed/material', 'PublicidadMaterialController@publicidadEliminada')->name('admin.publicidad-eliminada-material');
+//Publicidad eliminada herramienta
+Route::get('/home/advertising/removed/tool', 'PublicidadHerramientaController@publicidadEliminada')->name('admin.publicidad-eliminada-herramienta');
+
 //Sugerencias/Comentarios
 Route::get('/home/suggestions-comments', 'ComentarioController@indexAdministrador')->name('admin.sug-com');
 Route::get('/home/suggestions-comments/delete/{id}', 'ComentarioController@destroy')->name('admin.eliminar-sug-com');

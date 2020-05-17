@@ -8,6 +8,8 @@ use App\PublicidadMaterial;
 use App\Pago;
 use Carbon\Carbon;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class PublicidadMaterialController extends Controller
 {
@@ -27,6 +29,70 @@ class PublicidadMaterialController extends Controller
         //
     }
 
+    public function publicidadPendiente($buscar = null)
+    {
+        if (!empty($buscar))
+        {
+            $publicidadMaterial = PublicidadMaterial::join('pagos', 'publicidadmaterial.id_pago', '=', 'pagos.id')
+                    ->join('users', 'publicidadmaterial.id_usuario', '=', 'users.id')
+                    ->select('publicidadmaterial.id_usuario', 'publicidadmaterial.id_pago', 'publicidadmaterial.imagen', 'pagos.fechaSolicitud')
+                    ->whereNull('pagos.estado_pago')
+                    ->where('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                    ->orwhere('publicidadmaterial.id_pago', 'LIKE', '%' . $buscar . '%')
+                    ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                    ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                    ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%')
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        } else
+        {
+            $publicidadMaterial = PublicidadMaterial::join('pagos', 'publicidadmaterial.id_pago', '=', 'pagos.id')
+                    ->select('publicidadmaterial.id_usuario', 'publicidadmaterial.id_pago', 'publicidadmaterial.imagen', 'pagos.fechaSolicitud')
+                    ->whereNull('pagos.estado_pago')
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        }
+
+        return view('Administrador.publicity-pending-material', [
+            'publicidadMaterial' => $publicidadMaterial
+        ]);
+    }
+
+    public function activarPublicidad($id_pago)
+    {
+        $date = Carbon::now();
+        $vigencia = Carbon::now()->addMonth();
+
+        $pago = Pago::find($id_pago);
+        $pago->fechaAprobacion = $date;
+        $pago->estado_pago = 1;
+        $pago->vigencia = $vigencia;
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-pendiente-material')
+                        ->with(['message' => 'Publicidad del material activada']);
+    }
+
+    public function removerPublicidad($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        $pago->estado_pago = 0;
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-pendiente-material')
+                        ->with(['message' => 'Publicidad del material eliminada']);
+    }
+
+    public function publicidadActiva()
+    {
+        return view('Administrador.publicity-active-material');
+    }
+
+    public function publicidadEliminada()
+    {
+        return view('Administrador.publicity-removed-material');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -34,7 +100,10 @@ class PublicidadMaterialController extends Controller
      */
     public function create()
     {
-        $catalogoMateriales = CatalogoMaterial::orderBy('nombre')->get();
+        $catalogoMateriales = CatalogoMaterial::leftJoin('publicidadmaterial', 'catalogomateriales.id', '=', 'publicidadmaterial.id_material')
+                ->select('catalogomateriales.id', 'catalogomateriales.nombre')
+                ->whereNull('publicidadmaterial.id_material')
+                ->get();
         return view('Usuario.publicity-material', [
             'catalogoMateriales' => $catalogoMateriales
         ]);
@@ -131,6 +200,12 @@ class PublicidadMaterialController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getImage($fileName)
+    {
+        $file = Storage::disk('publicidadMaterial')->get($fileName);
+        return new Response($file, 200);
     }
 
 }
