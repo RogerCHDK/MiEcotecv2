@@ -10,7 +10,8 @@
                 <div class="col-lg-7 col-lg-7-event">
                     <div class="p-5">
                         <form class="user" action="{{route('consejo.update', $consejo->id)}}" method="POST" enctype="multipart/form-data">
-                            @csrf
+                            {{ csrf_field() }} 
+                            <input type="hidden" name="_method" value="PATCH">
                             <div class="resume-content">
                                 <input name="id_usuario" type="hidden" value="{{$users->id}}" ></input>
                             </div>
@@ -41,21 +42,8 @@
                                     <img src="assets/img/Eventos/image2.jpg" style="width: 100%;">
                                 </div>
                             </div>
-                            <div class="form-group row" style="margin-bottom: 0px;">
-                                <div class="text-center">
-                                    <h4 class="mb-4" style="font-size: 18px;color: rgb(0,0,0);">Entorno</h4>
-                                </div>
-                            </div>
-                            @foreach($entornos as $entorno) 
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0 objs">
-                                    <div class="form-check" style="font-size: 18px;color: rgb(0,0,0);">
-                                        <input class="form-check-input" type="radio" id="formCheck-1" name="id_entorno" value="{{$entorno->id}}">
-                                        <label class="form-check-label" for="formCheck-1">{{$entorno->nombre}}</label>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
+                            
+                            
                             <div class="form-group row" style="margin-bottom: 0px;">
                                 <div class="text-center">
                                     <h4 class="mb-4" style="font-size: 18px;color: rgb(0,0,0);">Materiales</h4>

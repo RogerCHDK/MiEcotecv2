@@ -15,7 +15,23 @@
                     <a class="dropdown-item" role="presentation" href="#">Automóvil</a>
                 </div>
             </div> 
-            <a class="btn btn-primary" role="button" style="font-size: 18px;" href="{{ route('asesor.create') }}">¿Eres asesor?</a>
+
+            @if ($as===0)
+                <a class="btn btn-primary" role="button" style="font-size: 18px;" href="{{ route('asesor.create') }}">¿Eres asesor?</a>
+ 
+                @else
+                    @foreach($as as $ase)
+                        <a class="btn btn-primary" role="button" style="font-size: 18px;" href="{{ route('asesor.edit',$ase->id) }}">Modificar perfil asesor</a>
+                        <form action="{{ route('asesor.destroy', ($ase->id)) }}" method="POST">
+                            {{ csrf_field() }} 
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input class="btn btn-danger" type="submit" style="font-size: 18px;" value="Eliminar">
+                        </form>
+                    @endforeach
+                                        
+            @endif
+
+            
         </div> 
         <div class="card-body">
             <div class="text-center">
