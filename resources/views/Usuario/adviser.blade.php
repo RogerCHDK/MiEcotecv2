@@ -9,9 +9,15 @@
             <div class="row mb-3">
                 <div class="col-lg-4">
                     <div class="card mb-3" style="height: 100%;">
+                        
                         <div class="card-body text-center shadow">
-                            <img class="img-adviser" src="{{ route('usuario.imagen', ['filename' => Auth::user()->imagen]) }}">
+                            @if( Auth::guest() )
+                                 <img class="img-adviser" src="">
+                            @else
+                             <img class="img-adviser" src="{{ route('usuario.imagen', ['filename' => Auth::user()->imagen]) }}">
+                            @endif
                         </div>
+
                     </div>
                 </div> 
                 <div class="col-lg-8">

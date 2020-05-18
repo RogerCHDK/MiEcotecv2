@@ -26,7 +26,11 @@ class HomeController extends Controller
     public function index()
     {
         $rol = \Auth::user()->rol;
-        if ($rol == 'Administrador')
+        if (\Auth::guest()) {
+            $eventos = Evento::orderBy('nombre')->get();
+            return view('Usuario_no_registrado.welcome', ['eventos' => $eventos]);
+        } else {
+            if ($rol == 'Administrador')
         {
             return view('Administrador.index');
         } elseif ($rol == 'Usuario') {
@@ -37,11 +41,12 @@ class HomeController extends Controller
             $registros = Registro::where('id_usuario',$usuario->id)->get();
             return view('Usuario.welcome', ['eventos' => $eventos])->with(['misEventos' => $misEventos])->with('users',$users)->with('registros',$registros);
             
-        } else
-        { 
-            $eventos = Evento::orderBy('nombre')->get();
-            return view('Usuario_no_registrado.welcome', ['eventos' => $eventos]);
+        } 
+            
         }
+        
+    
+        
     }
 
 }

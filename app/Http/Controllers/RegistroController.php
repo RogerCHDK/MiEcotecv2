@@ -52,7 +52,16 @@ class RegistroController extends Controller
      */
     public function show($id)
     {
-        return view();
+        $evento = Evento::find($id);
+        
+        $registros = count(Registro::where('id_evento',$id)->get());
+        if ($registros === 0) {
+            $registros = 0;
+        } else {
+            $registros = Registro::where('id_evento', $id)->get();
+        }
+        
+        return view('Usuario.assistants')->with('registros',$registros)->with('evento',$evento);
     }
 
     /**
