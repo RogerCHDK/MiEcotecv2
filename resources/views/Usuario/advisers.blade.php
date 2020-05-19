@@ -15,7 +15,9 @@
                     <a class="dropdown-item" role="presentation" href="#">Automóvil</a>
                 </div>
             </div> 
-
+            @if ($as===-1)
+                <a class="btn btn-primary" role="button" style="font-size: 18px;" href="{{ route('register') }}">¿Eres asesor?</a>
+            @else
             @if ($as===0)
                 <a class="btn btn-primary" role="button" style="font-size: 18px;" href="{{ route('asesor.create') }}">¿Eres asesor?</a>
  
@@ -30,7 +32,7 @@
                     @endforeach
                                         
             @endif
-
+            @endif
             
         </div> 
         <div class="card-body">

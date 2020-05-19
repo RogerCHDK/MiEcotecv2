@@ -25,11 +25,22 @@ class ConsejoController extends Controller
      */
     public function index()
     {
-        $usuario = Auth::user();
+        if (Auth::guest()) {
+            
+        $consejos = Consejo::orderBy('nombre')->get();
+        $entornos = CatalogoEntorno::orderBy('nombre')->get();
+        $entornos1=$entornos;
+        return view('Usuario_no_registrado.tips')->with('consejos',$consejos)->with('entornos',$entornos)->with('entornos1',$entornos1);
+        } else {
+         $usuario = Auth::user();
         $misconsejos = Consejo::where('id_usuario',$usuario->id)->get();
         $consejos = Consejo::orderBy('nombre')->get();
         $entornos = CatalogoEntorno::orderBy('nombre')->get();
-        return view('Usuario.tips')->with('consejos',$consejos)->with('misconsejos',$misconsejos)->with('entornos',$entornos);
+        $entornos1=$entornos;
+        return view('Usuario.tips')->with('consejos',$consejos)->with('misconsejos',$misconsejos)->with('entornos',$entornos)->with('entornos1',$entornos1);   
+            
+        }
+        
     }
 
     /**

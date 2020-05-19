@@ -11,7 +11,16 @@ class AsesorController extends Controller
 {
     public function index()
     {
-        $usuario = Auth::user();
+        if (Auth::guest()) {
+
+        $asesores = Asesor::orderBy('id')->get();
+        
+        
+        $as = -1;
+        return view('Usuario.advisers', ['asesores' => $asesores])->with('as',$as);
+            
+        } else {
+           $usuario = Auth::user();
         $asesores = Asesor::orderBy('id')->get();
         $as = Asesor::where('id_usuario', $usuario->id);
         $ban =count(Asesor::where('id_usuario', $usuario->id)->get());
@@ -20,7 +29,10 @@ class AsesorController extends Controller
         } else {
             $as = Asesor::select('id')->where('id_usuario', $usuario->id)->get();
         }
-        return view('Usuario.advisers', ['asesores' => $asesores])->with('as',$as)->with('usuario',$usuario);
+        return view('Usuario.advisers', ['asesores' => $asesores])->with('as',$as)->with('usuario',$usuario); 
+            
+        }
+        
     }
  
     /**

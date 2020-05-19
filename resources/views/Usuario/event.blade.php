@@ -38,13 +38,19 @@
                                 </div>
                             </div>
                             <div class="text-center" style="margin-bottom: 24px;font-size: 20px;">
-                                <a class="event_title" href="assistants.html" style="font-size: 18px;">
+                                <a class="event_title" href="{{route('registro.show',$evento->id)}}" style="font-size: 18px;">
                                     <i class="fa fa-group" style="margin-right: 10px;font-size: 25px;"></i> {{$registros}} personas asistirán
                                 </a>
                             </div>
-                            {{$registros}} 
-                            
-                            
+                             
+                            @if ($reg===-1)
+                                <div class="text-center" style="margin-bottom: 24px;">
+                                    <a class="event_title" href="{{ route('register') }}" style="font-size: 18px;">
+                                     Registrate para participar</a>
+                                            
+                                </div>
+
+                            @else
                              @if ($reg===0)
                                     <form class="user" action="{{route('registro.store')}}" method="POST">
                                     {{ csrf_field() }} 
@@ -67,6 +73,7 @@
                                             @endforeach
                                         </div>
                                         
+                              @endif
                             @endif
                             
                             @foreach($user as $users)
