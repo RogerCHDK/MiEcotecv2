@@ -35,16 +35,21 @@ class ServicioController extends Controller
     {
         if (!empty($buscar))
         {
+            $this->_buscarPalabra = $buscar;
             $servicios = Servicio::join('pagos', 'servicios.id_pago', '=', 'pagos.id')
                     ->join('users', 'servicios.id_usuario', '=', 'users.id')
                     ->select('servicios.id_usuario', 'servicios.id_pago', 'servicios.nombre_establecimiento', 'servicios.imagen', 'pagos.fechaSolicitud')
                     ->whereNull('pagos.estado_pago')
-                    ->where('servicios.nombre_establecimiento', 'LIKE', '%' . $buscar . '%')
-                    ->orwhere('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
-                    ->orwhere('servicios.id_pago', 'LIKE', '%' . $buscar . '%')
-                    ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
-                    ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
-                    ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%')
+                    ->where(function($query)
+                    {
+                        $buscar = $this->_buscarPalabra;
+                        $query->where('servicios.nombre_establecimiento', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('servicios.id_pago', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%');
+                    })
                     ->orderByDesc('fechaSolicitud')
                     ->paginate(10);
         } else
@@ -86,14 +91,117 @@ class ServicioController extends Controller
                         ->with(['message' => 'Publicidad del servicio eliminada']);
     }
 
-    public function publicidadActiva()
+    public function publicidadActiva($buscar = null)
     {
-        return view('Administrador.publicity-active-service');
+        if (!empty($buscar))
+        {
+            $this->_buscarPalabra = $buscar;
+            $servicios = Servicio::join('pagos', 'servicios.id_pago', '=', 'pagos.id')
+                    ->join('users', 'servicios.id_usuario', '=', 'users.id')
+                    ->select('servicios.id_usuario', 'servicios.id_pago', 'servicios.nombre_establecimiento', 'pagos.fechaSolicitud', 'pagos.fechaAprobacion', 'pagos.vigencia')
+                    ->where('pagos.estado_pago', '=', 1)
+                    ->where(function($query)
+                    {
+                        $buscar = $this->_buscarPalabra;
+                        $query->where('servicios.nombre_establecimiento', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.fechaAprobacion', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.vigencia', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('servicios.id_pago', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%');
+                    })
+                    ->orderByDesc('pagos.fechaAprobacion')
+                    ->paginate(10);
+        } else
+        {
+            $servicios = Servicio::join('pagos', 'servicios.id_pago', '=', 'pagos.id')
+                    ->select('servicios.id_usuario', 'servicios.id_pago', 'servicios.nombre_establecimiento', 'pagos.fechaSolicitud', 'pagos.fechaAprobacion', 'pagos.vigencia')
+                    ->where('pagos.estado_pago', '=', 1)
+                    ->orderByDesc('pagos.fechaAprobacion')
+                    ->paginate(10);
+        }
+
+        return view('Administrador.publicity-active-service', [
+            'servicios' => $servicios
+        ]);
     }
 
-    public function publicidadEliminada()
+    public function removerPublicidadActiva($id_pago)
     {
-        return view('Administrador.publicity-removed-service');
+        $pago = Pago::find($id_pago);
+        $pago->estado_pago = 0;
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-activa-servicio')
+                        ->with(['message' => 'Publicidad del servicio eliminada']);
+    }
+
+    public function publicidadEliminada($buscar = null)
+    {
+        if (!empty($buscar))
+        {
+            $this->_buscarPalabra = $buscar;
+            $servicios = Servicio::join('pagos', 'servicios.id_pago', '=', 'pagos.id')
+                    ->join('users', 'servicios.id_usuario', '=', 'users.id')
+                    ->select('servicios.id_usuario', 'servicios.id_pago', 'servicios.nombre_establecimiento', 'servicios.imagen', 'pagos.fechaSolicitud')
+                    ->where('pagos.estado_pago', '=', 0)
+                    ->where(function($query)
+                    {
+                        $buscar = $this->_buscarPalabra;
+                        $query->where('servicios.nombre_establecimiento', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('servicios.id_pago', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%');
+                    })
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        } else
+        {
+            $servicios = Servicio::join('pagos', 'servicios.id_pago', '=', 'pagos.id')
+                    ->select('servicios.id_usuario', 'servicios.id_pago', 'servicios.nombre_establecimiento', 'servicios.imagen', 'pagos.fechaSolicitud')
+                    ->where('pagos.estado_pago', '=', 0)
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        }
+
+        return view('Administrador.publicity-removed-service', [
+            'servicios' => $servicios
+        ]);
+    }
+
+    public function eliminarPublicidad($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        $pago->delete();
+
+        return redirect()->route('admin.publicidad-eliminada-servicio')
+                        ->with(['message' => 'Publicidad del servicio eliminada']);
+    }
+
+    public function activarPublicidadRemovida($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        if ($pago->fechaAprobacion == null)
+        {
+            $date = Carbon::now();
+            $vigencia = Carbon::now()->addMonth();
+
+            $pago = Pago::find($id_pago);
+            $pago->fechaAprobacion = $date;
+            $pago->estado_pago = 1;
+            $pago->vigencia = $vigencia;
+        } else
+        {
+            $pago->estado_pago = 1;
+        }
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-eliminada-servicio')
+                        ->with(['message' => 'Publicidad del servicio activada']);
     }
 
     /**
