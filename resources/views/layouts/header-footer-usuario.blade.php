@@ -147,6 +147,12 @@
                         <div class="text-center my-auto copyright">
                             <span style="font-size: 16px;color: rgb(0,0,0);">Copyright &copy; EcoTec <?= date('Y') ?></span>
                         </div>
+                        <div class="text-center my-auto copyright copyrightEmail">
+                            <span style="font-size: 13px;color: rgb(0,0,0); margin-top: 5px;">Correo electrónico: ecotec@gmail.com</span><br>
+                        </div>
+                        <div class="text-center my-auto copyright copyrightTel">
+                            <span style="font-size: 13px;color: rgb(0,0,0); margin-top: 5px;">Teléfono: +52 1 722 123 45 67</span><br>
+                        </div>
                     </div>
                 </footer>
             </div>

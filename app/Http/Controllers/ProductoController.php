@@ -48,6 +48,179 @@ class ProductoController extends Controller
         return view('Usuario_no_registrado.products')->with('productos', $producto)->with('clasificaciones', $clasificacion)->with('bandera',$bandera)->with('clasificacion_filtrada',$clasificacion_filtrada);
     } 
 
+    public function publicidadPendiente($buscar = null)
+    {
+        if (!empty($buscar))
+        {
+            $this->_buscarPalabra = $buscar;
+            $productos = Producto::join('pagos', 'productos.id_pago', '=', 'pagos.id')
+                    ->join('users', 'productos.id_usuario', '=', 'users.id')
+                    ->select('productos.id_usuario', 'productos.id_pago', 'productos.nombre', 'productos.imagen', 'pagos.fechaSolicitud')
+                    ->whereNull('pagos.estado_pago')
+                    ->where(function($query)
+                    {
+                        $buscar = $this->_buscarPalabra;
+                        $query->where('productos.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('productos.id_pago', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%');
+                    })
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        } else
+        {
+            $productos = Producto::join('pagos', 'productos.id_pago', '=', 'pagos.id')
+                    ->select('productos.id_usuario', 'productos.id_pago', 'productos.nombre', 'productos.imagen', 'pagos.fechaSolicitud')
+                    ->whereNull('pagos.estado_pago')
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        }
+
+        return view('Administrador.publicity-pending-product', [
+            'productos' => $productos
+        ]);
+    }
+
+    public function activarPublicidad($id_pago)
+    {
+        $date = Carbon::now();
+        $vigencia = Carbon::now()->addMonth();
+
+        $pago = Pago::find($id_pago);
+        $pago->fechaAprobacion = $date;
+        $pago->estado_pago = 1;
+        $pago->vigencia = $vigencia;
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-pendiente-producto')
+                        ->with(['message' => 'Publicidad del producto activada']);
+    }
+
+    public function removerPublicidad($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        $pago->estado_pago = 0;
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-pendiente-producto')
+                        ->with(['message' => 'Publicidad del producto eliminada']);
+    }
+
+    public function publicidadActiva($buscar = null)
+    {
+        if (!empty($buscar))
+        {
+            $this->_buscarPalabra = $buscar;
+            $productos = Producto::join('pagos', 'productos.id_pago', '=', 'pagos.id')
+                    ->join('users', 'productos.id_usuario', '=', 'users.id')
+                    ->select('productos.id_usuario', 'productos.id_pago', 'productos.nombre', 'pagos.fechaSolicitud', 'pagos.fechaAprobacion', 'pagos.vigencia')
+                    ->where('pagos.estado_pago', '=', 1)
+                    ->where(function($query)
+                    {
+                        $buscar = $this->_buscarPalabra;
+                        $query->where('productos.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.fechaAprobacion', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.vigencia', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('productos.id_pago', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%');
+                    })
+                    ->orderByDesc('pagos.fechaAprobacion')
+                    ->paginate(10);
+        } else
+        {
+            $productos = Producto::join('pagos', 'productos.id_pago', '=', 'pagos.id')
+                    ->select('productos.id_usuario', 'productos.id_pago', 'productos.nombre', 'pagos.fechaSolicitud', 'pagos.fechaAprobacion', 'pagos.vigencia')
+                    ->where('pagos.estado_pago', '=', 1)
+                    ->orderByDesc('pagos.fechaAprobacion')
+                    ->paginate(10);
+        }
+
+        return view('Administrador.publicity-active-product', [
+            'productos' => $productos
+        ]);
+    }
+
+    public function removerPublicidadActiva($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        $pago->estado_pago = 0;
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-activa-producto')
+                        ->with(['message' => 'Publicidad del producto eliminada']);
+    }
+
+    public function publicidadEliminada($buscar = null)
+    {
+        if (!empty($buscar))
+        {
+            $this->_buscarPalabra = $buscar;
+            $productos = Producto::join('pagos', 'productos.id_pago', '=', 'pagos.id')
+                    ->join('users', 'productos.id_usuario', '=', 'users.id')
+                    ->select('productos.id_usuario', 'productos.id_pago', 'productos.nombre', 'productos.imagen', 'pagos.fechaSolicitud')
+                    ->where('pagos.estado_pago', '=', 0)
+                    ->where(function($query)
+                    {
+                        $buscar = $this->_buscarPalabra;
+                        $query->where('productos.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('productos.id_pago', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%');
+                    })
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        } else
+        {
+            $productos = Producto::join('pagos', 'productos.id_pago', '=', 'pagos.id')
+                    ->select('productos.id_usuario', 'productos.id_pago', 'productos.nombre', 'productos.imagen', 'pagos.fechaSolicitud')
+                    ->where('pagos.estado_pago', '=', 0)
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        }
+
+        return view('Administrador.publicity-removed-product', [
+            'productos' => $productos
+        ]);
+    }
+
+    public function eliminarPublicidad($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        $pago->delete();
+
+        return redirect()->route('admin.publicidad-eliminada-producto')
+                        ->with(['message' => 'Publicidad del producto eliminada']);
+    }
+
+    public function activarPublicidadRemovida($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        if ($pago->fechaAprobacion == null)
+        {
+            $date = Carbon::now();
+            $vigencia = Carbon::now()->addMonth();
+
+            $pago = Pago::find($id_pago);
+            $pago->fechaAprobacion = $date;
+            $pago->estado_pago = 1;
+            $pago->vigencia = $vigencia;
+        } else
+        {
+            $pago->estado_pago = 1;
+        }
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-eliminada-producto')
+                        ->with(['message' => 'Publicidad del producto activada']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -69,7 +242,6 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-
         $validate = $this->validate($request, [
             'imagen' => ['required', 'image'],
             'nombre' => ['String', 'max:255','required'],
@@ -110,9 +282,14 @@ class ProductoController extends Controller
                             'telefono' => $request->telefono,
                         ]
         );
+<<<<<<< HEAD
         return redirect()->route('usuario.publicidad')->with(['message' => 'Publicidad del producto solicitada, en los próximos días se validará el pago. '
                             . 'Número de solicitud: ' . $pago->id]); 
     } 
+=======
+        return redirect()->route('usuario.publicidad');
+    }
+>>>>>>> bd3c7903ef42a9de154e8be4880dc39a21ab541f
 
     /**
      * Display the specified resource.

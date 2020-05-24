@@ -22,7 +22,7 @@ class Consejo extends Model
 
     public function likes()
     {
-        return$this->hasMany('App\Like');
+        return $this->hasMany('App\Like','id_consejo');
     }
     
     public function catalogoMateriales()

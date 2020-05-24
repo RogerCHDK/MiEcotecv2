@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <title>EcoTecccc</title>
+        <title>EcoTec</title>
         <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('assets/img/Logo/logo%201.1.1.png') }}">
         <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -62,7 +62,7 @@
                             </a>
                         </li> 
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
-                            <a class="nav-link text-center" href="{{route('publicidad.index')}}" style="font-size: 15px;max-width: 100%;">
+                            <a class="nav-link text-center" href="" style="font-size: 15px;max-width: 100%;">
                                 <i class="fab fa-product-hunt" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Publicidad</span></a>
                         </li>
@@ -132,6 +132,12 @@
                     <div class="container my-auto">
                         <div class="text-center my-auto copyright">
                             <span style="font-size: 16px;color: rgb(0,0,0);">Copyright &copy; EcoTec <?= date('Y') ?></span>
+                        </div>
+                        <div class="text-center my-auto copyright copyrightEmail">
+                            <span style="font-size: 13px;color: rgb(0,0,0); margin-top: 5px;">Correo electrónico: ecotec@gmail.com</span><br>
+                        </div>
+                        <div class="text-center my-auto copyright copyrightTel">
+                            <span style="font-size: 13px;color: rgb(0,0,0); margin-top: 5px;">Teléfono: +52 1 722 123 45 67</span><br>
                         </div>
                     </div>
                 </footer>

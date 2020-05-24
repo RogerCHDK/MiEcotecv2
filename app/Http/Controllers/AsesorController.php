@@ -9,11 +9,36 @@ use App\User;
 use App\CatalogoClasificacionAsesor;
 class AsesorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
+        if (Auth::guest()) {
+
         $asesores = Asesor::orderBy('id')->get();
         
-        return view('Usuario.advisers', ['asesores' => $asesores]);
+        $as = -1;
+        return view('Usuario.advisers', ['asesores' => $asesores])->with('as',$as);
+            
+        } else {
+           $usuario = Auth::user();
+        $asesores = Asesor::orderBy('id')->get();
+        $as = Asesor::where('id_usuario', $usuario->id);
+        $ban =count(Asesor::where('id_usuario', $usuario->id)->get());
+        if ($ban===0) {
+            $as = 0;
+        } else {
+            $as = Asesor::select('id')->where('id_usuario', $usuario->id)->get();
+        }
+        
+        return view('Usuario.advisers', ['asesores' => $asesores])->with('as',$as)->with('usuario',$usuario);
+             
+            
+        }
+        
     }
  
     /**
@@ -62,6 +87,11 @@ class AsesorController extends Controller
      */
     public function edit($id)
     {
+        $asesor = Asesor::find($id);
+        $users = Auth::user();
+        $tipos_asesor = CatalogoClasificacionAsesor::all(); 
+        
+        return view('Usuario.edit-adviser', compact('users'))->with('tipos_asesor',$tipos_asesor)->with('asesor',$asesor);
         
     }
 
@@ -74,7 +104,10 @@ class AsesorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $asesor = Asesor::find($id);
+        $datos = $request->all();
+        $asesor->update($datos);
+         return redirect('/asesor');
     }
 
     /**
@@ -85,13 +118,19 @@ class AsesorController extends Controller
      */
     public function destroy($id)
     {
-        /*
-        afaefe
+        
         $asesor = Asesor::find($id);
         $asesor->delete();
-        return redirect()->route('admin.asesores')
-                        ->with(['message' => 'Clasificación eliminada']);
-                        */ 
+        return redirect('/asesor');
+                        
+    }
+
+    public function getImage($fileName)
+    {
+        //$user = User::find($id_usuario);
+        //$fileName= $user->imagen;
+        $file = Storage::disk('usuarios')->get($fileName);
+        return new Response($file, 200);
     }
 
     

@@ -8,6 +8,8 @@ use App\PublicidadHerramienta;
 use App\Pago;
 use Carbon\Carbon;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class PublicidadHerramientaController extends Controller
 {
@@ -27,6 +29,196 @@ class PublicidadHerramientaController extends Controller
         return view('Usuario.publicity'); 
     }
 
+    public function indexAdministrator()
+    {
+        return view('Administrador.index');
+    }
+
+    public function indexPendiente()
+    {
+        return view('Administrador.publicity-pending');
+    }
+
+    public function indexActiva()
+    {
+        return view('Administrador.publicity-active');
+    }
+
+    public function indexEliminada()
+    {
+        return view('Administrador.publicity-removed');
+    }
+
+    public function publicidadPendiente($buscar = null)
+    {
+        if (!empty($buscar))
+        {
+            $this->_buscarPalabra = $buscar;
+            $publicidadHerramienta = PublicidadHerramienta::join('pagos', 'publicidadherramienta.id_pago', '=', 'pagos.id')
+                    ->join('users', 'publicidadherramienta.id_usuario', '=', 'users.id')
+                    ->select('publicidadherramienta.id_usuario', 'publicidadherramienta.id_pago', 'publicidadherramienta.imagen', 'pagos.fechaSolicitud')
+                    ->whereNull('pagos.estado_pago')
+                    ->where(function($query)
+                    {
+                        $buscar = $this->_buscarPalabra;
+                        $query->where('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('publicidadherramienta.id_pago', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%');
+                    })
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        } else
+        {
+            $publicidadHerramienta = PublicidadHerramienta::join('pagos', 'publicidadherramienta.id_pago', '=', 'pagos.id')
+                    ->select('publicidadherramienta.id_usuario', 'publicidadherramienta.id_pago', 'publicidadherramienta.imagen', 'pagos.fechaSolicitud')
+                    ->whereNull('pagos.estado_pago')
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        }
+
+        return view('Administrador.publicity-pending-tool', [
+            'publicidadHerramienta' => $publicidadHerramienta
+        ]);
+    }
+
+    public function activarPublicidad($id_pago)
+    {
+        $date = Carbon::now();
+        $vigencia = Carbon::now()->addMonth();
+
+        $pago = Pago::find($id_pago);
+        $pago->fechaAprobacion = $date;
+        $pago->estado_pago = 1;
+        $pago->vigencia = $vigencia;
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-pendiente-herramienta')
+                        ->with(['message' => 'Publicidad de la herramienta activada']);
+    }
+
+    public function removerPublicidad($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        $pago->estado_pago = 0;
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-pendiente-herramienta')
+                        ->with(['message' => 'Publicidad de la herramienta eliminada']);
+    }
+
+    public function publicidadActiva($buscar = null)
+    {
+        if (!empty($buscar))
+        {
+            $this->_buscarPalabra = $buscar;
+            $herramientas = PublicidadHerramienta::join('pagos', 'publicidadherramienta.id_pago', '=', 'pagos.id')
+                    ->join('users', 'publicidadherramienta.id_usuario', '=', 'users.id')
+                    ->select('publicidadherramienta.id_usuario', 'publicidadherramienta.id_pago', 'pagos.fechaSolicitud', 'pagos.fechaAprobacion', 'pagos.vigencia')
+                    ->where('pagos.estado_pago', '=', 1)
+                    ->where(function($query)
+                    {
+                        $buscar = $this->_buscarPalabra;
+                        $query->where('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.fechaAprobacion', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.vigencia', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('publicidadherramienta.id_pago', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%');
+                    })
+                    ->orderByDesc('pagos.fechaAprobacion')
+                    ->paginate(10);
+        } else
+        {
+            $herramientas = PublicidadHerramienta::join('pagos', 'publicidadherramienta.id_pago', '=', 'pagos.id')
+                    ->select('publicidadherramienta.id_usuario', 'publicidadherramienta.id_pago', 'pagos.fechaSolicitud', 'pagos.fechaAprobacion', 'pagos.vigencia')
+                    ->where('pagos.estado_pago', '=', 1)
+                    ->orderByDesc('pagos.fechaAprobacion')
+                    ->paginate(10);
+        }
+
+        return view('Administrador.publicity-active-tool', [
+            'herramientas' => $herramientas
+        ]);
+    }
+
+    public function removerPublicidadActiva($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        $pago->estado_pago = 0;
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-activa-herramienta')
+                        ->with(['message' => 'Publicidad de la herramienta eliminada']);
+    }
+
+    public function publicidadEliminada($buscar = null)
+    {
+        if (!empty($buscar))
+        {
+            $this->_buscarPalabra = $buscar;
+            $publicidadHerramienta = PublicidadHerramienta::join('pagos', 'publicidadherramienta.id_pago', '=', 'pagos.id')
+                    ->join('users', 'publicidadherramienta.id_usuario', '=', 'users.id')
+                    ->select('publicidadherramienta.id_usuario', 'publicidadherramienta.id_pago', 'publicidadherramienta.imagen', 'pagos.fechaSolicitud')
+                    ->where('pagos.estado_pago', '=', 0)
+                    ->where(function($query)
+                    {
+                        $buscar = $this->_buscarPalabra;
+                        $query->where('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('publicidadherramienta.id_pago', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%');
+                    })
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        } else
+        {
+            $publicidadHerramienta = PublicidadHerramienta::join('pagos', 'publicidadherramienta.id_pago', '=', 'pagos.id')
+                    ->select('publicidadherramienta.id_usuario', 'publicidadherramienta.id_pago', 'publicidadherramienta.imagen', 'pagos.fechaSolicitud')
+                    ->where('pagos.estado_pago', '=', 0)
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        }
+
+        return view('Administrador.publicity-removed-tool', [
+            'publicidadHerramienta' => $publicidadHerramienta
+        ]);
+    }
+
+    public function eliminarPublicidad($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        $pago->delete();
+
+        return redirect()->route('admin.publicidad-eliminada-herramienta')
+                        ->with(['message' => 'Publicidad de la herramienta eliminada']);
+    }
+
+    public function activarPublicidadRemovida($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        if ($pago->fechaAprobacion == null)
+        {
+            $date = Carbon::now();
+            $vigencia = Carbon::now()->addMonth();
+
+            $pago = Pago::find($id_pago);
+            $pago->fechaAprobacion = $date;
+            $pago->estado_pago = 1;
+            $pago->vigencia = $vigencia;
+        } else
+        {
+            $pago->estado_pago = 1;
+        }
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-eliminada-herramienta')
+                        ->with(['message' => 'Publicidad de la herramienta activada']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -34,7 +226,10 @@ class PublicidadHerramientaController extends Controller
      */
     public function create()
     {
-        $catalogoHerramientas = CatalogoHerramienta::orderBy('nombre')->get();
+        $catalogoHerramientas = CatalogoHerramienta::leftJoin('publicidadherramienta', 'catalogoherramientas.id', '=', 'publicidadherramienta.id_herramienta')
+                ->select('catalogoherramientas.id', 'catalogoherramientas.nombre')
+                ->whereNull('publicidadherramienta.id_herramienta')
+                ->get();
         return view('Usuario.publicity-tool', [
             'catalogoHerramientas' => $catalogoHerramientas
         ]);
@@ -131,6 +326,12 @@ class PublicidadHerramientaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getImage($fileName)
+    {
+        $file = Storage::disk('publicidadHerramienta')->get($fileName);
+        return new Response($file, 200);
     }
 
 }

@@ -97,8 +97,8 @@
                                             <div class="d-flex justify-content-around" style="width: 100%;">
                                                 <a class="btn btn-primary" role="button" style="font-size: 18px;" href="{{ route('evento.edit',$miEvento->id) }}">Modificar</a>
 
-                                                <form action="{{ route('evento.destroy', ($miEvento->id)) }}" method="POST">
-                                                    <a class="btn btn-danger" type="submit" role="button" style="font-size: 18px;" href="{{ route('evento.destroy',$miEvento->id) }}">Eliminar</a>
+                                                <form action="{{ route('evento.destroy', $miEvento->id) }}" method="POST">
+                                                    {{ csrf_field() }} 
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input class="btn btn-danger" type="submit" style="font-size: 18px;" value="Eliminar">
                                                 </form>

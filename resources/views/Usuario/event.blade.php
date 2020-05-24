@@ -38,20 +38,44 @@
                                 </div>
                             </div>
                             <div class="text-center" style="margin-bottom: 24px;font-size: 20px;">
-                                <a class="event_title" href="assistants.html" style="font-size: 18px;">
+                                <a class="event_title" href="{{route('registro.show',$evento->id)}}" style="font-size: 18px;">
                                     <i class="fa fa-group" style="margin-right: 10px;font-size: 25px;"></i> {{$registros}} personas asistirán
                                 </a>
                             </div>
-                            <form class="user" action="{{route('registro.store')}}" method="POST">
-                            {{ csrf_field() }} 
-                                <input class="form-control form-control-user" type="hidden"  id="id_usuario" name="id_usuario" value="{{$usuario->id}}" style="font-size: 18px;color: rgb(0,0,0);">
-                                <input class="form-control form-control-user" type="hidden"  id="id_evento" name="id_evento" value="{{$evento->id}}" style="font-size: 18px;color: rgb(0,0,0);">
+                             
+                            @if ($reg===-1)
+                                <div class="text-center" style="margin-bottom: 24px;">
+                                    <a class="event_title" href="{{ route('register') }}" style="font-size: 18px;">
+                                     Registrate para participar</a>
+                                            
+                                </div>
+
+                            @else
+                             @if ($reg===0)
+                                    <form class="user" action="{{route('registro.store')}}" method="POST">
+                                    {{ csrf_field() }} 
+                                        <input class="form-control form-control-user" type="hidden"  id="id_usuario" name="id_usuario" value="{{$usuario->id}}" style="font-size: 18px;color: rgb(0,0,0);">
+                                        <input class="form-control form-control-user" type="hidden"  id="id_evento" name="id_evento" value="{{$evento->id}}" style="font-size: 18px;color: rgb(0,0,0);">
+                                    
+                                        <div class="text-center" style="margin-bottom: 24px;">
+                                            <button class="btn btn-primary" type="submit" style="font-size: 18px;">Participar</button>
+                                        </div>
+                                    </form>
+ 
+                                    @else
+                                        <div class="text-center" style="margin-bottom: 24px;">
+                                            @foreach($reg as $reg1)
+                                                <form action="{{ route('registro.destroy', ($reg1->id)) }}" method="POST">
+                                                    {{ csrf_field() }} 
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input class="btn btn-danger" type="submit" style="font-size: 18px;" value="Salir">
+                                                </form>
+                                            @endforeach
+                                        </div>
+                                        
+                              @endif
+                            @endif
                             
-                            <div class="text-center" style="margin-bottom: 24px;">
-                                <button class="btn btn-primary" type="submit" style="font-size: 18px;">Participar</button>
-                                <button class="btn btn-danger" type="button" style="font-size: 18px;">Salir</button>
-                            </div>
-                            </form>
                             @foreach($user as $users)
                             
                             

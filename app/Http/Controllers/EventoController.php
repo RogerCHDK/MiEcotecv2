@@ -22,12 +22,19 @@ class EventoController extends Controller
      */
      public function index() //Usuario registrado
     {
+        if (Auth::guest()) {
+            $eventos = Evento::orderBy('nombre')->get();
+            return view('Usuario_no_registrado.welcome', ['eventos' => $eventos]);
+        } else {
+            
             $usuario = Auth::user();
             $misEventos = Evento::where('id_usuario',$usuario->id)->get();
             $eventos = Evento::orderBy('nombre')->get();
             $users = User::orderBy('nombre')->get();
             $registros = Registro::where('id_usuario',$usuario->id)->get();
             return view('Usuario.welcome', ['eventos' => $eventos])->with(['misEventos' => $misEventos])->with('users',$users)->with('registros',$registros);
+        }
+            
     } 
 
     
@@ -75,12 +82,35 @@ class EventoController extends Controller
     
     public function show($id)
     {
-        $usuario = Auth::user();
+        if (Auth::guest()) {
+            $evento = Evento::find($id);
+        $user = User::where('id',$evento->id_usuario)->get();
+        
+        
+        $registros = count(Registro::where('id_evento',$id)->get());
+        
+        $reg = -1;
+        
+        return view('Usuario.event', ['evento' => $evento])->with('user',$user )->with('registros',$registros )->with('reg',$reg);
+        } else {
+            $usuario = Auth::user();
+        $id_u = $usuario->id;
         $evento = Evento::find($id);
         $user = User::where('id',$evento->id_usuario)->get();
-        $registros = count(Registro::where('id',$evento->id)->get());
         
-        return view('Usuario.event', ['evento' => $evento])->with('user',$user )->with('usuario',$usuario )->with('registros',$registros );
+        $ban =count(Registro::select('id')->where('id_usuario', $id_u)->where('id_evento', $id)->get());
+        $registros = count(Registro::where('id_evento',$id)->get());
+        
+        if ($ban===0) {
+            $reg = 0;
+        } else {
+            $reg = Registro::select('id')->where('id_usuario', $id_u)->where('id_evento', $id)->get();
+        }
+        
+        return view('Usuario.event', ['evento' => $evento])->with('user',$user )->with('usuario',$usuario )->with('registros',$registros )->with('reg',$reg);
+            
+        }
+        
     } 
 
     /** 
@@ -158,7 +188,7 @@ class EventoController extends Controller
     {
         
         $evento = Evento::find($id);
-        Storage::disk('evento')->delete()($evento->imagen);
+        Storage::disk('evento')->delete($evento->imagen);
         $evento->delete();
         return redirect('/evento');
 

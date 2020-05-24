@@ -7,6 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Validation\Rule;
 
 class UsuarioController extends Controller
 {
@@ -80,7 +83,34 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate = $this->validate($request, [
+            'imagen' => ['required', 'image'],
+        ]);
+
+        $imagen = $request->file('imagen');
+         if ($imagen) { 
+            $imagenNombre = time(). $imagen->getClientOriginalName(); 
+            $imagenRedimensionada = Image::make($imagen);
+            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/usuarios/' . $imagenNombre));
+            $request->imagen = $imagenNombre;
+        }
+        $user = User::find($id);
+        
+        $imagen_consejo = $request->imagen;
+        
+        $user->nombre = $request->nombre;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->apellido_paterno = $request->apellido_paterno;
+        $user->apellido_materno = $request->apellido_materno;
+        $user->imagen = $imagen_consejo;
+        $user->alias = $request->alias;
+        $user->enlace_facebook = $request->enlace_facebook;
+        $user->enlace_instagram = $request->enlace_instagram;
+        $user->enlace_twitter = $request->enlace_twitter;
+
+        $user->update();
+        return view('Usuario.profile')->with('user',$user);
     }
 
     /**

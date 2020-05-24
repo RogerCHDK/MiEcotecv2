@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Like extends Model
 {
 
+	public $timestamps = false;
     protected $table = 'likes';
+    protected $fillable = ['id_usuario','id_consejo'];
 
     public function usuario()
     {

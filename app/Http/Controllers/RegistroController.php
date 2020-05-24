@@ -52,7 +52,17 @@ class RegistroController extends Controller
      */
     public function show($id)
     {
-        //
+        $evento = Evento::find($id);
+        
+        $registros = count(Registro::where('id_evento',$id)->get());
+        if ($registros === 0) {
+            $registros = 0;
+        } else {
+            $registros = Registro::where('id_evento', $id)->get();
+            //$registros = Registro::where('id_evento', $id)->paginate(10);
+        }
+        
+        return view('Usuario.assistants')->with('registros',$registros)->with('evento',$evento);
     }
 
     /**
@@ -86,10 +96,15 @@ class RegistroController extends Controller
      */
     public function destroy($id)
     {
-        /*
-        $registro = Registro::find($id);
-        $registro->delete();
+        if ($id===0) {
+            //return back()->with('status','Registrate primero');
+            return redirect('/evento');
+        } else {
+            $registro = Registro::find($id);
+            $registro->delete();
+        }
+        
         return redirect('/evento');
-        */
+        
     }
 }

@@ -25,11 +25,22 @@ class ConsejoController extends Controller
      */
     public function index()
     {
-        $usuario = Auth::user();
+        if (Auth::guest()) {
+            
+        $consejos = Consejo::orderBy('nombre')->get();
+        $entornos = CatalogoEntorno::orderBy('nombre')->get();
+        $entornos1=$entornos;
+        return view('Usuario_no_registrado.tips')->with('consejos',$consejos)->with('entornos',$entornos)->with('entornos1',$entornos1);
+        } else {
+         $usuario = Auth::user();
         $misconsejos = Consejo::where('id_usuario',$usuario->id)->get();
         $consejos = Consejo::orderBy('nombre')->get();
         $entornos = CatalogoEntorno::orderBy('nombre')->get();
-        return view('Usuario.tips')->with('consejos',$consejos)->with('misconsejos',$misconsejos)->with('entornos',$entornos);
+        $entornos1=$entornos;
+        return view('Usuario.tips')->with('consejos',$consejos)->with('misconsejos',$misconsejos)->with('entornos',$entornos)->with('entornos1',$entornos1);   
+            
+        }
+        
     }
 
     /**
@@ -62,9 +73,10 @@ class ConsejoController extends Controller
          if ($imagen) { 
             $imagenNombre = time(). $imagen->getClientOriginalName(); 
             $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/eventos/' . $imagenNombre));
+            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/consejos/' . $imagenNombre));
             $request->imagen = $imagenNombre;
         }
+
         $consejo = Consejo::create(
             [
                 'id_usuario' => $request->id_usuario,
@@ -152,21 +164,29 @@ class ConsejoController extends Controller
          if ($imagen) { 
             $imagenNombre = time(). $imagen->getClientOriginalName(); 
             $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/eventos/' . $imagenNombre));
+            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/consejos/' . $imagenNombre));
             $request->imagen = $imagenNombre;
         }
-        $evento = Evento::find($id);
-        $cat_mat = $consejo->catalogoMateriales;
+        $consejo = Consejo::find($id);
         $a_materiales =$request->input('material');
-        foreach($a_materiales as $a_material)  {
-            foreach ($cat_mat as $cat_mat1) {
-                # code...
-            }
-            $consejo_material->catalogoMateriales()->attach($a_material);
-        }
-        $consejo_herramienta = Consejo::find($id_consejo);
+        $consejo->catalogoMateriales()->sync($a_materiales);
         $a_herramientas = $request->input('herramienta');
+        $consejo->catalogoHerramientas()->sync($a_herramientas);
 
+        $imagen_consejo = $request->imagen;
+        $id_usu = $request->id_usuario;
+        $id_ent = $request->id_entorno;
+        $nombre_consejo = $request->nombre;
+        $descripcion_consejo = $request->descripcion;
+
+        $consejo->imagen = $imagen_consejo;
+        $consejo->id_usuario = $id_usu;
+        $consejo->id_entorno = $id_ent;
+        $consejo->nombre = $nombre_consejo;
+        $consejo->descripcion = $descripcion_consejo;
+        $consejo->update();
+
+        return redirect('/consejo');
     }
 
     /**
@@ -177,7 +197,10 @@ class ConsejoController extends Controller
      */
     public function destroy($id)
     {
-        
+        $consejo = Consejo::find($id);
+        //Storage::disk('consejo')->delete($consejo->imagen);
+        $consejo->delete();
+        return redirect('/consejo');
     }
     //Obtener imagen del consejo
     public function getImage($fileName)
