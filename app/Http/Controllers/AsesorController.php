@@ -33,7 +33,9 @@ class AsesorController extends Controller
         } else {
             $as = Asesor::select('id')->where('id_usuario', $usuario->id)->get();
         }
-        return view('Usuario.advisers', ['asesores' => $asesores])->with('as',$as)->with('usuario',$usuario); 
+        
+        return view('Usuario.advisers', ['asesores' => $asesores])->with('as',$as)->with('usuario',$usuario);
+             
             
         }
         
@@ -123,10 +125,10 @@ class AsesorController extends Controller
                         
     }
 
-    public function getImage($id_usuario)
+    public function getImage($fileName)
     {
-        $user = User::find($id_usuario);
-        $fileName= $user->imagen;
+        //$user = User::find($id_usuario);
+        //$fileName= $user->imagen;
         $file = Storage::disk('usuarios')->get($fileName);
         return new Response($file, 200);
     }

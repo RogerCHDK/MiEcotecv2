@@ -152,7 +152,6 @@
                                     </div>
                                     <div class="d-flex justify-content-around" style="width: 100%;">
                                                 <a class="btn btn-primary" role="button" style="font-size: 18px;" href="{{ route('consejo.edit',$misconsejo->id) }}">Modificar</a>
-
                                                 <form action="{{ route('consejo.destroy', ($misconsejo->id)) }}" method="POST">
                                                     {{ csrf_field() }} 
                                                     <input type="hidden" name="_method" value="DELETE">

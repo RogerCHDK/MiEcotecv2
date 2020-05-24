@@ -41,11 +41,14 @@
             </div>
             <div class="row">
                 @foreach($asesores as $asesor)
+
                 <div class="col-md-6 col-lg-4 col-asesor">
                     <div class="card border-0">
                         <a href="{{ route('asesor.show',$asesor->id) }}">
                             <div class="marco zoom-on-hover">
-                                <img class="img-fluid image" src="{{route('asesor.asesor-imagen',$asesor->id_usuario)}}">
+                                <?php $asesor_imagn = $asesor->usuario->imagen;?>
+                                
+                                <img class="img-fluid image" src="{{route('asesor.asesor-imagen',$asesor->usuario->imagen)}}">
                             </div>
                         </a>
                         <div class="card-body text-center">

@@ -63,8 +63,9 @@ Route::get('prueba/{tipo}/{id}','LikeController@prueba');
 
 //------------ Experto
 Route::resource('asesor', 'AsesorController');
-Route::get('asesor-imagen/{id_usuario}', 'AsesorController@getImage')->name('asesor.asesor-imagen');
-//Route::get('/experto', 'UsuarioController@escaner')->name('garantia.escaner'); 
+Route::get('asesor-imagen/{fileName}', 'AsesorController@getImage')->name('asesor.asesor-imagen');
+//Route::get('asesor-imagen/{id_usuario}', 'AsesorController@getImage')->name('asesor.asesor-imagen');
+
 
 //------------------------------Publicidad
 Route::get('/advertising', 'PublicidadHerramientaController@index')->name('usuario.publicidad');
