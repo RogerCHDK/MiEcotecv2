@@ -47,7 +47,7 @@
                         <a href="{{ route('asesor.show',$asesor->id) }}">
                             <div class="marco zoom-on-hover">
                                 <?php $asesor_imagn = $asesor->usuario->imagen;?>
-                                
+
                                 <img class="img-fluid image" src="{{route('asesor.asesor-imagen',$asesor->usuario->imagen)}}">
                             </div>
                         </a>
