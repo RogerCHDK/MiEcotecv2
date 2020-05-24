@@ -24,7 +24,7 @@ class PublicidadHerramientaController extends Controller
      */
     public function index()
     {
-        return view('Usuario.publicity');
+        return view('Usuario.publicity'); 
     }
 
     /**

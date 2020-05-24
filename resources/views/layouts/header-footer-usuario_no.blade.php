@@ -42,7 +42,7 @@
                                 <i class="fas fa-child" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Consejos</span>
                             </a>
-                        </li>
+                        </li> 
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
                             <a class="nav-link text-center" href="{{ route('asesor.index') }}" style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-users" style="font-size: 20px;"></i>

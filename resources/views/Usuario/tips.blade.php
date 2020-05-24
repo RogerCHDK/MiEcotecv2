@@ -21,7 +21,7 @@
                                 <a class="dropdown-item" role="presentation" value="{{$consejo->catalogoEntorno->id}}" href="#">{{$consejo->catalogoEntorno->nombre}}</a>
                                 @endforeach
                             </div>
-                        </div>
+                        </div> 
                     </div>
                     <div class="card-body">
                         @foreach($entornos as $entorno) 

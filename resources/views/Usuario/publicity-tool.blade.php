@@ -9,7 +9,7 @@
             <div class="row d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
                 <div class="col-lg-7 col-lg-7-event">
                     <div class="p-5">
-                        <form class="user" method="POST" action="{{ route('usuario.guardar-publicidad-herramienta') }}" enctype="multipart/form-data">
+                         <form class="user" method="POST" action="{{ route('usuario.guardar-publicidad-herramienta') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0 tip-entorno">
