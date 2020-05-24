@@ -9,12 +9,16 @@ use App\User;
 use App\CatalogoClasificacionAsesor;
 class AsesorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         if (Auth::guest()) {
 
         $asesores = Asesor::orderBy('id')->get();
-        
         
         $as = -1;
         return view('Usuario.advisers', ['asesores' => $asesores])->with('as',$as);

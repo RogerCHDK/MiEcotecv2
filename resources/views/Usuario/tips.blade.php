@@ -12,7 +12,7 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" role="tabpanel" id="tab-1">
-                @foreach($entornos as $entorno)
+                
                 <div class="card shadow">
         <div class="card-header py-3">
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 30px;">Consejos</p>
@@ -21,13 +21,15 @@
             <div class="dropdown" style="width: 200px;">
                 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button" style="font-size: 18px;">Entorno</button>
                 <div class="dropdown-menu" role="menu" style="width: 180px;font-size: 16px;">
-                                @foreach($entornos1 as $entorno3) 
-                <a class="nav-link" role="tab" data-toggle="tab" href="{{$entorno3->id}}" value="{{$entorno3->nombre}}">{{$entorno->nombre}}</a>
-                                @endforeach
-                            </div>
+                    @foreach($entornos as $entorno) 
+                        <a class="dropdown-item" role="presentation" href="#{{$entorno->id}}" >{{$entorno->nombre}}</a>
+                        
+                    @endforeach
+                </div>
             </div>
         </div>
-        <div class="card-body">
+        @foreach($entornos as $entorno)
+        <div class="card-body" id="{{$entorno->id}}">
             <div class="text-center">
                 <h1 class="mb-4" style="font-size: 30px;color: rgb(38,125,36);">{{$entorno->nombre}}</h1>
             </div>
@@ -57,8 +59,9 @@
                             @endforeach
                         </div>
         </div>
+        @endforeach
     </div>
-    @endforeach
+    
             </div> 
             <div class="tab-pane" role="tabpanel" id="tab-2">
                 <div class="card shadow" style="margin-bottom: 24px;">
@@ -67,14 +70,14 @@
                         <div class="dropdown" style="width: 200px;">
                             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button" style="font-size: 18px;">Entorno</button>
                             <div class="dropdown-menu" role="menu" style="width: 180px;font-size: 16px;">
-                                @foreach($consejos as $consejo) 
-                                <a class="dropdown-item" role="presentation" value="{{$consejo->catalogoEntorno->id}}" href="#">{{$consejo->catalogoEntorno->nombre}}</a>
-                                @endforeach
+                                @foreach($entornos as $entorno) 
+                                    <a class="dropdown-item" role="presentation" href="#{{$entorno->id}}" >{{$entorno->nombre}}</a>
+                                 @endforeach
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        @foreach($entornos as $entorno) 
+                    @foreach($entornos as $entorno)
+                    <div class="card-body" id="{{$entorno->id}}">
                         <div class="text-center">
                             <h1 class="mb-4" style="font-size: 30px;color: rgb(38,125,36);">{{$entorno->nombre}}</h1>
                         </div>
@@ -113,8 +116,9 @@
                             
                             @endforeach
                         </div>
-                        @endforeach
+                        
                     </div>
+                    @endforeach
                 </div>
             </div>
 

@@ -59,6 +59,7 @@ class RegistroController extends Controller
             $registros = 0;
         } else {
             $registros = Registro::where('id_evento', $id)->get();
+            //$registros = Registro::where('id_evento', $id)->paginate(10);
         }
         
         return view('Usuario.assistants')->with('registros',$registros)->with('evento',$evento);

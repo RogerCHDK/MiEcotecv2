@@ -80,7 +80,7 @@
                 <div class="col-md-6 align-self-center"></div>
                 <div class="col-md-6">
                     <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers" style="font-size: 18px;">
-                        <!--Links de paginación ->links() -->
+                        <!--Links de paginación $registros->links() -->
                     </nav>
                 </div>
             </div>
