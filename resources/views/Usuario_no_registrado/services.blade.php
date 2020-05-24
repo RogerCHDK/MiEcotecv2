@@ -44,7 +44,7 @@
                                     </a>
                                     <div class="card-body text-center">
                                         <h6>
-                                            <a class="event_title" href="{{route('servicios.show',$servicio->id)}}" style="font-size: 22px;">{{$servicio->descripcion}}<br></a>
+                                            <a class="event_title" href="{{route('servicios.show',$servicio->id)}}" style="font-size: 22px;">{{$servicio->nombre_establecimiento}}<br></a>
                                         </h6>
                                     </div>
                                 </div>

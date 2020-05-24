@@ -238,7 +238,7 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
+
         $validate = $this->validate($request, [
             'imagen' => ['required', 'image'],
             'nombre_establecimiento' => ['required','String', 'max:255'],
@@ -262,7 +262,7 @@ class ServicioController extends Controller
                 'vigencia' => null,
             ]
         ); 
-=======
+
         $date = Carbon::now();
         $pago = Pago::create(
                         [
@@ -272,7 +272,7 @@ class ServicioController extends Controller
                             'vigencia' => null,
                         ]
         );
->>>>>>> bd3c7903ef42a9de154e8be4880dc39a21ab541f
+
 
         $imagen = $request->file('imagen');
         if ($imagen)
@@ -300,12 +300,9 @@ class ServicioController extends Controller
                         ]
         );
 
-<<<<<<< HEAD
+
         return redirect()->route('usuario.publicidad')->with(['message' => 'Publicidad del servicio solicitada, en los próximos días se validará el pago. '
-                            . 'Número de solicitud: ' . $pago->id]);; 
-=======
-        return redirect()->route('usuario.publicidad');
->>>>>>> bd3c7903ef42a9de154e8be4880dc39a21ab541f
+                            . 'Número de solicitud: ' . $pago->id]);
     }
 
     /**
@@ -316,13 +313,9 @@ class ServicioController extends Controller
      */
     public function show($id)
     {
-<<<<<<< HEAD
+
         $servicio = Servicio::findOrFail($id); 
         return view("Usuario.service",compact("servicio"));
-=======
-        $servicio = Servicio::findOrFail($id);
-        return view("Usuario.service", compact("servicio"));
->>>>>>> bd3c7903ef42a9de154e8be4880dc39a21ab541f
     }
 
     /**

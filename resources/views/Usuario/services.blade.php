@@ -47,7 +47,7 @@
                                     </a>
                                     <div class="card-body text-center">
                                         <h6>
-                                            <a class="event_title" href="{{route('servicios.show',$servicio->id)}}" style="font-size: 22px;">{{$servicio->descripcion}}<br></a>
+                                            <a class="event_title" href="{{route('servicios.show',$servicio->id)}}" style="font-size: 22px;">{{$servicio->nombre_establecimiento}}<br></a>
                                         </h6>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
                                         </div>
                                     </a>
                                     <div class="card-body text-center">
-                                        <h6><a class="event_title" href="{{route('servicios.show',$mi_servicio->id)}}" style="font-size: 22px;">{{$mi_servicio->descripcion}}</a></h6>
+                                        <h6><a class="event_title" href="{{route('servicios.show',$mi_servicio->id)}}" style="font-size: 22px;">{{$mi_servicio->nombre_establecimiento}}</a></h6>
                                         <div class="d-flex justify-content-around" style="width: 100%;">
                                             <a class="btn btn-primary" role="button" style="font-size: 18px;" href="{{route('servicios.edit',$mi_servicio->id)}}">Modificar</a>
                                         </div>

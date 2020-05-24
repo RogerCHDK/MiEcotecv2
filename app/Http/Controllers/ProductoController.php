@@ -282,14 +282,11 @@ class ProductoController extends Controller
                             'telefono' => $request->telefono,
                         ]
         );
-<<<<<<< HEAD
+
         return redirect()->route('usuario.publicidad')->with(['message' => 'Publicidad del producto solicitada, en los próximos días se validará el pago. '
                             . 'Número de solicitud: ' . $pago->id]); 
     } 
-=======
-        return redirect()->route('usuario.publicidad');
-    }
->>>>>>> bd3c7903ef42a9de154e8be4880dc39a21ab541f
+
 
     /**
      * Display the specified resource.

@@ -99,13 +99,12 @@ Route::resource('usuario', 'UsuarioController');
 
 //------------------------------Administrador
 //Publicidad
-<<<<<<< HEAD
-/*Route::get('/home/advertising', 'PublicidadController@indexAdministrator')->name('admin.publicidad');
+/*
+Route::get('/home/advertising', 'PublicidadController@indexAdministrator')->name('admin.publicidad');
 Route::get('/home/advertising/pending', 'PublicidadController@indexPendiente')->name('admin.publicidad-pendiente');
 Route::get('/home/advertising/active', 'PublicidadController@indexActiva')->name('admin.publicidad-activa');
-Route::get('/home/advertising/removed', 'PublicidadController@indexEliminada')->name('admin.publicidad-eliminada');
+Route::get('/home/advertising/removed', 'PublicidadController@indexEliminada')->name('admin.publicidad-eliminada');*/
 //Route::get('/home/advertising', 'PublicidadController@index')->name('admin.publicidad');
-=======
 Route::get('/home/advertising', 'PublicidadHerramientaController@indexAdministrator')->name('admin.publicidad');
 
 //Publicidad pendiente
@@ -161,10 +160,10 @@ Route::get('/home/advertising/removed/tools/{buscar?}', 'PublicidadHerramientaCo
 Route::get('/home/advertising/removed/tool/delete/{id_pago}', 'PublicidadHerramientaController@eliminarPublicidad')->name('admin.publicidadRemovida-eliminar-herramienta');
 Route::get('/home/advertising/removed/tool/activate/{id_pago}', 'PublicidadHerramientaController@activarPublicidadRemovida')->name('admin.publicidadRemovida-activar-herramienta');
 
->>>>>>> bd3c7903ef42a9de154e8be4880dc39a21ab541f
+
 //Sugerencias/Comentarios
 Route::get('/home/suggestions-comments', 'ComentarioController@indexAdministrador')->name('admin.sug-com');
-Route::get('/home/suggestions-comments/delete/{id}', 'ComentarioController@destroy')->name('admin.eliminar-sug-com');*/
+Route::get('/home/suggestions-comments/delete/{id}', 'ComentarioController@destroy')->name('admin.eliminar-sug-com');
 
 //Materiales
 Route::get('/home/materials/{buscar?}', 'CatalogoMaterialController@index')->name('admin.materiales');
