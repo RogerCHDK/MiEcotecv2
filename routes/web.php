@@ -110,24 +110,36 @@ Route::get('/home/advertising/pending/tool/remove/{id_pago}', 'PublicidadHerrami
 //Publicidad activa
 Route::get('/home/advertising/active', 'PublicidadHerramientaController@indexActiva')->name('admin.publicidad-activa');
 //Publicidad activa producto
-Route::get('/home/advertising/active/product', 'ProductoController@publicidadActiva')->name('admin.publicidad-activa-producto');
+Route::get('/home/advertising/active/products/{buscar?}', 'ProductoController@publicidadActiva')->name('admin.publicidad-activa-producto');
+Route::get('/home/advertising/active/product/remove/{id_pago}', 'ProductoController@removerPublicidadActiva')->name('admin.publicidadActiva-remover-producto');
 //Publicidad activa servicio
-Route::get('/home/advertising/active/service', 'ServicioController@publicidadActiva')->name('admin.publicidad-activa-servicio');
+Route::get('/home/advertising/active/services/{buscar?}', 'ServicioController@publicidadActiva')->name('admin.publicidad-activa-servicio');
+Route::get('/home/advertising/active/service/remove/{id_pago}', 'ServicioController@removerPublicidadActiva')->name('admin.publicidadActiva-remover-servicio');
 //Publicidad activa material
-Route::get('/home/advertising/active/material', 'PublicidadMaterialController@publicidadActiva')->name('admin.publicidad-activa-material');
+Route::get('/home/advertising/active/materials/{buscar?}', 'PublicidadMaterialController@publicidadActiva')->name('admin.publicidad-activa-material');
+Route::get('/home/advertising/active/material/remove/{id_pago}', 'PublicidadMaterialController@removerPublicidadActiva')->name('admin.publicidadActiva-remover-material');
 //Publicidad activa herramienta
-Route::get('/home/advertising/active/tool', 'PublicidadHerramientaController@publicidadActiva')->name('admin.publicidad-activa-herramienta');
+Route::get('/home/advertising/active/tools/{buscar?}', 'PublicidadHerramientaController@publicidadActiva')->name('admin.publicidad-activa-herramienta');
+Route::get('/home/advertising/active/tool/remove/{id_pago}', 'PublicidadHerramientaController@removerPublicidadActiva')->name('admin.publicidadActiva-remover-herramienta');
 
 //Publicidad eliminda
 Route::get('/home/advertising/removed', 'PublicidadHerramientaController@indexEliminada')->name('admin.publicidad-eliminada');
 //Publicidad eliminada producto
-Route::get('/home/advertising/removed/product', 'ProductoController@publicidadEliminada')->name('admin.publicidad-eliminada-producto');
+Route::get('/home/advertising/removed/products/{buscar?}', 'ProductoController@publicidadEliminada')->name('admin.publicidad-eliminada-producto');
+Route::get('/home/advertising/removed/product/delete/{id_pago}', 'ProductoController@eliminarPublicidad')->name('admin.publicidadRemovida-eliminar-producto');
+Route::get('/home/advertising/removed/product/activate/{id_pago}', 'ProductoController@activarPublicidadRemovida')->name('admin.publicidadRemovida-activar-producto');
 //Publicidad eliminada servicio
-Route::get('/home/advertising/removed/service', 'ServicioController@publicidadEliminada')->name('admin.publicidad-eliminada-servicio');
+Route::get('/home/advertising/removed/services/{buscar?}', 'ServicioController@publicidadEliminada')->name('admin.publicidad-eliminada-servicio');
+Route::get('/home/advertising/removed/service/delete/{id_pago}', 'ServicioController@eliminarPublicidad')->name('admin.publicidadRemovida-eliminar-servicio');
+Route::get('/home/advertising/removed/service/activate/{id_pago}', 'ServicioController@activarPublicidadRemovida')->name('admin.publicidadRemovida-activar-servicio');
 //Publicidad eliminada material
-Route::get('/home/advertising/removed/material', 'PublicidadMaterialController@publicidadEliminada')->name('admin.publicidad-eliminada-material');
+Route::get('/home/advertising/removed/materials/{buscar?}', 'PublicidadMaterialController@publicidadEliminada')->name('admin.publicidad-eliminada-material');
+Route::get('/home/advertising/removed/material/delete/{id_pago}', 'PublicidadMaterialController@eliminarPublicidad')->name('admin.publicidadRemovida-eliminar-material');
+Route::get('/home/advertising/removed/material/activate/{id_pago}', 'PublicidadMaterialController@activarPublicidadRemovida')->name('admin.publicidadRemovida-activar-material');
 //Publicidad eliminada herramienta
-Route::get('/home/advertising/removed/tool', 'PublicidadHerramientaController@publicidadEliminada')->name('admin.publicidad-eliminada-herramienta');
+Route::get('/home/advertising/removed/tools/{buscar?}', 'PublicidadHerramientaController@publicidadEliminada')->name('admin.publicidad-eliminada-herramienta');
+Route::get('/home/advertising/removed/tool/delete/{id_pago}', 'PublicidadHerramientaController@eliminarPublicidad')->name('admin.publicidadRemovida-eliminar-herramienta');
+Route::get('/home/advertising/removed/tool/activate/{id_pago}', 'PublicidadHerramientaController@activarPublicidadRemovida')->name('admin.publicidadRemovida-activar-herramienta');
 
 //Sugerencias/Comentarios
 Route::get('/home/suggestions-comments', 'ComentarioController@indexAdministrador')->name('admin.sug-com');

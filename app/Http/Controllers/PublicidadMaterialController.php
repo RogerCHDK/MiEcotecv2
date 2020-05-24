@@ -33,15 +33,20 @@ class PublicidadMaterialController extends Controller
     {
         if (!empty($buscar))
         {
+            $this->_buscarPalabra = $buscar;
             $publicidadMaterial = PublicidadMaterial::join('pagos', 'publicidadmaterial.id_pago', '=', 'pagos.id')
                     ->join('users', 'publicidadmaterial.id_usuario', '=', 'users.id')
                     ->select('publicidadmaterial.id_usuario', 'publicidadmaterial.id_pago', 'publicidadmaterial.imagen', 'pagos.fechaSolicitud')
                     ->whereNull('pagos.estado_pago')
-                    ->where('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
-                    ->orwhere('publicidadmaterial.id_pago', 'LIKE', '%' . $buscar . '%')
-                    ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
-                    ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
-                    ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%')
+                    ->where(function($query)
+                    {
+                        $buscar = $this->_buscarPalabra;
+                        $query->where('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('publicidadmaterial.id_pago', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%');
+                    })
                     ->orderByDesc('fechaSolicitud')
                     ->paginate(10);
         } else
@@ -83,14 +88,115 @@ class PublicidadMaterialController extends Controller
                         ->with(['message' => 'Publicidad del material eliminada']);
     }
 
-    public function publicidadActiva()
+    public function publicidadActiva($buscar = null)
     {
-        return view('Administrador.publicity-active-material');
+        if (!empty($buscar))
+        {
+            $this->_buscarPalabra = $buscar;
+            $materiales = PublicidadMaterial::join('pagos', 'publicidadmaterial.id_pago', '=', 'pagos.id')
+                    ->join('users', 'publicidadmaterial.id_usuario', '=', 'users.id')
+                    ->select('publicidadmaterial.id_usuario', 'publicidadmaterial.id_pago', 'pagos.fechaSolicitud', 'pagos.fechaAprobacion', 'pagos.vigencia')
+                    ->where('pagos.estado_pago', '=', 1)
+                    ->where(function($query)
+                    {
+                        $buscar = $this->_buscarPalabra;
+                        $query->where('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.fechaAprobacion', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('pagos.vigencia', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('publicidadmaterial.id_pago', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%');
+                    })
+                    ->orderByDesc('pagos.fechaAprobacion')
+                    ->paginate(10);
+        } else
+        {
+            $materiales = PublicidadMaterial::join('pagos', 'publicidadmaterial.id_pago', '=', 'pagos.id')
+                    ->select('publicidadmaterial.id_usuario', 'publicidadmaterial.id_pago', 'pagos.fechaSolicitud', 'pagos.fechaAprobacion', 'pagos.vigencia')
+                    ->where('pagos.estado_pago', '=', 1)
+                    ->orderByDesc('pagos.fechaAprobacion')
+                    ->paginate(10);
+        }
+
+        return view('Administrador.publicity-active-material', [
+            'materiales' => $materiales
+        ]);
     }
 
-    public function publicidadEliminada()
+    public function removerPublicidadActiva($id_pago)
     {
-        return view('Administrador.publicity-removed-material');
+        $pago = Pago::find($id_pago);
+        $pago->estado_pago = 0;
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-activa-material')
+                        ->with(['message' => 'Publicidad del material eliminada']);
+    }
+
+    public function publicidadEliminada($buscar = null)
+    {
+        if (!empty($buscar))
+        {
+            $this->_buscarPalabra = $buscar;
+            $publicidadMaterial = PublicidadMaterial::join('pagos', 'publicidadmaterial.id_pago', '=', 'pagos.id')
+                    ->join('users', 'publicidadmaterial.id_usuario', '=', 'users.id')
+                    ->select('publicidadmaterial.id_usuario', 'publicidadmaterial.id_pago', 'publicidadmaterial.imagen', 'pagos.fechaSolicitud')
+                    ->where('pagos.estado_pago', '=', 0)
+                    ->where(function($query)
+                    {
+                        $buscar = $this->_buscarPalabra;
+                        $query->where('pagos.fechaSolicitud', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('publicidadmaterial.id_pago', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.nombre', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_paterno', 'LIKE', '%' . $buscar . '%')
+                        ->orwhere('users.apellido_materno', 'LIKE', '%' . $buscar . '%');
+                    })
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        } else
+        {
+            $publicidadMaterial = PublicidadMaterial::join('pagos', 'publicidadmaterial.id_pago', '=', 'pagos.id')
+                    ->select('publicidadmaterial.id_usuario', 'publicidadmaterial.id_pago', 'publicidadmaterial.imagen', 'pagos.fechaSolicitud')
+                    ->where('pagos.estado_pago', '=', 0)
+                    ->orderByDesc('fechaSolicitud')
+                    ->paginate(10);
+        }
+
+        return view('Administrador.publicity-removed-material', [
+            'publicidadMaterial' => $publicidadMaterial
+        ]);
+    }
+
+    public function eliminarPublicidad($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        $pago->delete();
+
+        return redirect()->route('admin.publicidad-eliminada-material')
+                        ->with(['message' => 'Publicidad del material eliminada']);
+    }
+
+    public function activarPublicidadRemovida($id_pago)
+    {
+        $pago = Pago::find($id_pago);
+        if ($pago->fechaAprobacion == null)
+        {
+            $date = Carbon::now();
+            $vigencia = Carbon::now()->addMonth();
+
+            $pago = Pago::find($id_pago);
+            $pago->fechaAprobacion = $date;
+            $pago->estado_pago = 1;
+            $pago->vigencia = $vigencia;
+        } else
+        {
+            $pago->estado_pago = 1;
+        }
+        $pago->update();
+
+        return redirect()->route('admin.publicidad-eliminada-material')
+                        ->with(['message' => 'Publicidad del material activada']);
     }
 
     /**

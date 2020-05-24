@@ -29,7 +29,7 @@
                 <table class="table dataTable my-0" id="dataTable">
                     <thead style="color: #267d24;">
                         <tr>
-                            <th style="font-size: 18px;">Nombre usuario</th>
+                            <th style="font-size: 18px;">Nombre del usuario</th>
                             <th style="font-size: 18px;">ID Pago</th>
                             <th style="font-size: 18px;">Fecha de solicitud</th>
                             <th style="font-size: 18px;">Nombre del establecimiento</th>
@@ -56,7 +56,7 @@
                     </tbody>
                     <tfoot style="color: #267d24;">
                         <tr>
-                            <td><strong>Nombre usuario</strong>&nbsp;</td>
+                            <td><strong>Nombre del usuario</strong>&nbsp;</td>
                             <td><strong>ID Pago</strong></td>
                             <td><strong>Fecha de solicitud</strong></td>
                             <td><strong>Nombre del establecimiento</strong></td>

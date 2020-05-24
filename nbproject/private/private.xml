@@ -5,8 +5,7 @@
         <group>
             <file>file:/D:/wamp64/www/EcoTec/routes/web.php</file>
             <file>file:/D:/wamp64/www/EcoTec/public/assets/js/main.js</file>
-            <file>file:/D:/wamp64/www/EcoTec/resources/views/Administrador/publicity-pending-service.blade.php</file>
-            <file>file:/D:/wamp64/www/EcoTec/app/Http/Controllers/PublicidadHerramientaController.php</file>
+            <file>file:/D:/wamp64/www/EcoTec/database/Vigencia/ValidarVigencia.sql</file>
         </group>
     </open-files>
 </project-private>
