@@ -72,21 +72,32 @@
                                     </div>
                                     <div class="row" style="margin-bottom: 5px;">
                                         <div class="col d-xl-flex justify-content-xl-start align-items-xl-center" style="min-width: 100%;">
-                                            <i class="fa fa-facebook-official" style="font-size: 30px;margin-right: 10px;color: #152491;"></i>
-                                            <a href="https://es-la.facebook.com/" target="_blank" style="font-size: 18px;">https://ww.facebook.com/valerie.lunaluna<br></a>
+                                            @if($user->enlace_facebook ===null)
+                                            @else
+                                                <i class="fa fa-facebook-official" style="font-size: 30px;margin-right: 10px;color: #152491;"></i>
+                                            <a href="{{$user->enlace_facebook}}" target="_blank" style="font-size: 18px;">{{$user->enlace_facebook}}<br></a>
+                                            @endif
+                                            
                                         </div>
                                     </div>
                                     <div class="row" style="margin-bottom: 5px;">
                                         <div class="col d-xl-flex justify-content-xl-start align-items-xl-center">
-                                            <i class="fa fa-instagram d-flex d-sm-flex d-md-flex d-lg-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-lg-center align-items-lg-center"
+                                            @if($user->enlace_instagram ===null)
+                                            @else
+                                                <i class="fa fa-instagram d-flex d-sm-flex d-md-flex d-lg-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-lg-center align-items-lg-center"
                                             style="font-size: 24px;margin-right: 10px;color: rgb(255,255,255);width: 26px;height: 30px;"></i>
-                                            <a href="https://es-la.facebook.com/" target="_blank" style="font-size: 18px;">https://ww.instagram.com/valerie.lunaluna<br></a>
+                                            <a href="https://es-la.facebook.com/" target="_blank" style="font-size: 18px;">{{$user->enlace_instagram}}<br></a>
+                                            @endif
+                                            
                                         </div>
                                     </div>
                                     <div class="row" style="margin-bottom: 5px;">
                                         <div class="col d-xl-flex justify-content-xl-start align-items-xl-center" style="min-width: 100%;">
+                                            @if($user->enlace_twitter ===null)
+                                            @else
                                             <i class="fa fa-twitter-square" style="font-size: 30px;margin-right: 10px;color: #00aced;"></i>
-                                            <a href="https://es-la.facebook.com/" target="_blank" style="font-size: 18px;">https://ww.twitter.com/valerie.lunaluna<br></a>
+                                            <a href="https://es-la.facebook.com/" target="_blank" style="font-size: 18px;">{{$user->enlace_twitter}}<br></a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

@@ -22,9 +22,8 @@
                                             </a>
                                             <div class="card-body text-center">
                                                 <h6><a class="event_title" href="{{ route('consejo.show',$consejo->id) }}" style="font-size: 22px;"><strong>{{$consejo->nombre}}</strong><br></a></h6>
-                                                <p class="text-center" style="color: rgb(0,0,0);height: 24px;min-height: 24px;max-height: 24px;">5
-                                                    <i class="fa fa-thumbs-o-up" style="margin-left: 5px;font-size: 18px;"></i>
-                                                    <i class="fa fa-thumbs-up" style="margin-left: 5px;font-size: 18px;color: rgb(37,150,168);"></i>
+                                                <p class="text-center" style="color: rgb(0,0,0);height: 24px;min-height: 24px;max-height: 24px;">{{count($consejo->likes)}}
+                                                   <a href="{{ route('register') }}" class="fa fa-thumbs-o-up" onclick="ejecutar(2,{{$consejo->id}})"></a>
                                                 </p>
                                             </div>
                                         </div>

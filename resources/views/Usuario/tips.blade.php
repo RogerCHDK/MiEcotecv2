@@ -1,5 +1,18 @@
 @extends('layouts.header-footer-usuario')
+<script>
 
+    function ejecutar(tipo,id){
+        $.ajax({
+            type:'GET',
+            url:'prueba/'+tipo+'/'+id,
+            success:function(data){
+
+            }
+        })
+    }
+
+    
+</script>
 @section('content')
     <div>
         <ul class="nav nav-tabs">
@@ -45,9 +58,27 @@
                                     </a>
                                     <div class="card-body text-center">
                                         <h6><a class="event_title" href="{{ route('consejo.show',$consejo->id) }}" style="font-size: 22px;"><strong>{{$consejo->nombre}}</strong><br></a></h6>
-                                        <p class="text-center" style="color: rgb(0,0,0);height: 24px;min-height: 24px;max-height: 24px;">5
-                                            <i class="fa fa-thumbs-o-up" style="margin-left: 5px;font-size: 18px;"></i>
-                                            <i class="fa fa-thumbs-up" style="margin-left: 5px;font-size: 18px;color: rgb(37,150,168);"></i>
+                                        <p class="text-center" style="color: rgb(0,0,0);height: 24px;min-height: 24px;max-height: 24px;">{{count($consejo->likes)}}
+                                            
+                                            
+                                            <?php $user_like = false;?>
+                                            @foreach($consejo->likes as $like)
+                                                @if($like->usuario->id== Auth::user()->id)
+                                                    <?php $user_like = true;?>
+                                                @endif
+                                            @endforeach
+                                            
+                                            @if($user_like)
+
+                                            <a href="" class="fa fa-thumbs-up" onclick="ejecutar(2,{{$consejo->id}})"></a>
+                                            @else
+                                            <a href="" class="fa fa-thumbs-o-up" onclick="ejecutar(1,{{$consejo->id}})">
+                                                
+                                            </a>
+                                            @endif
+                                                
+                                            
+                                            
                                         </p>
                                     </div>
                                 </div>
@@ -96,9 +127,27 @@
                                     </a>
                                     <div class="card-body text-center">
                                         <h6><a class="event_title" href="{{ route('consejo.show',$misconsejo->id) }}" style="font-size: 22px;"><strong>{{$misconsejo->nombre}}</strong><br></a></h6>
-                                        <p class="text-center" style="color: rgb(0,0,0);height: 24px;min-height: 24px;max-height: 24px;">5
-                                            <i class="fa fa-thumbs-o-up" style="margin-left: 5px;font-size: 18px;"></i>
-                                            <i class="fa fa-thumbs-up" style="margin-left: 5px;font-size: 18px;color: rgb(37,150,168);"></i>
+                                        <p class="text-center" style="color: rgb(0,0,0);height: 24px;min-height: 24px;max-height: 24px;">{{count($consejo->likes)}}
+                                            
+                                            
+                                            <?php $user_like = false;?>
+                                            @foreach($consejo->likes as $like)
+                                                @if($like->usuario->id== Auth::user()->id)
+                                                    <?php $user_like = true;?>
+                                                @endif
+                                            @endforeach
+                                            
+                                            @if($user_like)
+
+                                            <a href="" class="fa fa-thumbs-up" onclick="ejecutar(2,{{$consejo->id}})"></a>
+                                            @else
+                                            <a href="" class="fa fa-thumbs-o-up" onclick="ejecutar(1,{{$consejo->id}})">
+                                                
+                                            </a>
+                                            @endif
+                                                
+                                            
+                                            
                                         </p>
                                     </div>
                                     <div class="d-flex justify-content-around" style="width: 100%;">

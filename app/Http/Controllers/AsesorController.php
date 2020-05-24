@@ -123,5 +123,13 @@ class AsesorController extends Controller
                         
     }
 
+    public function getImage($id_usuario)
+    {
+        $user = User::find($id_usuario);
+        $fileName= $user->imagen;
+        $file = Storage::disk('usuarios')->get($fileName);
+        return new Response($file, 200);
+    }
+
     
 }

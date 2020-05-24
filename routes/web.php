@@ -56,8 +56,14 @@ Route::resource('registro', 'RegistroController');
 Route::resource('consejo', 'ConsejoController');
 Route::get('consejo-imagen/{filename}', 'ConsejoController@getImage')->name('usuario.consejo-imagen');
 
+//------------- Like
+Route::get('/like/{id}','LikeController@like')->name('like.like');
+Route::get('/dislike/{id}','LikeController@dislike')->name('like.delete');
+Route::get('prueba/{tipo}/{id}','LikeController@prueba');
+
 //------------ Experto
 Route::resource('asesor', 'AsesorController');
+Route::get('asesor-imagen/{id_usuario}', 'AsesorController@getImage')->name('asesor.asesor-imagen');
 //Route::get('/experto', 'UsuarioController@escaner')->name('garantia.escaner'); 
 
 //------------------------------Publicidad

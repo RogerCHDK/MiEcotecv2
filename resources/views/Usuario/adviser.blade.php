@@ -14,7 +14,7 @@
                             @if( Auth::guest() )
                                  <img class="img-adviser" src="">
                             @else
-                             <img class="img-adviser" src="{{ route('usuario.imagen', ['filename' => Auth::user()->imagen]) }}">
+                             <img class="img-adviser" src="{{route('asesor.asesor-imagen',$asesor->id_usuario)}}">
                             @endif
                         </div>
 

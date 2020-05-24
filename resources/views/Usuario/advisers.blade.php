@@ -45,7 +45,7 @@
                     <div class="card border-0">
                         <a href="{{ route('asesor.show',$asesor->id) }}">
                             <div class="marco zoom-on-hover">
-                                <img class="img-fluid image" src="assets/img/dogs/image3.jpeg">
+                                <img class="img-fluid image" src="{{route('asesor.asesor-imagen',$asesor->id_usuario)}}">
                             </div>
                         </a>
                         <div class="card-body text-center">
