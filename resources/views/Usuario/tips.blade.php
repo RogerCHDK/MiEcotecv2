@@ -8,7 +8,7 @@
             success:function(data){
 
             }
-        })
+        });
     }
 
     
