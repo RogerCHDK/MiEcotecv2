@@ -86,7 +86,7 @@ class UsuarioController extends Controller
         $validate = $this->validate($request, [
             'imagen' => ['required', 'image'],
         ]);
-
+/*
         $imagen = $request->file('imagen');
          if ($imagen) { 
             $imagenNombre = time(). $imagen->getClientOriginalName(); 
@@ -94,16 +94,17 @@ class UsuarioController extends Controller
             $imagenRedimensionada->resize(800, 533)->save(storage_path('app/usuarios/' . $imagenNombre));
             $request->imagen = $imagenNombre;
         }
+        */
         $user = User::find($id);
         
-        $imagen_consejo = $request->imagen;
+        //$imagen_consejo = $request->imagen;
         
         $user->nombre = $request->nombre;
         $user->email = $request->email;
         $user->password = $request->password;
         $user->apellido_paterno = $request->apellido_paterno;
         $user->apellido_materno = $request->apellido_materno;
-        $user->imagen = $imagen_consejo;
+        //$user->imagen = $imagen_consejo;
         $user->alias = $request->alias;
         $user->enlace_facebook = $request->enlace_facebook;
         $user->enlace_instagram = $request->enlace_instagram;
