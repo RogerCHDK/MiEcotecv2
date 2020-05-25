@@ -14,7 +14,7 @@
                             @if( Auth::guest() )
                                  <img class="img-adviser" src="">
                             @else
-                             <img class="img-adviser" src="{{route('asesor.imagen',$asesor->usuario->imagen)}}">
+                             <img class="img-adviser" src="{{route('asesor.asesor-imagen',$asesor->usuario->imagen)}}">
                             @endif
                         </div>
 
