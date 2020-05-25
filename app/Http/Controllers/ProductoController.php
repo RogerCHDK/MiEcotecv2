@@ -15,21 +15,38 @@ use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
 
 class ProductoController extends Controller
-{
+{ 
 
-    /**
+    /** 
      * Display a listing of the resource. 
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth',['except'=> ['index_no_registrado','getProducto','show','getImage']]);
+    }
+
     public function index()
     {
         $usuario = Auth::user();
         $clasificacion = CatalogoClasificacionProducto::all();
         $producto = Producto::all();
         $mis_productos = Producto::where('id_usuario', $usuario->id)->get();
-        return view('Usuario.products')->with('productos', $producto)->with('clasificaciones', $clasificacion)->with('mis_productos', $mis_productos);
-    }
+        $bandera = true;
+        $clasificacion_filtrada = null;
+        return view('Usuario.products')->with('productos', $producto)->with('clasificaciones', $clasificacion)->with('mis_productos', $mis_productos)->with('bandera',$bandera)->with('clasificacion_filtrada',$clasificacion_filtrada);
+    } 
+
+     public function index_no_registrado()
+    {
+        
+        $clasificacion = CatalogoClasificacionProducto::all();
+        $producto = Producto::all();
+        $bandera = true;
+        $clasificacion_filtrada = null;
+        return view('Usuario_no_registrado.products')->with('productos', $producto)->with('clasificaciones', $clasificacion)->with('bandera',$bandera)->with('clasificacion_filtrada',$clasificacion_filtrada);
+    } 
 
     public function publicidadPendiente($buscar = null)
     {
@@ -227,6 +244,10 @@ class ProductoController extends Controller
     {
         $validate = $this->validate($request, [
             'imagen' => ['required', 'image'],
+            'nombre' => ['String', 'max:255','required'],
+            'descripcion' => ['String', 'max:255','required'],
+            'url' => ['String', 'max:255','required'],
+            'telefono' => ['Integer','required'],
         ]);
 
         $date = Carbon::now();
@@ -234,6 +255,7 @@ class ProductoController extends Controller
                         [
                             'id_usuario' => $request->id_usuario,
                             'fechaSolicitud' => $date,
+                            'fechaAprobacion' => null,
                             'estado_pago' => null,
                             'vigencia' => null,
                         ]
@@ -260,8 +282,11 @@ class ProductoController extends Controller
                             'telefono' => $request->telefono,
                         ]
         );
-        return redirect()->route('usuario.publicidad');
-    }
+
+        return redirect()->route('usuario.publicidad')->with(['message' => 'Publicidad del producto solicitada, en los próximos días se validará el pago. '
+                            . 'Número de solicitud: ' . $pago->id]); 
+    } 
+
 
     /**
      * Display the specified resource.
@@ -283,8 +308,10 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        return view('Usuario.create-product');
-    }
+        $elemento = Producto::findOrFail($id);
+        $productos = CatalogoClasificacionProducto::all();
+        return view('Usuario.edit-product')->with('elemento',$elemento)->with('productos',$productos);
+    } 
 
     /**
      * Update the specified resource in storage.
@@ -293,9 +320,38 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) 
     {
-        //
+        
+        $validate = $this->validate($request, [
+            'nombre' => ['String', 'max:255','required'],
+            'descripcion' => ['String', 'max:255','required'],
+            'url' => ['String', 'max:255','required'],
+            'telefono' => ['Integer','required'],
+        ]);
+        $producto = Producto::findOrFail($id);
+        $producto->nombre = $request->nombre;
+        $producto->id_clasificacionProducto = $request->id_clasificacionProducto;
+        $producto->descripcion = $request->descripcion;
+        $producto->url = $request->url;
+        $producto->telefono = $request->telefono;
+        $producto->precio = $request->precio; 
+
+        $imagen = $request->file('imagen');
+        if ($imagen)
+        { 
+            $imagenNombre = time() . $imagen->getClientOriginalName();
+            $imagenRedimensionada = Image::make($imagen);
+            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/productos/' . $imagenNombre));
+            Storage::disk('productos')->delete($producto->imagen); 
+            $producto->imagen= $imagenNombre; 
+        }
+
+        $producto->save();
+
+         return redirect()->route('productos.index')
+                        ->with(['message' => 'Producto actualizado']);
+
     }
 
     /**
@@ -314,6 +370,30 @@ class ProductoController extends Controller
     {
         $file = Storage::disk('productos')->get($fileName);
         return new Response($file, 200);
+    }
+
+    public function getProducto($id)
+    {
+      
+        $usuario = Auth::user();
+        if ($usuario) {
+        $clasificacion = CatalogoClasificacionProducto::all();
+        $producto = Producto::where('id_clasificacionProducto',$id)->get();
+        $mis_productos = Producto::where('id_usuario', $usuario->id)->where('id_clasificacionProducto',$id)->get();
+        $bandera = false;
+        $clasificacion_filtrada = CatalogoClasificacionProducto::findOrFail($id);
+        return view('Usuario.products')->with('productos', $producto)->with('clasificaciones', $clasificacion)->with('mis_productos', $mis_productos)->with('bandera',$bandera)->with('clasificacion_filtrada',$clasificacion_filtrada);
+        }else{
+        $clasificacion = CatalogoClasificacionProducto::all();
+        $producto = Producto::where('id_clasificacionProducto',$id)->get();
+        $bandera = false;
+        $clasificacion_filtrada = CatalogoClasificacionProducto::findOrFail($id);
+        return view('Usuario_no_registrado.products')->with('productos', $producto)->with('clasificaciones', $clasificacion)->with('bandera',$bandera)->with('clasificacion_filtrada',$clasificacion_filtrada);
+        }
+        
+
+       /* $producto = Producto::where('id_clasificacionProducto',$id)->get();
+        return $producto;*/
     }
 
 }

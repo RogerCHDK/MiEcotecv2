@@ -22,6 +22,12 @@ class ServicioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth',['except'=> ['index_no_registrado','show','getImage']]);
+    }
+
     public function index()
     {
         $usuario = Auth::user();
@@ -204,6 +210,13 @@ class ServicioController extends Controller
                         ->with(['message' => 'Publicidad del servicio activada']);
     }
 
+     public function index_no_registrado()
+    {
+        $clasificacion = CatalogoClasificacionServicio::all();
+        $servicio = Servicio::all();
+        return view('Usuario_no_registrado.services')->with("clasificaciones",$clasificacion)->with("servicios",$servicio); 
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -225,6 +238,31 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validate = $this->validate($request, [
+            'imagen' => ['required', 'image'],
+            'nombre_establecimiento' => ['required','String', 'max:255'],
+            'descripcion' => ['required','String', 'max:255'],
+            'url' => ['required','String', 'max:255'],
+            'telefono' => ['required','Integer'],
+            'estado'=> ['required','String', 'max:255'],
+            'municipio'=> ['required','String', 'max:255'],
+            'colonia'=>['required','String', 'max:255'],
+            'calle'=> ['required','String', 'max:255'],
+        ]);
+
+        $date = Carbon::now();   
+//        $date= $date->addMonths(1);
+        $pago = Pago::create(
+            [
+                'id_usuario' => $request->id_usuario,
+                'fechaSolicitud' => $date,
+                'fechaAprobacion' => null,
+                'estado_pago' => null,
+                'vigencia' => null,
+            ]
+        ); 
+
         $date = Carbon::now();
         $pago = Pago::create(
                         [
@@ -234,6 +272,7 @@ class ServicioController extends Controller
                             'vigencia' => null,
                         ]
         );
+
 
         $imagen = $request->file('imagen');
         if ($imagen)
@@ -261,7 +300,9 @@ class ServicioController extends Controller
                         ]
         );
 
-        return redirect()->route('usuario.publicidad');
+
+        return redirect()->route('usuario.publicidad')->with(['message' => 'Publicidad del servicio solicitada, en los próximos días se validará el pago. '
+                            . 'Número de solicitud: ' . $pago->id]);
     }
 
     /**
@@ -272,8 +313,9 @@ class ServicioController extends Controller
      */
     public function show($id)
     {
-        $servicio = Servicio::findOrFail($id);
-        return view("Usuario.service", compact("servicio"));
+
+        $servicio = Servicio::findOrFail($id); 
+        return view("Usuario.service",compact("servicio"));
     }
 
     /**
@@ -284,7 +326,9 @@ class ServicioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $elemento = Servicio::findOrFail($id);
+        $servicio = CatalogoClasificacionServicio::all(); 
+        return view('Usuario.edit-service')->with('servicios',$servicio)->with('elemento',$elemento);
     }
 
     /**
@@ -296,7 +340,40 @@ class ServicioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate = $this->validate($request, [
+            'nombre_establecimiento' => ['required','String', 'max:255'],
+            'descripcion' => ['required','String', 'max:255'],
+            'url' => ['required','String', 'max:255'],
+            'telefono' => ['required','Integer'],
+            'estado'=> ['required','String', 'max:255'],
+            'municipio'=> ['required','String', 'max:255'],
+            'colonia'=>['required','String', 'max:255'],
+            'calle'=> ['required','String', 'max:255'],
+        ]);
+
+        $servicio = Servicio::findOrFail($id);
+        $servicio->id_clasificacionServicio = $request->id_clasificacionServicio;
+        $servicio->nombre_establecimiento = $request->nombre_establecimiento;
+        $servicio->estado = $request->estado;
+        $servicio->municipio = $request->municipio;
+        $servicio->colonia = $request->colonia;
+        $servicio->calle = $request->calle;
+        $servicio->descripcion = $request->descripcion;
+        $servicio->url = $request->url;
+        $servicio->telefono = $request->telefono;
+
+        $imagen = $request->file('imagen');
+         if ($imagen) { 
+            $imagenNombre = time(). $imagen->getClientOriginalName(); 
+            $imagenRedimensionada = Image::make($imagen);
+            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/servicios/' . $imagenNombre));
+            Storage::disk('servicios')->delete($servicio->imagen);
+            $servicio->imagen = $imagenNombre;
+        }
+
+        $servicio->update();
+        return redirect()->route('servicios.index')
+                        ->with(['message' => 'Servicio actualizado']);
     }
 
     /**

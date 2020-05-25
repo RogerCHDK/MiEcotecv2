@@ -50,16 +50,30 @@
                             </a>
                         </li>
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
+                            @auth 
                             <a class="nav-link text-center" href="{{route('productos.index')}}"  style="font-size: 15px;max-width: 100%;">
                                 <i class="fas fa-shopping-bag" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Productos</span>
                             </a>
+                            @else
+                            <a class="nav-link text-center" href="{{route('productos.index_guest')}}"  style="font-size: 15px;max-width: 100%;">
+                                <i class="fas fa-shopping-bag" style="width: 17px;font-size: 20px;"></i>
+                                <span class="d-flex justify-content-center">Productos</span>
+                            </a>
+                            @endauth
                         </li>
-                        <li class="nav-item" role="presentation" style="max-width: 100%;"> 
+                        <li class="nav-item" role="presentation" style="max-width: 100%;">
+                        @auth 
                             <a class="nav-link text-center" href="{{route('servicios.index')}}" style="font-size: 15px;max-width: 100%;">
                                 <i class="far fa-building" style="width: 17px;font-size: 20px;"></i>
                                 <span class="d-flex justify-content-center">Servicios</span>
                             </a>
+                            @else
+                            <a class="nav-link text-center" href="{{route('servicios.index_guest')}}" style="font-size: 15px;max-width: 100%;"> 
+                                <i class="far fa-building" style="width: 17px;font-size: 20px;"></i>
+                                <span class="d-flex justify-content-center">Servicios</span>
+                            </a>
+                            @endauth
                         </li> 
                         <li class="nav-item" role="presentation" style="max-width: 100%;">
                             <a class="nav-link text-center" href="{{route('usuario.publicidad')}}" style="font-size: 15px;max-width: 100%;">

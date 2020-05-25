@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\Response;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rule; 
  
 class ConsejoController extends Controller
 { 

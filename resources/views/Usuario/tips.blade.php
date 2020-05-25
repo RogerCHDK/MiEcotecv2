@@ -27,6 +27,23 @@
             <div class="tab-pane active" role="tabpanel" id="tab-1">
                 
                 <div class="card shadow">
+<<<<<<< HEAD
+                    <div class="card-body text-left d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-start justify-content-sm-start justify-content-md-start justify-content-lg-start justify-content-xl-start">
+                        <div class="dropdown" style="width: 200px;">
+                            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button" style="font-size: 18px;">Entorno</button>
+                            <div class="dropdown-menu" role="menu" style="width: 180px;font-size: 16px;">
+                                @foreach($consejos as $consejo) 
+                                <a class="dropdown-item" role="presentation" value="{{$consejo->catalogoEntorno->id}}" href="#">{{$consejo->catalogoEntorno->nombre}}</a>
+                                @endforeach
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="card-body">
+                        @foreach($entornos as $entorno) 
+                        <div class="text-center">
+                            <h1 class="mb-4" style="font-size: 30px;color: rgb(38,125,36);">{{$entorno->nombre}}</h1>
+                        </div>
+=======
         <div class="card-header py-3">
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 30px;">Consejos</p>
         </div>
@@ -36,6 +53,7 @@
                 <div class="dropdown-menu" role="menu" style="width: 180px;font-size: 16px;">
                     @foreach($entornos as $entorno) 
                         <a class="dropdown-item" role="presentation" href="#{{$entorno->id}}" >{{$entorno->nombre}}</a>
+>>>>>>> bd3c7903ef42a9de154e8be4880dc39a21ab541f
                         
                     @endforeach
                 </div>

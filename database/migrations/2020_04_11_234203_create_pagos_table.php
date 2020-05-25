@@ -9,7 +9,7 @@ class CreatePagosTable extends Migration
     /**
      * Run the migrations.
      *
-     * @return void
+     * @return void 
      */
     public function up()
     {
@@ -17,10 +17,11 @@ class CreatePagosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users')->constrained()->onDelete('cascade');
-            $table->date('tiempo');
-            $table->boolean('estado_pago');
-            $table->date('vigencia');
-            $table->engine = 'InnoDB';
+            $table->date('fechaSolicitud');
+             $table->date('fechaAprobacion')->nullable();
+            $table->boolean('estado_pago')->nullable();
+            $table->date('vigencia')->nullable();
+            $table->engine = 'InnoDB'; 
         });
     }
 
