@@ -7,40 +7,44 @@ use Illuminate\Support\Facades\Auth;
 use App\Asesor;
 use App\User;
 use App\CatalogoClasificacionAsesor;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
+
 class AsesorController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
-        if (Auth::guest()) {
+        if (Auth::guest())
+        {
 
-        $asesores = Asesor::orderBy('id')->get();
-        
-        $as = -1;
-        return view('Usuario.advisers', ['asesores' => $asesores])->with('as',$as);
-            
-        } else {
-           $usuario = Auth::user();
-        $asesores = Asesor::orderBy('id')->get();
-        $as = Asesor::where('id_usuario', $usuario->id);
-        $ban =count(Asesor::where('id_usuario', $usuario->id)->get());
-        if ($ban===0) {
-            $as = 0;
-        } else {
-            $as = Asesor::select('id')->where('id_usuario', $usuario->id)->get();
+            $asesores = Asesor::orderBy('id')->get();
+
+            $as = -1;
+            return view('Usuario.advisers', ['asesores' => $asesores])->with('as', $as);
+        } else
+        {
+            $usuario = Auth::user();
+            $asesores = Asesor::orderBy('id')->get();
+            $as = Asesor::where('id_usuario', $usuario->id);
+            $ban = count(Asesor::where('id_usuario', $usuario->id)->get());
+            if ($ban === 0)
+            {
+                $as = 0;
+            } else
+            {
+                $as = Asesor::select('id')->where('id_usuario', $usuario->id)->get();
+            }
+
+            return view('Usuario.advisers', ['asesores' => $asesores])->with('as', $as)->with('usuario', $usuario);
         }
-        
-        return view('Usuario.advisers', ['asesores' => $asesores])->with('as',$as)->with('usuario',$usuario);
-             
-            
-        }
-        
     }
- 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -48,9 +52,9 @@ class AsesorController extends Controller
      */
     public function create()
     {
-         $users = Auth::user();
-         $tipos_asesor = CatalogoClasificacionAsesor::all(); 
-        return view('Usuario.create-adviser', compact('users'))->with('tipos_asesor',$tipos_asesor);
+        $users = Auth::user();
+        $tipos_asesor = CatalogoClasificacionAsesor::all();
+        return view('Usuario.create-adviser', compact('users'))->with('tipos_asesor', $tipos_asesor);
     }
 
     /**
@@ -63,7 +67,7 @@ class AsesorController extends Controller
     {
         $datos = $request->all();
         Asesor::create($datos);
-         return redirect('/asesor');
+        return redirect('/asesor');
     }
 
     /**
@@ -75,7 +79,7 @@ class AsesorController extends Controller
     public function show($id)
     {
         $asesor = Asesor::find($id);
-        
+
         return view('Usuario.adviser', ['asesor' => $asesor]);
     }
 
@@ -89,10 +93,9 @@ class AsesorController extends Controller
     {
         $asesor = Asesor::find($id);
         $users = Auth::user();
-        $tipos_asesor = CatalogoClasificacionAsesor::all(); 
-        
-        return view('Usuario.edit-adviser', compact('users'))->with('tipos_asesor',$tipos_asesor)->with('asesor',$asesor);
-        
+        $tipos_asesor = CatalogoClasificacionAsesor::all();
+
+        return view('Usuario.edit-adviser', compact('users'))->with('tipos_asesor', $tipos_asesor)->with('asesor', $asesor);
     }
 
     /**
@@ -107,7 +110,7 @@ class AsesorController extends Controller
         $asesor = Asesor::find($id);
         $datos = $request->all();
         $asesor->update($datos);
-         return redirect('/asesor');
+        return redirect('/asesor');
     }
 
     /**
@@ -118,11 +121,10 @@ class AsesorController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $asesor = Asesor::find($id);
         $asesor->delete();
         return redirect('/asesor');
-                        
     }
 
     public function getImage($fileName)
@@ -131,5 +133,4 @@ class AsesorController extends Controller
         return new Response($file, 200);
     }
 
-    
 }
