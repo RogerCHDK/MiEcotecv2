@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{{ asset('assets/fonts/ionicons.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome5-overrides.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/js/jquery.min.js') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
     </head>
     <body id="page-top" style="min-width: 450px;">
