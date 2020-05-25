@@ -1,7 +1,7 @@
 @extends('layouts.header-footer-usuario_no')
 
 @section('content')
-    @foreach($entornos as $entorno)
+@foreach($entornos as $entorno)
             
                 <div class="card shadow" style="margin-bottom: 24px;">
                     <div class="card-body">
@@ -23,7 +23,7 @@
                                             <div class="card-body text-center">
                                                 <h6><a class="event_title" href="{{ route('consejo.show',$consejo->id) }}" style="font-size: 22px;"><strong>{{$consejo->nombre}}</strong><br></a></h6>
                                                 <p class="text-center" style="color: rgb(0,0,0);height: 24px;min-height: 24px;max-height: 24px;">{{count($consejo->likes)}}
-                                                   <a href="{{ route('register') }}" class="fa fa-thumbs-o-up" onclick="ejecutar(2,{{$consejo->id}})"></a>
+                                                   <a href="{{ route('register') }}" class="fa fa-thumbs-o-up"></a>
                                                 </p>
                                             </div>
                                         </div>

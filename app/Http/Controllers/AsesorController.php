@@ -128,7 +128,7 @@ class AsesorController extends Controller
     public function getImage($fileName)
     {
         $file = Storage::disk('usuarios')->get($fileName);
-        return response()->download($file);
+        return new Response($file, 200);
     }
 
     

@@ -83,10 +83,12 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
+/*
+
         $validate = $this->validate($request, [
             'imagen' => ['required', 'image'],
         ]);
-/*
+
         $imagen = $request->file('imagen');
          if ($imagen) { 
             $imagenNombre = time(). $imagen->getClientOriginalName(); 
@@ -94,7 +96,7 @@ class UsuarioController extends Controller
             $imagenRedimensionada->resize(800, 533)->save(storage_path('app/usuarios/' . $imagenNombre));
             $request->imagen = $imagenNombre;
         }
-        */
+        
         $user = User::find($id);
         
         //$imagen_consejo = $request->imagen;
@@ -112,6 +114,7 @@ class UsuarioController extends Controller
 
         $user->update();
         return view('Usuario.profile')->with('user',$user);
+*/
     }
 
     /**
