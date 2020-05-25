@@ -83,7 +83,7 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-/*
+
 
         $validate = $this->validate($request, [
             'imagen' => ['required', 'image'],
@@ -99,14 +99,14 @@ class UsuarioController extends Controller
         
         $user = User::find($id);
         
-        //$imagen_consejo = $request->imagen;
+        $imagen_consejo = $request->imagen;
         
         $user->nombre = $request->nombre;
         $user->email = $request->email;
         $user->password = $request->password;
         $user->apellido_paterno = $request->apellido_paterno;
         $user->apellido_materno = $request->apellido_materno;
-        //$user->imagen = $imagen_consejo;
+        $user->imagen = $imagen_consejo;
         $user->alias = $request->alias;
         $user->enlace_facebook = $request->enlace_facebook;
         $user->enlace_instagram = $request->enlace_instagram;
@@ -114,7 +114,7 @@ class UsuarioController extends Controller
 
         $user->update();
         return view('Usuario.profile')->with('user',$user);
-*/
+
     }
 
     /**
