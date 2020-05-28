@@ -67,6 +67,8 @@ class ConsejoController extends Controller
     {
          $validate = $this->validate($request, [
             'imagen' => ['required', 'image'],
+            'nombre' => ['String', 'max:255','required'],
+            'descripcion' => ['String', 'max:255','required'],
         ]);
 
         $imagen = $request->file('imagen');
@@ -158,6 +160,8 @@ class ConsejoController extends Controller
     {
         $validate = $this->validate($request, [
             'imagen' => ['required', 'image'],
+            'nombre' => ['String', 'max:255','required'],
+            'descripcion' => ['String', 'max:255','required'],
         ]);
 
         $imagen = $request->file('imagen');

@@ -52,6 +52,11 @@ class EventoController extends Controller
     {
         $validate = $this->validate($request, [
             'imagen' => ['required', 'image'],
+            'nombre' => ['String', 'max:255','required'],
+            'objetivo' => ['String', 'max:255','required'],
+            'descripcion' => ['String', 'max:255','required'],
+            'fecha_inicio' => ['date','required'],
+            'fecha_fin' => ['date','required'],
         ]);
 
         $imagen = $request->file('imagen');
@@ -139,6 +144,11 @@ class EventoController extends Controller
     {
         $validate = $this->validate($request, [
             'imagen' => ['required', 'image'],
+            'nombre' => ['String', 'max:255','required'],
+            'objetivo' => ['String', 'max:255','required'],
+            'descripcion' => ['String', 'max:255','required'],
+            'fecha_inicio' => ['date','required'],
+            'fecha_fin' => ['date','required'],
         ]);
 
         $imagen = $request->file('imagen');
