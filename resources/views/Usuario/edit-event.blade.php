@@ -17,43 +17,83 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0" style="min-width: 80%;">
-                                    <input class="form-control form-control-user" type="text" placeholder="Nombre del evento" id="nombre" name="nombre" value="{{$evento->nombre}}" style="font-size: 18px;color: rgb(0,0,0);">
+                                    <input class="form-control form-control-user @error('nombre') is-invalid @enderror" type="text" placeholder="Nombre del evento" id="nombre" name="nombre" value="{{$evento->nombre}}" style="font-size: 18px;color: rgb(0,0,0);">
+                                    @error('nombre')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0" style="min-width: 90%;">
-                                    <textarea class="form-control form-control-user" placeholder="Objetivo" id="objetivo" name="objetivo" style="font-size: 18px;color: rgb(0,0,0);">{{$evento->objetivo}}</textarea>
+                                    <textarea class="form-control form-control-user @error('objetivo') is-invalid @enderror" placeholder="Objetivo" id="objetivo" name="objetivo" style="font-size: 18px;color: rgb(0,0,0);">{{$evento->objetivo}}</textarea>
+                                    @error('objetivo')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0" style="min-width: 100%;">
-                                    <textarea class="form-control form-control-user" placeholder="Descripción" id="descripcion" name="descripcion" style="font-size: 18px;color: rgb(0,0,0);">{{$evento->descripcion}}</textarea>
+                                    <textarea class="form-control form-control-user @error('descripcion') is-invalid @enderror" placeholder="Descripción" id="descripcion" name="descripcion" style="font-size: 18px;color: rgb(0,0,0);">{{$evento->descripcion}}</textarea>
+                                    @error('descripcion')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0" style="min-width: 100%;">
-                                    <input class="form-control" id="fecha_creacion" name="fecha_creacion" type="hidden" value="{{$date}}" placeholder="Fecha"></input>
+                                    <input class="form-control @error('fecha_creacion') is-invalid @enderror" id="fecha_creacion" name="fecha_creacion" type="hidden" value="{{$date}}" placeholder="Fecha"></input>
+                                    @error('fecha_creacion')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             
                             <div class="resume-content">
                                 <h3 class="mb-0">Fecha  de inicio:</h3>
-                                <input class="form-control form-control-user" id="fecha_inicio" name="fecha_inicio" type="date" value="{{$evento->fecha_inicio}}" placeholder="Fecha"></input>
+                                <input class="form-control form-control-user @error('fecha_inicio') is-invalid @enderror" id="fecha_inicio" name="fecha_inicio" type="date" value="{{$evento->fecha_inicio}}" placeholder="Fecha"></input>
+                                @error('fecha_inicio')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                             </div>
 
                             <div class="resume-content">
                                 <h3 class="mb-0">Hora de inicio:</h3>
-                                <input class="form-control form-control-user" id="hora_inicio" name="hora_inicio" type="time" value="{{$evento->hora_inicio}}"  placeholder="Fecha"></input>
+                                <input class="form-control form-control-user @error('hora_inicio') is-invalid @enderror" id="hora_inicio" name="hora_inicio" type="time" value="{{$evento->hora_inicio}}"  placeholder="Fecha"></input>
+                                @error('hora_inicio')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                             </div>
 
                             <div class="resume-content">
                                 <h3 class="mb-0">Fecha de finalización:</h3>
-                                <input class="form-control form-control-user" id="fecha_fin" name="fecha_fin" type="date" value="{{$evento->fecha_fin}}"  placeholder="Fecha"></input>
+                                <input class="form-control form-control-user @error('fecha_fin') is-invalid @enderror" id="fecha_fin" name="fecha_fin" type="date" value="{{$evento->fecha_fin}}"  placeholder="Fecha"></input>
+                                @error('fecha_fin')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                             </div>
 
                             <div class="resume-content">
                                 <h3 class="mb-0">Hora de finalización:</h3>
-                                <input class="form-control form-control-user" id="hora_fin" name="hora_fin" type="time" value="{{$evento->hora_fin}}" placeholder="Fecha"></input>
+                                <input class="form-control form-control-user @error('hora_fin') is-invalid @enderror" id="hora_fin" name="hora_fin" type="time" value="{{$evento->hora_fin}}" placeholder="Fecha"></input>
+                                @error('hora_fin')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                             </div>
                             
                             

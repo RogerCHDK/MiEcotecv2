@@ -29,21 +29,46 @@
                                 </div>
                             </div> 
                             <div class="form-group">
-                                <input class="form-control form-control-user" type="email" id="correoElectronico" aria-describedby="emailHelp" placeholder="Correo electrónico" name="correoElectronico" style="font-size: 18px;color: rgb(0,0,0);">
+                                <input class="form-control form-control-user @error('correoElectronico') is-invalid @enderror" type="email" id="correoElectronico" aria-describedby="emailHelp" placeholder="Correo electrónico" name="correoElectronico" style="font-size: 18px;color: rgb(0,0,0);">
+                                @error('correoElectronico')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input class="form-control form-control-user" type="tel" placeholder="Teléfono" style="font-size: 18px;color: rgb(0,0,0);" id="telefono" name="telefono">
+                                    <input class="form-control form-control-user @error('telefono') is-invalid @enderror" type="tel" placeholder="Teléfono" style="font-size: 18px;color: rgb(0,0,0);" id="telefono" name="telefono">
+                                    @error('telefono')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input class="form-control form-control-user" type="text" style="color: rgb(0,0,0);font-size: 18px;" placeholder="Especialidad" id="especialidad" name="especialidad">
+                                    <input class="form-control form-control-user @error('especialidad') is-invalid @enderror" type="text" style="color: rgb(0,0,0);font-size: 18px;" placeholder="Especialidad" id="especialidad" name="especialidad">
+                                    @error('especialidad')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control form-control-user" placeholder="Reconocimientos" id="reconocimientos" name="reconocimientos" style="font-size: 18px;color: rgb(0,0,0);" ></textarea>
+                                <textarea class="form-control form-control-user @error('reconocimientos') is-invalid @enderror" placeholder="Reconocimientos" id="reconocimientos" name="reconocimientos" style="font-size: 18px;color: rgb(0,0,0);" ></textarea>
+                                @error('reconocimientos')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control form-control-user" placeholder="Descripción" name="descripcion" style="font-size: 18px;color: rgb(0,0,0);" id="descripcion" name="descripcion"></textarea>
+                                <textarea class="form-control form-control-user @error('descripcion') is-invalid @enderror" placeholder="Descripción" name="descripcion" style="font-size: 18px;color: rgb(0,0,0);" id="descripcion" name="descripcion"></textarea>
+                                @error('descripcion')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                             </div>
                             <button class="btn btn-primary btn-block text-white btn-user" type="submit" style="font-size: 18px;">Guardar</button>
                         </form>

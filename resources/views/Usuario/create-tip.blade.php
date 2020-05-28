@@ -15,7 +15,12 @@
                                 <input name="id_usuario" type="hidden" value="{{$usuario->id}}" ></input>
                             </div>
                             <div class="form-group row">
-                                <input class="form-control form-control-user" type="text" placeholder="Nombre del consejo" name="nombre" id="nombre" style="font-size: 18px;color: rgb(0,0,0);">
+                                <input class="form-control form-control-user @error('nombre') is-invalid @enderror" type="text" placeholder="Nombre del consejo" name="nombre" id="nombre" style="font-size: 18px;color: rgb(0,0,0);">
+                                @error('nombre')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                             </div>
                             <div class="form-group row">
                                 <label style="font-size: 18px;color: rgb(0,0,0);margin-right: 10px;max-width: 100%;min-width: 100%;">Tipo de entorno</label>
@@ -79,7 +84,12 @@
                             
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0" style="min-width: 100%;">
-                                    <textarea class="form-control form-control-user" placeholder="Descripción" name="descripcion" style="font-size: 18px;color: rgb(0,0,0);height: 160px;"></textarea>
+                                    <textarea class="form-control form-control-user @error('descripcion') is-invalid @enderror" placeholder="Descripción" name="descripcion" style="font-size: 18px;color: rgb(0,0,0);height: 160px;"></textarea>
+                                    @error('descripcion')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <button class="btn btn-primary btn-block text-white btn-user" type="submit" style="font-size: 18px;width: 80%;margin: auto;">Crear consejo</button>
