@@ -39,8 +39,9 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-6 d-flex justify-content-center mb-3 mb-sm-0" style="margin-top: 10px;">
-                                    <img src="assets/img/Eventos/image2.jpg" style="width: 100%;">
+                                    <img src="{{route('usuario.consejo-imagen',$consejo->imagen)}}" style="width: 100%;" id="imagenSalida">
                                 </div>
+
                             </div>
                             
                             

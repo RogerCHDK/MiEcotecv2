@@ -68,7 +68,7 @@
                                     @enderror 
                                 </div>
                                 <div class="col-sm-6 d-flex justify-content-center mb-3 mb-sm-0" style="margin-top: 10px;">
-                                    <img src="../assets/img/Eventos/image2.jpg" style="width: 100%;"> 
+                                    <img src="{{route('usuario.evento-imagen',$evento->imagen)}}" style="width: 100%;" id="imagenSalida"> 
                                 </div>
                             </div>
                             <button class="btn btn-primary btn-block text-white btn-user" type="submit" style="font-size: 18px;width: 80%;margin: auto;">Aceptar cambios</button>

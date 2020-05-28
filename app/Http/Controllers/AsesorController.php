@@ -23,7 +23,7 @@ class AsesorController extends Controller
         if (Auth::guest())
         {
 
-            $asesores = Asesor::orderBy('id')->get();
+            $asesores = Asesor::all();
 
             $as = -1;
             return view('Usuario.advisers', ['asesores' => $asesores])->with('as', $as);
@@ -31,6 +31,7 @@ class AsesorController extends Controller
         {
             $usuario = Auth::user();
             $asesores = Asesor::orderBy('id')->get();
+            $tipos =  CatalogoClasificacionAsesor::orderBy('id')->get();
             $as = Asesor::where('id_usuario', $usuario->id);
             $ban = count(Asesor::where('id_usuario', $usuario->id)->get());
             if ($ban === 0)
@@ -41,7 +42,7 @@ class AsesorController extends Controller
                 $as = Asesor::select('id')->where('id_usuario', $usuario->id)->get();
             }
 
-            return view('Usuario.advisers', ['asesores' => $asesores])->with('as', $as)->with('usuario', $usuario);
+            return view('Usuario.advisers', ['asesores' => $asesores])->with('as', $as)->with('usuario', $usuario)->with('tipos',$tipos);
         }
     }
 
@@ -54,7 +55,7 @@ class AsesorController extends Controller
     {
         $users = Auth::user();
         $tipos_asesor = CatalogoClasificacionAsesor::all();
-        return view('Usuario.create-adviser', compact('users'))->with('tipos_asesor', $tipos_asesor);
+        return view('Usuario.create-adviser', compact('users'))->with('tipos_asesor', $tipos_asesor)->with(['message' => 'Ya eres un asesor']);
     }
 
     /**
@@ -110,7 +111,7 @@ class AsesorController extends Controller
         $asesor = Asesor::find($id);
         $datos = $request->all();
         $asesor->update($datos);
-        return redirect('/asesor');
+        return redirect('/asesor')->with(['message' => 'Asesor actualizado']);
     }
 
     /**

@@ -54,7 +54,7 @@ class ConsejoController extends Controller
         $entornos = CatalogoEntorno::orderBy('nombre')->get();
         $herramientas = CatalogoHerramienta::orderBy('nombre')->get();
         $materiales = CatalogoMaterial::orderBy('nombre')->get();
-        return view('Usuario.create-tip')->with('usuario',$usuario)->with('entornos',$entornos)->with('herramientas',$herramientas)->with('materiales',$materiales);
+        return view('Usuario.create-tip')->with('usuario',$usuario)->with('entornos',$entornos)->with('herramientas',$herramientas)->with('materiales',$materiales)->with(['message' => 'Consejo creado']);
     }
 
     /**
@@ -186,7 +186,7 @@ class ConsejoController extends Controller
         $consejo->descripcion = $descripcion_consejo;
         $consejo->update();
 
-        return redirect('/consejo');
+        return redirect('/consejo')->with(['message' => 'Consejo actualizado']);
     }
 
     /**

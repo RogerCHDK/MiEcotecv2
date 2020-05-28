@@ -1,6 +1,12 @@
 @extends('layouts.header-footer-usuario')
  
 @section('content')
+@section('content')
+@if(session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
     <div class="card shadow">
         <div class="card-header py-3">
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 30px;">Asesores</p>
@@ -9,10 +15,10 @@
             <div class="dropdown" style="width: 200px;">
                 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button" style="font-size: 18px;">Tipo de asesor</button>
                 <div class="dropdown-menu" role="menu" style="width: 180px;font-size: 16px;">
-                    <a class="dropdown-item" role="presentation" href="#">Cosmeticos</a>
-                    <a class="dropdown-item" role="presentation" href="#">Hogar</a>
-                    <a class="dropdown-item" role="presentation" href="#">Oficina</a>
-                    <a class="dropdown-item" role="presentation" href="#">Automóvil</a>
+                   @foreach($tipos as $tipo) 
+                                <a class="dropdown-item" role="presentation" href="#{{$tipo->id}}" >{{$tipo->nombre}}</a>
+                                
+                            @endforeach
                 </div>
             </div> 
             @if ($as===-1)
@@ -35,13 +41,14 @@
             @endif
             
         </div> 
-        <div class="card-body">
+        @foreach($tipos as $tipo)
+        <div class="card-body" id="{{$tipo->id}}">
             <div class="text-center">
-                <h1 class="mb-4" style="font-size: 30px;color: rgb(38,125,36);">Botánica</h1>
+                <h1 class="mb-4" style="font-size: 30px;color: rgb(38,125,36);">{{$tipo->nombre}}</h1>
             </div>
             <div class="row">
                 @foreach($asesores as $asesor)
-
+                @if (($tipo->id) === ($asesor->id_clasificacionAsesor))
                 <div class="col-md-6 col-lg-4 col-asesor">
                     <div class="card border-0">
                         <a href="{{ route('asesor.show',$asesor->id) }}">
@@ -58,8 +65,10 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 @endforeach
             </div>
         </div>
+        @endforeach
     </div>
 @endsection
