@@ -68,7 +68,7 @@ class AsesorController extends Controller
     {
         $datos = $request->all();
         Asesor::create($datos);
-        return redirect('/asesor');
+        return redirect('/asesor')->with(['message' => 'Ya eres un asesor']);
     }
 
     /**
@@ -125,7 +125,7 @@ class AsesorController extends Controller
 
         $asesor = Asesor::find($id);
         $asesor->delete();
-        return redirect('/asesor');
+        return redirect('/asesor')->with(['message' => 'Ya no eres asesor']);
     }
 
     public function getImage($fileName)

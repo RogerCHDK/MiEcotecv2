@@ -60,6 +60,8 @@ Route::resource('registro', 'RegistroController');
 //------------ Consejo
 Route::resource('consejo', 'ConsejoController');
 Route::get('consejo-imagen/{filename}', 'ConsejoController@getImage')->name('usuario.consejo-imagen');
+Route::get('consejoM-imagen/{filename}', 'ConsejoController@getImageM')->name('usuario.consejoM-imagen');
+Route::get('consejoH-imagen/{filename}', 'ConsejoController@getImageH')->name('usuario.consejoH-imagen');
 
 //------------- Like
 Route::get('/like/{id}','LikeController@like')->name('like.like');

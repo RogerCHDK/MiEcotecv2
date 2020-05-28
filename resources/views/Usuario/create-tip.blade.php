@@ -48,32 +48,35 @@
                                     <h4 class="mb-4" style="font-size: 18px;color: rgb(0,0,0);">Materiales</h4>
                                 </div>
                             </div>
-                            @foreach($materiales as $material) 
+                             
                             <div class="form-group row">
+                                @foreach($materiales as $material)
                                 <div class="col-sm-6 mb-3 mb-sm-0 objs">
                                     <div class="form-check" style="font-size: 18px;color: rgb(0,0,0);">
                                         <input class="form-check-input" type="checkbox" id="formBox-1" name="material[]" value="{{$material->id}}">
                                         <label class="form-check-label" for="formBox-1">{{$material->nombre}}</label>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
-                            @endforeach
+                            
                             <div class="form-group row" style="margin-bottom: 0px;">
                                 <div class="text-center">
                                     <h4 class="mb-4" style="font-size: 18px;color: rgb(0,0,0);">Herramientas</h4>
                                 </div>
                             </div>
-                            @foreach($herramientas as $herramienta) 
+                             
                             <div class="form-group row">
+                                @foreach($herramientas as $herramienta)
                                 <div class="col-sm-6 mb-3 mb-sm-0 objs">
                                     <div class="form-check" style="font-size: 18px;color: rgb(0,0,0);">
                                         <input class="form-check-input" type="checkbox" id="formHerr-1" name="herramienta[]" value="{{$herramienta->id}}">
                                         <label class="form-check-label" for="formHerr-1">{{$herramienta->nombre}}</label>
                                     </div>
                                 </div>
-                                
+                                @endforeach
                             </div>
-                            @endforeach
+                            
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0" style="min-width: 100%;">
                                     <textarea class="form-control form-control-user" placeholder="Descripción" name="descripcion" style="font-size: 18px;color: rgb(0,0,0);height: 160px;"></textarea>

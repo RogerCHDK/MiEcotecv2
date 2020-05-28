@@ -70,6 +70,7 @@
                                     
                                     @endforeach
                                 </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0 objs">
                                 @if ($ban === 0)
                                 
                                     <div class="form-check" style="font-size: 18px;color: rgb(0,0,0);">
@@ -77,6 +78,7 @@
                                         <label class="form-check-label" for="formBox-1">{{$material->nombre}}</label>
                                     </div>
                                 @endif
+                                </div>
                             </div>
                             @endforeach
 

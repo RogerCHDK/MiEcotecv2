@@ -54,7 +54,7 @@ class ConsejoController extends Controller
         $entornos = CatalogoEntorno::orderBy('nombre')->get();
         $herramientas = CatalogoHerramienta::orderBy('nombre')->get();
         $materiales = CatalogoMaterial::orderBy('nombre')->get();
-        return view('Usuario.create-tip')->with('usuario',$usuario)->with('entornos',$entornos)->with('herramientas',$herramientas)->with('materiales',$materiales)->with(['message' => 'Consejo creado']);
+        return view('Usuario.create-tip')->with('usuario',$usuario)->with('entornos',$entornos)->with('herramientas',$herramientas)->with('materiales',$materiales);
     }
 
     /**
@@ -97,7 +97,7 @@ class ConsejoController extends Controller
         foreach($a_herramientas as $a_herramienta)  {
             $consejo_herramienta->catalogoHerramientas()->attach($a_herramienta);
         }
-        return redirect('/consejo');
+        return redirect('/consejo')->with(['message' => 'Consejo creado']);
     }
 
     /**
@@ -186,7 +186,7 @@ class ConsejoController extends Controller
         $consejo->descripcion = $descripcion_consejo;
         $consejo->update();
 
-        return redirect('/consejo')->with(['message' => 'Consejo actualizado']);
+        return redirect('/consejo')->with(['message' => 'Consejo modificado']);
     }
 
     /**
@@ -200,7 +200,7 @@ class ConsejoController extends Controller
         $consejo = Consejo::find($id);
         //Storage::disk('consejo')->delete($consejo->imagen);
         $consejo->delete();
-        return redirect('/consejo');
+        return redirect('/consejo')->with(['message' => 'Consejo eliminado']);
     }
     //Obtener imagen del consejo
     public function getImage($fileName)
@@ -208,5 +208,14 @@ class ConsejoController extends Controller
         $file = Storage::disk('consejo')->get($fileName);
         return new Response($file, 200);
     }
-
+    public function getImageM($fileName)
+    {
+        $file = Storage::disk('materiales')->get($fileName);
+        return new Response($file, 200);
+    }
+    public function getImageH($fileName)
+    {
+        $file = Storage::disk('herramientas')->get($fileName);
+        return new Response($file, 200);
+    }
 }

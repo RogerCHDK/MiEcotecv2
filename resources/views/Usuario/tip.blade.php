@@ -23,7 +23,8 @@
                                     <div class="card border-0">
                                         <a href="#">
                                             <div class="marco zoom-on-hover">
-                                                <img class="img-fluid image" src="assets/img/Consejos/botella.jpg">
+                                                <img class="img-fluid image" src="{{route('usuario.consejoM-imagen',$cat_mat1->imagen)}}">
+                                                
                                             </div>
                                         </a>
                                         <div class="card-body text-center">
@@ -43,7 +44,8 @@
                                     <div class="card border-0">
                                         <a href="#">
                                             <div class="marco zoom-on-hover">
-                                                <img class="img-fluid image" src="assets/img/Consejos/botella.jpg">
+                                                <img class="img-fluid image" src="{{route('usuario.consejoH-imagen',$cat_herr1->imagen)}}">
+                                                
                                             </div>
                                         </a>
                                         <div class="card-body text-center">
@@ -59,7 +61,7 @@
                             
                             @foreach($user as $users)
                             <div class="text-center">
-                                <span style="color: rgb(0,0,0);font-size: 18px;">Evento creado por&nbsp;
+                                <span style="color: rgb(0,0,0);font-size: 18px;">Consejo creado por&nbsp;
                                     <a class="event_title" href="{{ route('usuario.show',$users->id) }}" style="font-size: 20px;">{{$users->nombre}}&nbsp;{{$users->apellido_paterno}}</a>
                                 </span>
                                 

@@ -3,6 +3,11 @@
 
 @section('content')
     @auth
+    @if(session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
         <div>
             <ul class="nav nav-tabs">
                 <li class="nav-item">

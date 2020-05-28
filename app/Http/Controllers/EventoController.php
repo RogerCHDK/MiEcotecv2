@@ -76,7 +76,7 @@ class EventoController extends Controller
             ]
         );
 
-         return redirect('/evento');
+         return redirect('/evento')->with(['message' => 'Evento creado']);
     }
 
     
@@ -174,7 +174,7 @@ class EventoController extends Controller
         
         
         $evento->update();
-        return redirect('/evento');
+        return redirect('/evento')->with(['message' => 'Evento modificado']);
         //return view('Usuario.welcome', ['eventos' => $eventos])->with(['misEventos' => $misEventos])->with('users',$users);
     }
 
@@ -190,7 +190,7 @@ class EventoController extends Controller
         $evento = Evento::find($id);
         Storage::disk('evento')->delete($evento->imagen);
         $evento->delete();
-        return redirect('/evento');
+        return redirect('/evento')->with(['message' => 'Evento eliminado']);
 
     }
      //Obtener imagen del evento
