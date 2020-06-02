@@ -10,7 +10,7 @@
                 <div class="col-lg-6 d-flex d-sm-flex d-md-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-xl-center" style="min-width: 100%;">
                     <img class="img-fluid" src="{{route('usuario.producto-imagen',$producto->imagen)}}" style="min-width: 40%;max-height: 576px;">
                 </div>
-            </div>
+            </div> 
             <div class="row">
                 <div class="col-lg-6" style="min-width: 100%;">
                     <div class="p-5">
@@ -38,15 +38,15 @@
                                 </div>
                             </div>
                             <div class="d-flex d-sm-flex d-md-flex justify-content-center justify-content-sm-center justify-content-md-center" style="margin-bottom: 24px;">
-                                <a class="text-center d-xl-flex align-items-xl-center" href="https://www.mercadolibre.com.mx/impresora-a-color-multifuncion-hp-ink-tank-315-110v-negra/p/MLM14447702" style="font-size: 18px;max-width: 100%;" target="_blank">
+                                <a class="text-center d-xl-flex align-items-xl-center" href="{{$producto->url}}" style="font-size: 18px;max-width: 100%;" target="_blank">
                                     <br>
                                     <i class="icon ion-ios-world" style="font-size: 25px;margin-right: 10px;"></i>{{$producto->url}}
                                     <br>
                                 </a>
                             </div>
                             <div class="text-center">
-                                <span style="color: rgb(0,0,0);font-size: 18px;">Producto de&nbsp;<a class="event_title" href="view-profile.html" style="font-size: 20px;">Vale Lu</a></span>
-                            </div>
+                                <span style="color: rgb(0,0,0);font-size: 18px;">Producto de&nbsp;<a class="event_title" href=" {{ route('usuario.show',$producto->id_usuario) }}" style="font-size: 20px;">{{$producto->usuario->nombre}} {{$producto->usuario->apellido_paterno}}</a></span>
+                            </div>  
                         </div>
                     </div>
                 </div>

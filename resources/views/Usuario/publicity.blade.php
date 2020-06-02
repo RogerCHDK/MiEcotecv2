@@ -1,11 +1,11 @@
 @extends('layouts.header-footer-usuario')
 
 @section('content')
-    @if(session('message'))
+    @if(session('message')) 
         <div class="alert alert-success">
             {{ session('message') }}
         </div>
-    @endif
+    @endif 
     <div class="card shadow">
         <div class="card-header py-3">
             <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Publicidad</p>

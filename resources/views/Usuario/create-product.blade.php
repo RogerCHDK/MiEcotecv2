@@ -3,7 +3,7 @@
 @section('content')
     <div class="card shadow">
         <div class="card-header py-3">
-            <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Crear producto</p>
+            <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Crear producto</p> 
         </div> 
         <div class="card-body"> 
             <div class="row d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
@@ -47,7 +47,7 @@
                             </div> 
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0" style="min-width: 100%;">
-                                    <textarea class="form-control form-control-user @error('descripcion') is-invalid @enderror" placeholder="Descripción" name="descripcion" id="descripcion" style="font-size: 18px;color: rgb(0,0,0);height: 160px;"></textarea>
+                                    <textarea class="form-control form-control-user @error('descripcion') is-invalid @enderror" placeholder="Descripción" name="descripcion" id="descripcion" style="font-size: 18px;color: rgb(0,0,0);height: 160px;"></textarea> 
                                     @error('descripcion')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -73,7 +73,7 @@
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
+                                    @enderror 
                                 </div>
                                 <div class="col-sm-6 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center mb-3 mb-sm-0">
                                     <span style="font-size: 18px;color: rgb(0,0,0);margin-right: 5px;">$</span>

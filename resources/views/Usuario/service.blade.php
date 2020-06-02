@@ -38,8 +38,8 @@
                                 </a>
                             </div>
                             <div class="text-center">
-                                <span style="color: rgb(0,0,0);font-size: 18px;">Consejo creado por&nbsp;
-                                    <a class="event_title" href="{{route('usuario.show',$servicio->id_usuario)}}" style="font-size: 20px;">{{$servicio->usuario->nombre}}</a> 
+                                <span style="color: rgb(0,0,0);font-size: 18px;">Servicio creado por&nbsp;
+                                    <a class="event_title" href="{{route('usuario.show',$servicio->id_usuario)}}" style="font-size: 20px;">{{$servicio->usuario->nombre}} {{$servicio->usuario->apellido_paterno}}</a> 
                                 </span>
                             </div>
                         </div>

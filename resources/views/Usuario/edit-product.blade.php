@@ -3,7 +3,7 @@
 @section('content')
     <div class="card shadow">
         <div class="card-header py-3">
-            <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Crear producto</p>
+            <p class="text-center m-0 font-weight-bold" style="color: #267d24;font-size: 25px;">Editar producto</p>
         </div> 
         <div class="card-body"> 
             <div class="row d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
