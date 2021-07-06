@@ -28,8 +28,6 @@ Auth::routes();
  */
 
 
-Auth::routes();
-
 Route::resource('publicidadHerramienta', 'PublicidadHerramientaController');
 Route::resource('publicidadMaterial', 'PublicidadMaterialController');
 Route::resource('comentarios', 'ComentarioController');
@@ -48,7 +46,6 @@ Route::get('servicios_index/', 'ServicioController@index_no_registrado')->name('
 
 
 
-Route::resource('registro', 'RegistroController');
 
 //------------------Eventos
 Route::resource('evento', 'EventoController');
@@ -91,7 +88,7 @@ Route::get('publicidadHerramienta-imagen/{filename}', 'PublicidadHerramientaCont
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Registro
-Route::get('/home/user/image/{filename}', 'UsuarioController@getImage')->name('usuario.imagen');
+Route::get('/home/user/image/{filename}', 'UsuarioController@getImage')->name('usuario.imagen'); 
 
 //Perfil
 Route::resource('usuario', 'UsuarioController');

@@ -100,7 +100,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-6 d-xl-flex align-items-xl-center mb-3 mb-sm-0" style="min-width: 100%;">
                                     <label style="font-size: 18px;color: rgb(0,0,0);margin-right: 10px;width: 350px;">Imagen (800x533 pixeles)</label>
-                                    <input class="@error('imagen') is-invalid @enderror" type="file" value="{{route('usuario.evento-imagen',$evento->imagen)}}" name="imagen" id="imagen" accept="image/*" style="font-size: 18px;color: rgb(0,0,0);width: 100%;" required> 
+                                    <input class="@error('imagen') is-invalid @enderror" type="file" value="{{route('usuario.evento-imagen',$evento->imagen)}}" name="imagen" id="imagen" accept="image/*" style="font-size: 18px;color: rgb(0,0,0);width: 100%;"> 
                                      @error('imagen')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

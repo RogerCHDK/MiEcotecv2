@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class PublicidadHerramientaController extends Controller
 {
@@ -271,8 +272,9 @@ class PublicidadHerramientaController extends Controller
         if ($imagen)
         {
             $imagenNombre = time() . $imagen->getClientOriginalName();
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/publicidadHerramienta/' . $imagenNombre));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/publicidadHerramienta/' . $imagenNombre));
+            Storage::disk('publicidadHerramienta')->put($imagenNombre, File::get($imagen));
             $publicidadHerramienta->imagen = $imagenNombre;
         }
 

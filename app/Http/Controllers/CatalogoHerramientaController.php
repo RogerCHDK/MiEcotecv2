@@ -70,9 +70,9 @@ class CatalogoHerramientaController extends Controller
         if ($imagen)
         {
             $imagenNombre = time() . $imagen->getClientOriginalName();
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/herramientas/' . $imagenNombre));
-//            Storage::disk('herramientas')->put($imagenNombre, File::get($imagen));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/herramientas/' . $imagenNombre));
+           Storage::disk('herramientas')->put($imagenNombre, File::get($imagen));
             $herramienta->imagen = $imagenNombre;
         }
 
@@ -130,9 +130,9 @@ class CatalogoHerramientaController extends Controller
         if ($imagen)
         {
             $imagenNombre = time() . $imagen->getClientOriginalName();
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/herramientas/' . $imagenNombre));
-//            Storage::disk('herramientas')->put($imagenNombre, File::get($imagen));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/herramientas/' . $imagenNombre));
+           Storage::disk('herramientas')->put($imagenNombre, File::get($imagen));
             Storage::disk('herramientas')->delete($herramienta->imagen);
             $herramienta->imagen = $imagenNombre;
         }

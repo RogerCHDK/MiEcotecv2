@@ -70,9 +70,9 @@ class CatalogoMaterialController extends Controller
         if ($imagen)
         {
             $imagenNombre = time() . $imagen->getClientOriginalName();
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/materiales/' . $imagenNombre));
-//            Storage::disk('materiales')->put($imagenNombre, File::get($imagen));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/materiales/' . $imagenNombre));
+            Storage::disk('materiales')->put($imagenNombre, File::get($imagen));
             $material->imagen = $imagenNombre;
         }
 
@@ -131,9 +131,9 @@ class CatalogoMaterialController extends Controller
         if ($imagen)
         {
             $imagenNombre = time() . $imagen->getClientOriginalName();
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/materiales/' . $imagenNombre));
-//            Storage::disk('materiales')->put($imagenNombre, File::get($imagen));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/materiales/' . $imagenNombre));
+            Storage::disk('materiales')->put($imagenNombre, File::get($imagen));
             Storage::disk('materiales')->delete($material->imagen);
             $material->imagen = $imagenNombre;
         }

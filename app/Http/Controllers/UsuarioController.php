@@ -92,8 +92,9 @@ class UsuarioController extends Controller
         $imagen = $request->file('imagen');
          if ($imagen) { 
             $imagenNombre = time(). $imagen->getClientOriginalName(); 
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/usuarios/' . $imagenNombre));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/usuarios/' . $imagenNombre));
+            Storage::disk('usuarios')->put($imagenNombre, File::get($imagen));
             $request->imagen = $imagenNombre;
         }
         
@@ -132,7 +133,11 @@ class UsuarioController extends Controller
     public function getImage($fileName)
     {
         $file = Storage::disk('usuarios')->get($fileName);
-        return new Response($file, 200);
+        return $file;
     }
 
+    // public function callAction($method, $parameters)
+    // {
+    //     return parent::callAction($method, array_values($parameters));
+    // }
 }

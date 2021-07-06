@@ -54,7 +54,7 @@
                         @foreach($consejos as $consejo) 
                             @if (($entorno->id) === ($consejo->id_entorno))
                                 <div class="col-md-6 col-lg-4">
-                                    <div class="card border-0">
+                                    <div class="card border-0"> 
                                         <a href="{{ route('consejo.show',$consejo->id) }}">
                                             <div class="marco zoom-on-hover">
                                                 <img class="img-fluid image" src="{{route('usuario.consejo-imagen',$consejo->imagen)}}">

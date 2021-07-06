@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class PublicidadMaterialController extends Controller
 {
@@ -251,8 +252,9 @@ class PublicidadMaterialController extends Controller
         if ($imagen)
         {
             $imagenNombre = time() . $imagen->getClientOriginalName();
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/publicidadMaterial/' . $imagenNombre));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/publicidadMaterial/' . $imagenNombre));
+            Storage::disk('publicidadMaterial')->put($imagenNombre, File::get($imagen));
             $publicidadMaterial->imagen = $imagenNombre;
         }
 

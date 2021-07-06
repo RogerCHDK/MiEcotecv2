@@ -62,8 +62,9 @@ class EventoController extends Controller
         $imagen = $request->file('imagen');
          if ($imagen) { 
             $imagenNombre = time(). $imagen->getClientOriginalName(); 
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/eventos/' . $imagenNombre));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/eventos/' . $imagenNombre));
+            Storage::disk('evento')->put($imagenNombre,File::get($imagen));
             $request->imagen = $imagenNombre;
         }
         $evento = Evento::create(
@@ -143,7 +144,7 @@ class EventoController extends Controller
     public function update(Request $request, $id)
     {
         $validate = $this->validate($request, [
-            'imagen' => ['required', 'image'],
+            'imagen' => ['image'],
             'nombre' => ['String', 'max:255','required'],
             'objetivo' => ['String', 'max:255','required'],
             'descripcion' => ['String', 'max:255','required'],
@@ -151,15 +152,20 @@ class EventoController extends Controller
             'fecha_fin' => ['date','required'],
         ]);
 
+        $evento = Evento::find($id);
+
         $imagen = $request->file('imagen');
          if ($imagen) { 
             $imagenNombre = time(). $imagen->getClientOriginalName(); 
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/eventos/' . $imagenNombre));
-            $request->imagen = $imagenNombre;
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/eventos/' . $imagenNombre));
+            Storage::disk('evento')->put($imagenNombre, File::get($imagen));
+            Storage::disk('evento')->delete($evento->imagen);
+            $evento->imagen = $imagenNombre;
         }
 
-        $evento = Evento::find($id);
+        
+        
         $id_usu_evento = $request->id_usuario;
         $nombre_evento = $request->nombre;
         $objetivo_evento = $request->objetivo;
@@ -169,7 +175,7 @@ class EventoController extends Controller
         $hora_inicio_evento = $request->hora_inicio;
         $fecha_fin_evento = $request->fecha_fin;
         $hora_fin_evento = $request->hora_fin;
-        $imagen_evento = $request->imagen;
+      
 
         $evento->id_usuario = $id_usu_evento;
         $evento->nombre = $nombre_evento;
@@ -180,7 +186,7 @@ class EventoController extends Controller
         $evento->hora_inicio = $hora_inicio_evento;
         $evento->fecha_fin = $fecha_fin_evento;
         $evento->hora_fin = $hora_fin_evento;
-        $evento->imagen = $imagen_evento;
+       
         
         
         $evento->update();

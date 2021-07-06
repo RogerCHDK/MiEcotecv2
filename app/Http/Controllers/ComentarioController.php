@@ -74,7 +74,7 @@ class ComentarioController extends Controller
     public function store(Request $request)
     {
         $comentario = Comentario::create($request->all());
-        return redirect()->route('publicidad.index');
+        return redirect()->route('comentarios.create'); 
     }
 
     /**

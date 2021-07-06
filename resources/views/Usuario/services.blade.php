@@ -35,9 +35,10 @@
                         <div class="text-center">
                             <h1 class="mb-4" style="font-size: 30px;color: rgb(38,125,36);">{{$clasificacion->nombre}}</h1>
                         </div>
+                         <div class="row">
                         @foreach($servicios as $servicio)
                          @if($clasificacion->id == $servicio->id_clasificacionServicio)
-                        <div class="row">
+                       
                             <div class="col-md-6 col-lg-4">
                                 <div class="card border-0">
                                     <a href="{{route('servicios.show',$servicio->id)}}">
@@ -52,9 +53,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        
                         @endif
                         @endforeach
+                        </div>
                     </div>
                      @endforeach 
                 </div>

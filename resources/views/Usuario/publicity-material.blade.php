@@ -9,7 +9,7 @@
             <div class="row d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
                 <div class="col-lg-7 col-lg-7-event">
                     <form class="user" method="POST" action="{{ route('usuario.guardar-publicidad-material') }}" enctype="multipart/form-data">
-                        @csrf
+                        @csrf 
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0 tip-entorno">
                                 <label style="font-size: 18px;color: rgb(0,0,0);margin-right: 10px;">Tipo de material</label>

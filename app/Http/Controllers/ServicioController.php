@@ -278,8 +278,9 @@ class ServicioController extends Controller
         if ($imagen)
         {
             $imagenNombre = time() . $imagen->getClientOriginalName();
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/servicios/' . $imagenNombre));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/servicios/' . $imagenNombre));
+            Storage::disk('servicios')->put($imagenNombre, File::get($imagen));
             $request->imagen = $imagenNombre;
         }
 
@@ -365,8 +366,9 @@ class ServicioController extends Controller
         $imagen = $request->file('imagen');
          if ($imagen) { 
             $imagenNombre = time(). $imagen->getClientOriginalName(); 
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/servicios/' . $imagenNombre));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/servicios/' . $imagenNombre));
+            Storage::disk('servicios')->put($imagenNombre, File::get($imagen));
             Storage::disk('servicios')->delete($servicio->imagen);
             $servicio->imagen = $imagenNombre;
         }

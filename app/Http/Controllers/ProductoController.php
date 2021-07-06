@@ -264,8 +264,9 @@ class ProductoController extends Controller
         if ($imagen)
         {
             $imagenNombre = time() . $imagen->getClientOriginalName();
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/productos/' . $imagenNombre));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/productos/' . $imagenNombre));
+            Storage::disk('productos')->put($imagenNombre, File::get($imagen));
             $request->imagen = $imagenNombre;
         }
 
@@ -341,8 +342,9 @@ class ProductoController extends Controller
         if ($imagen)
         { 
             $imagenNombre = time() . $imagen->getClientOriginalName();
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/productos/' . $imagenNombre));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/productos/' . $imagenNombre));
+            Storage::disk('productos')->put($imagenNombre, File::get($imagen));
             Storage::disk('productos')->delete($producto->imagen); 
             $producto->imagen= $imagenNombre; 
         }

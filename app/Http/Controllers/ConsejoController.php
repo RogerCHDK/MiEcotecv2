@@ -74,8 +74,9 @@ class ConsejoController extends Controller
         $imagen = $request->file('imagen');
          if ($imagen) { 
             $imagenNombre = time(). $imagen->getClientOriginalName(); 
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/consejos/' . $imagenNombre));
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/consejos/' . $imagenNombre));
+            Storage::disk('consejo')->put($imagenNombre, File::get($imagen));
             $request->imagen = $imagenNombre;
         }
 
@@ -159,19 +160,24 @@ class ConsejoController extends Controller
     public function update(Request $request, $id)
     {
         $validate = $this->validate($request, [
-            'imagen' => ['required', 'image'],
+            'imagen' => ['image'],
             'nombre' => ['String', 'max:255','required'],
             'descripcion' => ['String', 'max:255','required'],
         ]);
 
+        $consejo = Consejo::find($id);
+
         $imagen = $request->file('imagen');
          if ($imagen) { 
             $imagenNombre = time(). $imagen->getClientOriginalName(); 
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(800, 533)->save(storage_path('app/consejos/' . $imagenNombre));
-            $request->imagen = $imagenNombre;
+            // $imagenRedimensionada = Image::make($imagen);
+            // $imagenRedimensionada->resize(800, 533)->save(storage_path('app/consejos/' . $imagenNombre));
+            Storage::disk('consejo')->put($imagenNombre, File::get($imagen));
+            Storage::disk('consejo')->delete($consejo->imagen);
+            $consejo->imagen = $imagenNombre;
         }
-        $consejo = Consejo::find($id);
+       
+       
         $a_materiales =$request->input('material');
         $consejo->catalogoMateriales()->sync($a_materiales);
         $a_herramientas = $request->input('herramienta');
@@ -183,7 +189,7 @@ class ConsejoController extends Controller
         $nombre_consejo = $request->nombre;
         $descripcion_consejo = $request->descripcion;
 
-        $consejo->imagen = $imagen_consejo;
+        
         $consejo->id_usuario = $id_usu;
         $consejo->id_entorno = $id_ent;
         $consejo->nombre = $nombre_consejo;

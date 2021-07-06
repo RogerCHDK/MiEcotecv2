@@ -71,15 +71,15 @@ use RegistersUsers;
      */
     protected function create(array $data)
     {
-        $imagen = $data['imagen'] ?? null;
+        $imagen = $data['imagen'] ?? null; 
         if ($imagen != null)
         {
             //Modificar nombre para evitar duplicidad
             $imagenNombre = time() . $imagen->getClientOriginalName();
             //Guardar imagen en la carpeta storage/app/usuarios
-            $imagenRedimensionada = Image::make($imagen);
-            $imagenRedimensionada->resize(600, 800)->save(storage_path('app/usuarios/' . $imagenNombre));
-//            Storage::disk('usuarios')->put($imagenNombre, File::get($imagen));
+            // $imagenRedimensionada = Image::make($imagen); 
+            // $imagenRedimensionada->resize(600, 800)->save(storage_path('app/usuarios/' . $imagenNombre));
+            Storage::disk('usuarios')->put($imagenNombre, File::get($imagen));
         }
         return User::create([
                     'nombre' => $data['nombre'],
