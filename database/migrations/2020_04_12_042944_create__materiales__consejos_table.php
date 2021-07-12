@@ -13,7 +13,7 @@ class CreateMaterialesConsejosTable extends Migration
      */
     public function up()
     {
-        Schema::create('Materiales_Consejos', function (Blueprint $table) {
+        Schema::create('materiales_consejos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_material');
             $table->foreign('id_material')->references('id')->on('catalogomateriales')->constrained()->onDelete('cascade');

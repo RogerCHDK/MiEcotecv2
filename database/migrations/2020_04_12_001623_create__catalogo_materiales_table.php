@@ -13,7 +13,7 @@ class CreateCatalogoMaterialesTable extends Migration
      */
     public function up()
     {
-        Schema::create('CatalogoMateriales', function (Blueprint $table) {
+        Schema::create('catalogomateriales', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->string('imagen'); 

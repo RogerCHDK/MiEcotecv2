@@ -13,7 +13,7 @@ class CreateCatalogoClasificacionAsesoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalogoClasificacionAsesores', function (Blueprint $table) {
+        Schema::create('catalogoclasificacionasesores', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->engine = 'InnoDB';

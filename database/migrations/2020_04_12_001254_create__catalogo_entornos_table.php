@@ -13,7 +13,7 @@ class CreateCatalogoEntornosTable extends Migration
      */
     public function up()
     {
-        Schema::create('CatalogoEntornos', function (Blueprint $table) {
+        Schema::create('catalogoentornos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->engine = 'InnoDB';

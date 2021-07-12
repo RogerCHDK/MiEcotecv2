@@ -19,10 +19,10 @@ class CreateServiciosTable extends Migration
             $table->foreign('id_usuario')->references('id')->on('users')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('id_pago');
             $table->foreign('id_pago')->references('id')->on('pagos')->constrained()->onDelete('cascade');
-            $table->unsignedBigInteger('id_clasificacionServicio');
+            $table->unsignedBigInteger('id_clasificacionServicio'); 
             $table->foreign('id_clasificacionServicio')->references('id')->on('catalogoclasificacionservicios')->constrained()->onDelete('cascade');
             $table->string('imagen');
-            $table->string('nombre_establecimiento');
+            $table->string('nombre_establecimiento'); 
             $table->string('estado');
             $table->string('municipio');
             $table->string('colonia');

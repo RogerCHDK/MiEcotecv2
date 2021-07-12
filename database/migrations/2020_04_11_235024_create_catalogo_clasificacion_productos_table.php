@@ -13,7 +13,7 @@ class CreateCatalogoClasificacionProductosTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalogoClasificacionProductos', function (Blueprint $table) {
+        Schema::create('catalogoclasificacionproductos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->engine = 'InnoDB';
@@ -27,6 +27,6 @@ class CreateCatalogoClasificacionProductosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalogoClasificacionProductos');
+        Schema::dropIfExists('catalogoclasificacionproductos');
     }
 }

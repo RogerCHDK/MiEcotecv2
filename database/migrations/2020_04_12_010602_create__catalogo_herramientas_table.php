@@ -13,7 +13,7 @@ class CreateCatalogoHerramientasTable extends Migration
      */
     public function up()
     {
-        Schema::create('CatalogoHerramientas', function (Blueprint $table) {
+        Schema::create('catalogoherramientas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->string('imagen');

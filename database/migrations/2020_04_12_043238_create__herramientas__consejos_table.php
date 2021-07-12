@@ -13,7 +13,7 @@ class CreateHerramientasConsejosTable extends Migration
      */
     public function up()
     {
-        Schema::create('Herramientas_Consejos', function (Blueprint $table) {
+        Schema::create('herramientas_consejos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_herramienta');
             $table->foreign('id_herramienta')->references('id')->on('catalogoherramientas')->constrained()->onDelete('cascade');
