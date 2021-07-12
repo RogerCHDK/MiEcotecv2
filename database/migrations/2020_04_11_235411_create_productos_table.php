@@ -13,14 +13,14 @@ class CreateProductosTable extends Migration
      */
     public function up()
     {
-        Schema::create('productos', function (Blueprint $table) {
+        Schema::create('productos', function (Blueprint $table) { 
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('id_pago');
             $table->foreign('id_pago')->references('id')->on('pagos')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('id_clasificacionProducto');
-            $table->foreign('id_clasificacionProducto')->references('id')->on('catalogoclasificacionproductos')->constrained()->onDelete('cascade');;
+            $table->foreign('id_clasificacionProducto')->references('id')->on('catalogoclasificacionproductos')->constrained()->onDelete('cascade');
             $table->string('nombre');
             $table->string('imagen');
             $table->text('descripcion');
